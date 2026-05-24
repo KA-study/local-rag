@@ -1,0 +1,9 @@
+# environment variables
+.venv/
+__pycache__/
+*.pyc
+
+.env
+data/chroma/
+data/pdf/
+data/sqlite/
