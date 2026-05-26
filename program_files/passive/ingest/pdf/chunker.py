@@ -8,7 +8,7 @@ from schemas import Document, Chunk
 class TokenChunker(PDFChunkerBase):
 
     def __init__(self):
-        self.splitter = RecursiveCharacterTextSplitter (
+        self._splitter = RecursiveCharacterTextSplitter (
             separators=[
                 "\n\n",
                 "\n",
@@ -25,7 +25,7 @@ class TokenChunker(PDFChunkerBase):
         results = []
 
         for doc in docs:
-            split_texts = self.splitter.split_text(doc.text)
+            split_texts = self._splitter.split_text(doc.text)
 
             for i, text in enumerate(split_texts):
                 results.append(
