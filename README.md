@@ -13,30 +13,49 @@ PDF -> Chunking -> Embedding -> VectorStore(chroma)
 まで考えている。
 
 ## 3.ディレクトリ構成
-program_files/
-├── chat/             
-│   └──history.py     # チャット履歴管理 
-├── config.py         # 設定値管理
-├── data/             # 永続データ
-│   ├── chroma/       # ベクトルDB保存領域
-│   ├── pdf/          # 入力PDF
-│   └── sqlite/       # ログ・履歴等
-├── embedding/        
-│   └──embedder.py    # Embedding処理
-├── llm/              
-│   └──client.py      # LLMクライアント
-├── pdf/              # PDF処理モジュール群
-│   ├── loader / chunker / factory
-│   ├── base.py       # 抽象化（差し替え前提）
-│   └── _types.py     # 内部型定義
-├── rag/
-│   └── pipeline.py   # RAG全体パイプライン
-├── vectorstore/
-│   └── chroma_store.py
-├── utils/
-│   └── logger.py
-├── schemas.py        # 共通スキーマ
-└── main.py           # エントリポイント
+```
+├── README.md
+├── developer_note
+│   └── mermaid-diagram.png
+├── docs
+│   ├── commite_rule.md
+│   ├── decisions.md
+│   └── dev_log.md
+├── program_files
+│   ├── active
+│   │   ├── chat
+│   │   │   └── history.py              # チャット履歴管理
+│   │   └── query
+│   │       ├── generator.py            # クエリ生成
+│   │       ├── pipeline.py             # 検索パイプライン
+│   │       ├── prompt_builder.py       # プロンプト構築
+│   │       └── retriever.py            # 検索・取得処理
+│   ├── passive
+│   │   └── ingest
+│   │       ├── embedding
+│   │       │   └── embedder.py         # 埋め込み生成
+│   │       └── pdf
+│   │           ├── _types.py           # 内部型定義
+│   │           ├── base.py             # 抽象PDFローダ
+│   │           ├── chunker.py          # チャンク分割
+│   │           ├── factory.py          # ローダ生成
+│   │           └── loader.py           # PDF読み込み
+│   ├── shared
+│   │   ├── config.py                   # 設定管理
+│   │   ├── llm
+│   │   │   └── client.py               # LLMクライアント
+│   │   ├── schemas.py                 # 共通スキーマ
+│   │   ├── utils
+│   │   │   └── logger.py              # ログ機能
+│   │   └── vectorstore
+│   │       └── chroma_store.py        # ChromaDB操作
+│   ├── data
+│   │   ├── chroma                     # ベクトルDB永続化
+│   │   ├── pdf                        # 入力PDF
+│   │   └── sqlite                     # 履歴・ログ保存
+│   └── main.py                        # エントリポイント
+└── requirements.txt
+```
 
 ## 4.設計方針
 
@@ -48,25 +67,3 @@ program_files/
 - PDF loader（pypdf/pdfplumber等）
 
 ### 4.2.例や構造
-- pdf/: 知識ベース取り込み処理
-- embedding/: 数値化層
-- vectorstore/: 検索層
-- rag/: 統合パイプライン層
-- llm/: 生成層
-- main.py: アプリケーション層
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
