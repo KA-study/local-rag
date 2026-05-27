@@ -1,5 +1,4 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from typing import List
 
 from pdf.base import PDFChunkerBase
 from shared.schemas import Document, Chunk
@@ -20,7 +19,7 @@ class TokenChunker(PDFChunkerBase):
             chunk_overlap=50,
         )
 
-    def make_chunk(self, docs: List[Document]) -> List[Chunk]:
+    def make_chunk(self, docs: list[Document]) -> list[Chunk]:
 
         chunks = []
 

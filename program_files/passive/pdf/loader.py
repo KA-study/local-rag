@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import List
 from pypdf import PdfReader
 import re
 
+from passive.pdf._types import PDF_PATH
 from pdf.base import PDFLoaderBase
 from shared.schemas import Document
 
@@ -11,16 +11,16 @@ class PypdfLoader(PDFLoaderBase):
     pypdf実装のローダー
     """
     
-    def __init__(self, file_path: str):
-        self.file_path = Path(file_path)
+    def __init__(self):
+        self.file_path = Path(PDF_PATH)
 
         if not self.file_path.exists():
             raise FileNotFoundError(self.file_path)
 
-    def load_pdf(self) -> List[Document]:
+    def load_pdf(self) -> list[Document]:
         reader = PdfReader((str(self.file_path)))
 
-        docs: List[Document] = []
+        docs: list[Document] = []
 
         for page_number, page_text in enumerate(reader.pages):
 

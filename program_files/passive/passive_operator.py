@@ -1,14 +1,15 @@
-from typing import List
-
 from passive.pdf.loader import PypdfLoader
-from passive.pdf._types import PDF_PATH
 from passive.pdf.chunker import TokenChunker
-from shared.schemas import Document, Chunk
+from passive.embedding.embedder import STEmbedder
+from shared.schemas import Document, Chunk, EmbeddedChunk
 
 def passive_operator():
     
-    pdfloader = PypdfLoader(PDF_PATH)
-    docs: List[Document] = pdfloader.load_pdf()
+    pdfloader = PypdfLoader()
+    docs: list[Document] = pdfloader.load_pdf()
 
     pdfchunker = TokenChunker()
-    chunks: List[Chunk] = pdfchunker.make_chunk(docs)
+    chunks: list[Chunk] = pdfchunker.make_chunk(docs)
+
+    chunk_embedder = STEmbedder()
+    embeddings: list[EmbeddedChunk] = chunk_embedder.embed_batch(chunks)

@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
 from shared.schemas import Document
 from pathlib import Path
 
@@ -17,7 +16,7 @@ class PDFLoaderBase(ABC):
 
 
     @abstractmethod
-    def load_pdf(self) -> List[Document]:
+    def load_pdf(self) -> list[Document]:
         pass
         
 #===========PDFChunker=================
@@ -29,5 +28,5 @@ class PDFChunkerBase(ABC):
         pass
 
     @abstractmethod
-    def make_chunk(self, docs: List[Document]) -> List[Chunk]:
+    def make_chunk(self, docs: list[Document]) -> list[Chunk]:
         pass
