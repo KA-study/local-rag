@@ -1,0 +1,66 @@
+from sentence_transformers import SentenceTransformer
+
+from passive.embedding._types import BATCH_SIZE, MODEL_NAME
+from passive.embedding.base import BaseEmbedder
+from shared.schemas import Chunk, EmbeddedChunk
+
+class STEmbedder(BaseEmbedder):
+
+
+    def __init__(self):
+        self.model = SentenceTransformer(MODEL_NAME)
+
+
+    def embed(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
+        
+        embedded_chunks = []
+
+        for chunk in chunks:
+            embedding = self.model.encode(
+                    chunk.text,
+                    normalize_embeddings=True
+            )
+
+            embedded_chunks.append(
+                EmbeddedChunk(
+                    text=chunk.text,
+                    page=chunk.page,
+                    source=chunk.source,
+                    chunk_index=chunk.chunk_index,
+                    embedding=embedding.tolist(),
+                )
+            )
+
+        return embedded_chunks
+
+
+    def embed_batch(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
+        
+        embedded_chunks = []
+        texts = [
+            chunk.text for chunk in chunks
+        ]
+
+        embeddings = self.model.encode(
+            texts,
+            batch_size=BATCH_SIZE,
+            normalize_embeddings=True
+        ) 
+
+        for chunk, embedding in zip(
+            chunks,
+            embeddings
+        ):
+
+            embedded_chunks.append(
+                EmbeddedChunk(
+                    text=chunk.text,
+                    source=chunk.source,
+                    page=chunk.page,
+                    chunk_index=chunk.chunk_index,
+                    embedding=embedding.tolist()
+                )
+            )
+
+        return embedded_chunks
+                

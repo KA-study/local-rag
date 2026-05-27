@@ -1,15 +1,18 @@
 from abc import ABC, abstractmethod
 
+from shared.schemas import Chunk, EmbeddedChunk
+
 class BaseEmbedder(ABC):
     """
     すべてのembedderが従う抽象クラス
     """
-    def __init__(self):
+    def __init__(self, **kwards):
         pass
 
     @abstractmethod
-    def embed(self):
+    def embed(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
         pass
 
-    def embed_batch(self):
+    @abstractmethod
+    def embed_batch(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
         pass
