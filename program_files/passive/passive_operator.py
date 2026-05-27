@@ -1,8 +1,8 @@
 from typing import List
 
-from passive.ingest.pdf.loader import PypdfLoader
-from passive.ingest.pdf._types import PDF_PATH
-from passive.ingest.pdf.chunker import TokenChunker
+from passive.pdf.loader import PypdfLoader
+from passive.pdf._types import PDF_PATH
+from passive.pdf.chunker import TokenChunker
 from shared.schemas import Document, Chunk
 
 def passive_operator():
