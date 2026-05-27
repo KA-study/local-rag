@@ -22,19 +22,20 @@ class TokenChunker(PDFChunkerBase):
 
     def make_chunk(self, docs: List[Document]) -> List[Chunk]:
 
-        results = []
+        chunks = []
 
         for doc in docs:
             split_texts = self._splitter.split_text(doc.text)
 
             for i, text in enumerate(split_texts):
-                results.append(
+                chunks.append(
                     Chunk(
                         text=text,
+                        page=doc.page,
                         source=doc.source,
                         chunk_index=i,
                     )
                 )
 
-        return results
+        return chunks
 
