@@ -13,5 +13,12 @@ class Chunk:
     page: int
     source: str
     chunk_index: int
+
+@dataclass
+class EmbeddedChunk:
+    text: str
+    page: int
     source: str
     chunk_index: int
+    embedding: list[float]
+
