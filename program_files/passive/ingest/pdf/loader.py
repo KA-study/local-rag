@@ -4,7 +4,7 @@ from pypdf import PdfReader
 import re
 
 from pdf.base import PDFLoaderBase
-from schemas import Document
+from shared.schemas import Document
 
 class PypdfLoader(PDFLoaderBase):
     """

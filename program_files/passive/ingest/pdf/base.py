@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List
-from schemas import Document
+from shared.schemas import Document
 from pathlib import Path
 
-from schemas import Chunk
+from shared.schemas import Chunk
 
 #===========PDFLoader=================
 class PDFLoaderBase(ABC):

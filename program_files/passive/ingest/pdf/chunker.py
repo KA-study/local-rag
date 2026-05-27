@@ -2,7 +2,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from typing import List
 
 from pdf.base import PDFChunkerBase
-from schemas import Document, Chunk
+from shared.schemas import Document, Chunk
 
 
 class TokenChunker(PDFChunkerBase):
