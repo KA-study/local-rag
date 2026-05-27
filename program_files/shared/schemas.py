@@ -16,9 +16,6 @@ class Chunk:
 
 @dataclass
 class EmbeddedChunk:
-    text: str
-    page: int
-    source: str
-    chunk_index: int
+    chunk: Chunk
     embedding: list[float]
 

@@ -23,10 +23,7 @@ class STEmbedder(BaseEmbedder):
 
             embedded_chunks.append(
                 EmbeddedChunk(
-                    text=chunk.text,
-                    page=chunk.page,
-                    source=chunk.source,
-                    chunk_index=chunk.chunk_index,
+                    chunk=chunk,
                     embedding=embedding.tolist(),
                 )
             )
@@ -54,10 +51,7 @@ class STEmbedder(BaseEmbedder):
 
             embedded_chunks.append(
                 EmbeddedChunk(
-                    text=chunk.text,
-                    source=chunk.source,
-                    page=chunk.page,
-                    chunk_index=chunk.chunk_index,
+                    chunk=chunk,
                     embedding=embedding.tolist()
                 )
             )
