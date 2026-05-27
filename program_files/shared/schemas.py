@@ -19,3 +19,7 @@ class EmbeddedChunk:
     chunk: Chunk
     embedding: list[float]
 
+@dataclass
+class RetrievedChunk:
+    chunk: Chunk
+    score: float
