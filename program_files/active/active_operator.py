@@ -1,0 +1,3 @@
+
+def active_operator():
+    ...
