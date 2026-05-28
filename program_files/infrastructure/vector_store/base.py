@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from shared.schemas import EmbeddedChunk, RetrievedChunk
 
-class VectoreStore(ABC):
+class VectorStore(ABC):
 
     @abstractmethod
     def add(self, chunks: list[EmbeddedChunk]) -> None:
