@@ -15,3 +15,11 @@ class VectorStore(ABC):
         top_k: int,
     ) -> list[RetrievedChunk]:
         pass
+
+    @abstractmethod
+    def count(self) -> int:
+        pass
+
+    @abstractmethod
+    def delete(self, ids: list[str]) -> None:
+        pass
