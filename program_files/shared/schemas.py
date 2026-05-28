@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-#今のところ下に継承されていく形になっている。
 @dataclass
 class Document:
     page: int
@@ -22,4 +21,5 @@ class EmbeddedChunk:
 @dataclass
 class RetrievedChunk:
     chunk: Chunk
+    #現在、小さいほど強い
     score: float

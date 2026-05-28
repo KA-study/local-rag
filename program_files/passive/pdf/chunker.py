@@ -26,10 +26,10 @@ class TokenChunker(PDFChunkerBase):
         for doc in docs:
             split_texts = self._splitter.split_text(doc.text)
 
-            for i, text in enumerate(split_texts):
+            for i, s_text in enumerate(split_texts):
                 chunks.append(
                     Chunk(
-                        text=text,
+                        text=s_text,
                         page=doc.page,
                         source=doc.source,
                         chunk_index=i,
