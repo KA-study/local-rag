@@ -11,25 +11,9 @@ class STEmbedder(BaseEmbedder):
         self.model = SentenceTransformer(MODEL_NAME)
 
 
-    def embed(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
-        
-        embedded_chunks = []
-
-        for chunk in chunks:
-            embedding = self.model.encode(
-                    chunk.text,
-                    normalize_embeddings=True
-            )
-
-            embedded_chunks.append(
-                EmbeddedChunk(
-                    chunk=chunk,
-                    embedding=embedding.tolist(),
-                )
-            )
-
-        return embedded_chunks
-
+    def embed(self, chunk: Chunk) -> EmbeddedChunk:
+        return self.embed_batch([chunk])[0] 
+    
 
     def embed_batch(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
         

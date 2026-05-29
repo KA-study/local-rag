@@ -10,7 +10,7 @@ class BaseEmbedder(ABC):
         pass
 
     @abstractmethod
-    def embed(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
+    def embed(self, chunk: Chunk) -> EmbeddedChunk:
         pass
 
     @abstractmethod
