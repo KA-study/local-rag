@@ -23,9 +23,7 @@ class Session:
     
             #入力
 
-            #検索
-
-            #生成
+            #QueryPipeline
 
             #出力
 
