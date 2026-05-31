@@ -1,4 +1,6 @@
-#LLM呼び出し専用
+#クエリジェネレーター
 
-class Generator:
-    ...
+class QueryGenerator:
+
+    def generate(self, query: str) -> str:
+        return query.strip()

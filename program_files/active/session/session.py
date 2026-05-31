@@ -25,7 +25,7 @@ class Session:
         while True:
 
             #入力
-            query = self._ui.get_input()
+            query: str = self._ui.get_input()
 
             #QueryPipeline
 
