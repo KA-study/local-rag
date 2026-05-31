@@ -1,6 +1,6 @@
 from passive.pdf.loader import PypdfLoader
 from passive.pdf.chunker import TokenChunker
-from passive.embedding.embedder import STEmbedder
+from infrastructure.embedding.embedder import STEmbedder
 from infrastructure.vector_store.chroma_store import ChromaVectorStore
 from shared.schemas import Document, Chunk, EmbeddedChunk
 
