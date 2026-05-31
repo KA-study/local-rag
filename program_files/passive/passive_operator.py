@@ -1,3 +1,5 @@
+import numpy
+
 from passive.pdf.loader import PypdfLoader
 from passive.pdf.chunker import TokenChunker
 from infrastructure.embedding.embedder import STEmbedder
@@ -15,9 +17,27 @@ def passive_operator():
     chunks: list[Chunk] = pdfchunker.make_chunk(docs)
 
     #Embedding Chunk
+    texts = [
+        chunk.text for chunk in chunks
+    ]
+
     chunk_embedder = STEmbedder()
-    embeddings: list[EmbeddedChunk] = chunk_embedder.embed_batch(chunks)
+    embeddings: numpy.ndarray = chunk_embedder.embed_batch(texts)
+
+    embedded_chunks: list[EmbeddedChunk] = []
+
+    for chunk, embedding in zip(
+        chunks,
+        embeddings
+    ):
+        embedded_chunks.append(
+            EmbeddedChunk(
+                chunk=chunk,
+                embedding=embedding.tolist()
+            )
+        )
+
 
     #Make VectorStore
     chroma_vector_store = ChromaVectorStore()
-    chroma_vector_store.add(embeddings)
+    chroma_vector_store.add(embedded_chunks)
