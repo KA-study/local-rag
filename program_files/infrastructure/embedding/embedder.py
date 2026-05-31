@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformer
 
-from passive.embedding._types import BATCH_SIZE, MODEL_NAME
-from passive.embedding.base import BaseEmbedder
+from infrastructure.embedding._types import BATCH_SIZE, MODEL_NAME
+from infrastructure.embedding.base import BaseEmbedder
 from shared.schemas import Chunk, EmbeddedChunk
 
 class STEmbedder(BaseEmbedder):
