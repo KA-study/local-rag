@@ -1,8 +1,9 @@
 from sentence_transformers import SentenceTransformer
+import numpy
+from typing import cast
 
 from infrastructure.embedding._types import BATCH_SIZE, MODEL_NAME
 from infrastructure.embedding.base import BaseEmbedder
-from shared.schemas import Chunk, EmbeddedChunk
 
 class STEmbedder(BaseEmbedder):
 
@@ -11,16 +12,15 @@ class STEmbedder(BaseEmbedder):
         self.model = SentenceTransformer(MODEL_NAME)
 
 
-    def embed(self, chunk: Chunk) -> EmbeddedChunk:
-        return self.embed_batch([chunk])[0] 
+    def embed(self, text: str) -> numpy.ndarray:
+        #shape: (D,)
+        emb = self.embed_batch([text])
+
+        return emb.squeeze(0)
     
 
-    def embed_batch(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
-        
-        embedded_chunks = []
-        texts = [
-            chunk.text for chunk in chunks
-        ]
+    def embed_batch(self, texts: list[str]) -> numpy.ndarray:
+        #shape: (N, D)
 
         embeddings = self.model.encode(
             texts,
@@ -28,17 +28,7 @@ class STEmbedder(BaseEmbedder):
             normalize_embeddings=True
         ) 
 
-        for chunk, embedding in zip(
-            chunks,
-            embeddings
-        ):
+        #castなしでは型エラー（誤作動）
+        return cast(numpy.ndarray, embeddings)
 
-            embedded_chunks.append(
-                EmbeddedChunk(
-                    chunk=chunk,
-                    embedding=embedding.tolist()
-                )
-            )
-
-        return embedded_chunks
                 

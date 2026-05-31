@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import numpy
 
 from shared.schemas import Chunk, EmbeddedChunk
 
@@ -10,9 +11,9 @@ class BaseEmbedder(ABC):
         pass
 
     @abstractmethod
-    def embed(self, chunk: Chunk) -> EmbeddedChunk:
+    def embed(self, text: str) -> numpy.ndarray:
         pass
 
     @abstractmethod
-    def embed_batch(self, chunks: list[Chunk]) -> list[EmbeddedChunk]:
+    def embed_batch(self, texts: list[str]) -> numpy.ndarray:
         pass
