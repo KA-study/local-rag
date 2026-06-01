@@ -23,7 +23,7 @@ from active.query.generator import QueryGenerator
 from active.query.retriever import Retriever
 from active.query.context_builder import ContextBuilder
 from active.query.prompt_builder import PromptBuilder
-from infrastructure.llm.client import LLMClient
+from infrastructure.llm.base import LLM
 from infrastructure.vector_store.chroma_store import ChromaVectorStore
 from shared.schemas import RetrievedChunk
 
