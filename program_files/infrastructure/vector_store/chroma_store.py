@@ -109,7 +109,7 @@ class ChromaVectorStore(VectorStore):
 
             retrieved_chunk = RetrievedChunk(
                 chunk=chunk,
-                score=distance
+                distance=distance
             )
 
             retrieved_chunks.append(retrieved_chunk)

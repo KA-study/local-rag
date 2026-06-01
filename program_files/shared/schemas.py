@@ -22,4 +22,4 @@ class EmbeddedChunk:
 class RetrievedChunk:
     chunk: Chunk
     #現在、小さいほど強い
-    score: float
+    distance: float
