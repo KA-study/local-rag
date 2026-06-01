@@ -21,6 +21,7 @@ LLMClient
 from active.session.history import History
 from active.query.generator import QueryGenerator
 from active.query.retriever import Retriever
+from active.query.context_builder import ContextBuilder
 from active.query.prompt_builder import PromptBuilder
 from infrastructure.llm.client import LLMClient
 from infrastructure.vector_store.chroma_store import ChromaVectorStore
@@ -49,5 +50,9 @@ class QueryPipeline:
 
         #Retrieve
         retrieved_chunks: list[RetrievedChunk] = self._retriever.retrieve(generated_query)
+
+        #関連チャンク生成
+        context_builder = ContextBuilder()
+        context_str: str = context_builder.build(retrieved_chunks)
 
         
