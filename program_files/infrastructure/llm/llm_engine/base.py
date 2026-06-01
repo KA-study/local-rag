@@ -6,3 +6,4 @@ class LLM(Protocol):
         promptを受け取り、LLMの出力を返す。
         '''
         ...
+

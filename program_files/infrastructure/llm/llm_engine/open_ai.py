@@ -1,6 +1,7 @@
 from openai import OpenAI
 
-from infrastructure.llm.base import LLM
+from shared.schemas import LLMResponse
+from shared.schemas import Usage
 
 #呼び出し側は、open_ai: LLM = OpenAILLM　とすることで、protocolを有効化すること。
 class OpenAILLM:
@@ -9,12 +10,25 @@ class OpenAILLM:
         self.client = OpenAI()
         self.model = model
 
-    def generate(self, prompt: str) -> str:
+
+    def generate(self, prompt: str) -> LLMResponse:
 
         response = self.client.responses.create(
             model=self.model,
             input=prompt
         )
 
-        return response.output_text
+        if response.usage is None:
+            usage = None
+        else:
+            usage = Usage(
+                input_tokens=response.usage.input_tokens,
+                output_tokens=response.usage.output_tokens
+            )
+
+        return LLMResponse(
+            text=response.output_text,
+            model=self.model,
+            usage=usage
+        )
 
