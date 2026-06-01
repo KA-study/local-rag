@@ -24,8 +24,10 @@ class PromptBuilder:
         context: str
     ) -> str:
 
+        history_str = history.to_prompt()
+
         return self.TEMPLATE.format(
             query=query,
-            history=history,
+            history=history_str,
             context=context,
         )    
