@@ -24,6 +24,7 @@ from active.query.retriever import Retriever
 from active.query.prompt_builder import PromptBuilder
 from infrastructure.llm.client import LLMClient
 from infrastructure.vector_store.chroma_store import ChromaVectorStore
+from shared.schemas import RetrievedChunk
 
 class QueryPipeline:
 
@@ -44,6 +45,9 @@ class QueryPipeline:
         '''
 
         #検索クエリ生成
-        generated_query = self._query_generator.generate(query)
+        generated_query: str = self._query_generator.generate(query)
+
+        #Retrieve
+        retrieved_chunks: list[RetrievedChunk] = self._retriever.retrieve(generated_query)
 
         
