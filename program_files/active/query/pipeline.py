@@ -35,6 +35,7 @@ class QueryPipeline:
         self._retriever = Retriever()
         self._prompt_builder = PromptBuilder()
         self._llm_client = LLMClient()
+        self._context_builder = ContextBuilder()
 
     def run(
         self,
@@ -51,8 +52,24 @@ class QueryPipeline:
         #Retrieve
         retrieved_chunks: list[RetrievedChunk] = self._retriever.retrieve(generated_query)
 
-        #関連チャンク生成
-        context_builder = ContextBuilder()
-        context_str: str = context_builder.build(retrieved_chunks)
+        #Context生成
+        context_str: str = self._context_builder.build(retrieved_chunks)
 
-        
+        #Prompt生成        
+        prompt_str: str = self._prompt_builder.build(generated_query, history, context_str)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
