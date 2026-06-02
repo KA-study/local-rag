@@ -3,7 +3,10 @@ import sqlite3
 
 from infrastructure.llm.cost.base import UsageDB
 from infrastructure.llm.cost.service import calc_cost
-
+from infrastructure.llm.cost._types import (
+    CREATE_CURRENT_STATUS_TABLE,
+    CREATE_USAGE_LOG_TABLE
+)
 from shared.schemas import Usage
 
 
@@ -12,6 +15,15 @@ class SQliteUsageDB(UsageDB):
     def __init__(self, db_path: str = "usage.db"):
         self._conn = sqlite3.connect(db_path)
         self._conn.row_factory = sqlite3.Row  # dict風アクセス用
+
+        self._init_tables()
+
+
+    def _init_tables(self) -> None:
+
+        self._conn.execute(CREATE_USAGE_LOG_TABLE)
+        self._conn.execute(CREATE_CURRENT_STATUS_TABLE)
+
 
     def write_log(self, user_id: str, usage: Usage) -> None:
         
