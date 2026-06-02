@@ -36,3 +36,12 @@ class Usage:
     output_tokens: int
     model_name: str
 
+
+@dataclass
+class ModelPrice:
+    input_fee: float
+    output_fee: float
+
+PRICE_TABLE: dict[str, ModelPrice] = {
+    "gpt-4.1-mini": ModelPrice(0.40, 1.60),
+}
