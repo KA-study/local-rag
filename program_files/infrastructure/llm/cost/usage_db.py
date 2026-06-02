@@ -1,9 +1,8 @@
+
 import sqlite3
 
 from infrastructure.llm.cost.base import UsageDB
 from infrastructure.llm.cost.service import calc_cost
-
-from infrastructure.llm.cost.base import UsageDB
 
 from shared.schemas import Usage
 
@@ -13,7 +12,6 @@ class SQliteUsageDB(UsageDB):
     def __init__(self, db_path: str = "usage.db"):
         self._conn = sqlite3.connect(db_path)
         self._conn.row_factory = sqlite3.Row  # dict風アクセス用
-    
 
     def write_log(self, user_id: str, usage: Usage) -> None:
         
@@ -75,18 +73,26 @@ class SQliteUsageDB(UsageDB):
             self._conn.commit()
 
         except sqlite3.Error:
-            
-            try:
-                self._conn.rollback()
 
-            except sqlite3.Error:
-                pass
-
-            raise
+            self._conn.rollback()
+            raise 
 
 
     def get_status(self, user_id: str) -> dict | None:
-        ...
+        row = self._conn.execute(
+            """
+            SELECT * FROM current_status
+            WHERE user_id = ?
+            """,
+            (user_id,)
+        ).fetchone()
+
+        if row is None:
+            return None
+
+        return dict(row)
+
 
     def close(self) -> None:
-        ...
+        self._conn.close()
+
