@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 @dataclass
 class Document:
@@ -35,3 +34,5 @@ class LLMResponse:
 class Usage:
     input_tokens: int
     output_tokens: int
+    model_name: str
+

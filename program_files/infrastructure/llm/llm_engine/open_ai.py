@@ -1,5 +1,6 @@
 from openai import OpenAI
 
+from infrastructure.llm.llm_engine.service import calc_cost
 from shared.schemas import LLMResponse
 from shared.schemas import Usage
 
@@ -23,7 +24,8 @@ class OpenAILLM:
         else:
             usage = Usage(
                 input_tokens=response.usage.input_tokens,
-                output_tokens=response.usage.output_tokens
+                output_tokens=response.usage.output_tokens,
+                model_name=self.model
             )
 
         return LLMResponse(
