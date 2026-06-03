@@ -6,7 +6,7 @@ from infrastructure.llm.cost._types import CurrentStatus
 class UsageDB(ABC):
 
     @abstractmethod
-    def write_log(self, usage: Usage) -> None:
+    def write_log_and_status(self, usage: Usage) -> None:
         ...
 
     @abstractmethod

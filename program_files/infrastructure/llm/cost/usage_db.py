@@ -28,7 +28,7 @@ class SQliteUsageDB(UsageDB):
         self._conn.execute(CREATE_CURRENT_STATUS_TABLE)
 
 
-    def write_log(self, usage: Usage) -> None:
+    def write_log_and_status(self, usage: Usage) -> None:
         
         cost = calc_cost(usage.input_tokens, usage.output_tokens, usage.model_name)
 

@@ -23,8 +23,8 @@ class CostManager:
             raise ValueError("cost over.")
 
 
-    def write_log(self, usage_db: Usage):
-        self._usage_db.write_log(usage_db)
+    def write_log_and_status(self, usage_db: Usage):
+        self._usage_db.write_log_and_status(usage_db)
 
     def get_status(self) -> CurrentStatus | None:
         return self._usage_db.get_status()
