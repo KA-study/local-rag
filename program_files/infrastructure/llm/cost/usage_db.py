@@ -108,6 +108,7 @@ class SQliteUsageDB(UsageDB):
             "total_input_tokens": row["total_input_tokens"],
             "total_output_tokens": row["total_output_tokens"],
             "total_cost": row["total_cost"],
+            "available_cost": row["available_cost"]
         }
 
 

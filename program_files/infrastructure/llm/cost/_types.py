@@ -28,3 +28,4 @@ class CurrentStatus(TypedDict):
     total_input_tokens: int
     total_output_tokens: int
     total_cost: float
+    available_cost: float
