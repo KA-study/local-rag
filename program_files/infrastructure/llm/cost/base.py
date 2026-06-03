@@ -16,3 +16,7 @@ class UsageDB(ABC):
     @abstractmethod
     def close(self) -> None:
         ...
+
+    @abstractmethod
+    def set_available_cost(self, user_id: str, available_cost: float) -> None:
+        ...

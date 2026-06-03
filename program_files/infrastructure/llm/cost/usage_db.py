@@ -63,7 +63,7 @@ class SQliteUsageDB(UsageDB):
                     user_id,
                     total_input_tokens,
                     total_output_tokens,
-                    total_cost
+                    total_cost,
                 )
                 VALUES (?, ?, ?, ?)
                 ON CONFLICT(user_id)
@@ -117,3 +117,25 @@ class SQliteUsageDB(UsageDB):
     def close(self) -> None:
         self._conn.close()
 
+    
+    def set_avalable_cost(self, user_id: str, available_cost: float) -> None:
+        self._conn.execute(
+            """
+            INSERT INTO current_status (
+                user_id,
+                total_input_tokens,
+                total_output_tokens,
+                total_cost,
+                available_cost
+            )
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                user_id,
+                0,
+                0,
+                0,
+                available_cost
+            )
+        )
+         

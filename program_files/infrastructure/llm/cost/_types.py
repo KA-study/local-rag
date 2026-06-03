@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS current_status (
     user_id TEXT PRIMARY KEY,
     total_input_tokens INTEGER NOT NULL DEFAULT 0,
     total_output_tokens INTEGER NOT NULL DEFAULT 0,
-    total_cost REAL NOT NULL DEFAULT 0
+    total_cost REAL NOT NULL DEFAULT 0,
+    available_cost REAL
 )
 """
 

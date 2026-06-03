@@ -19,3 +19,6 @@ class CostManager:
 
     def get_status(self, user_id: str) -> CurrentStatus | None:
         return self._usage_db.get_status(user_id)
+
+    def set_available_cost(self, user_id: str, available_cost: float) -> None:
+        return self._usage_db.set_available_cost(user_id, available_cost)
