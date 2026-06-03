@@ -6,11 +6,11 @@ from infrastructure.llm.cost._types import CurrentStatus
 class UsageDB(ABC):
 
     @abstractmethod
-    def write_log(self, user_id: str, usage: Usage) -> None:
+    def write_log(self, usage: Usage) -> None:
         ...
 
     @abstractmethod
-    def get_status(self, user_id: str) -> CurrentStatus | None:
+    def get_status(self) -> CurrentStatus | None:
         ...
 
     @abstractmethod
@@ -18,5 +18,5 @@ class UsageDB(ABC):
         ...
 
     @abstractmethod
-    def set_available_cost(self, user_id: str, available_cost: float) -> None:
+    def set_available_cost(self, available_cost: float) -> None:
         ...

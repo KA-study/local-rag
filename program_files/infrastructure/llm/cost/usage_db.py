@@ -8,14 +8,16 @@ from infrastructure.llm.cost._types import (
     CREATE_USAGE_LOG_TABLE,
     CurrentStatus
 )
+from app.context import AppContext
 from shared.schemas import Usage
 
 
 class SQliteUsageDB(UsageDB):
 
-    def __init__(self, db_path: str = "usage.db"):
+    def __init__(self, app_context: AppContext, db_path: str = "usage.db"):
         self._conn = sqlite3.connect(db_path)
         self._conn.row_factory = sqlite3.Row  # dict風アクセス用
+        self._user_id = app_context.user_id
 
         self._init_tables()
 
@@ -26,7 +28,7 @@ class SQliteUsageDB(UsageDB):
         self._conn.execute(CREATE_CURRENT_STATUS_TABLE)
 
 
-    def write_log(self, user_id: str, usage: Usage) -> None:
+    def write_log(self, usage: Usage) -> None:
         
         cost = calc_cost(usage.input_tokens, usage.output_tokens, usage.model_name)
 
@@ -48,7 +50,7 @@ class SQliteUsageDB(UsageDB):
                 VALUES (?, ?, ?, ?, ?)
                 """,
                 (
-                    user_id,
+                    self._user_id,
                     usage.model_name,
                     usage.input_tokens,
                     usage.output_tokens,
@@ -76,7 +78,7 @@ class SQliteUsageDB(UsageDB):
                         total_cost + excluded.total_cost               
                 """,
                 (
-                    user_id,
+                    self._user_id,
                     usage.input_tokens,
                     usage.output_tokens,
                     cost
@@ -91,13 +93,13 @@ class SQliteUsageDB(UsageDB):
             raise 
 
 
-    def get_status(self, user_id: str) -> CurrentStatus | None:
+    def get_status(self) -> CurrentStatus | None:
         row = self._conn.execute(
             """
             SELECT * FROM current_status
             WHERE user_id = ?
             """,
-            (user_id,)
+            (self._user_id,)
         ).fetchone()
 
         if row is None:
@@ -119,7 +121,7 @@ class SQliteUsageDB(UsageDB):
         self._conn.close()
 
     
-    def set_available_cost(self, user_id: str, available_cost: float) -> None:
+    def set_available_cost(self, available_cost: float) -> None:
         self._conn.execute(
             """
             INSERT INTO current_status (
@@ -132,7 +134,7 @@ class SQliteUsageDB(UsageDB):
             VALUES (?, ?, ?, ?)
             """,
             (
-                user_id,
+                self._user_id,
                 0,
                 0,
                 0,

@@ -23,18 +23,19 @@ from active.query.generator import QueryGenerator
 from active.query.retriever import Retriever
 from active.query.context_builder import ContextBuilder
 from active.query.prompt_builder import PromptBuilder
-from infrastructure.llm.base import LLM
-from infrastructure.vector_store.chroma_store import ChromaVectorStore
+from infrastructure.llm.llm_manager import LLMManager
 from shared.schemas import RetrievedChunk
+from app.context import AppContext
 
 class QueryPipeline:
 
-    def __init__(self):
+    def __init__(self, app_context: AppContext):
+        self._app_context = app_context
         #ここは後ほど上から持ってこれるようにする。
         self._query_generator = QueryGenerator()
         self._retriever = Retriever()
         self._prompt_builder = PromptBuilder()
-        self._llm_client = LLMClient()
+        self._llm_manager = LLMManager(app_context)
         self._context_builder = ContextBuilder()
 
     def run(

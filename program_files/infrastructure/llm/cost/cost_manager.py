@@ -3,29 +3,31 @@
 from infrastructure.llm.cost.usage_db import SQliteUsageDB
 from infrastructure.llm.cost._types import CurrentStatus
 from shared.schemas import Usage
+from app.context import AppContext
 
 
 class CostManager:
 
     #ここではSqliteUsageDBなど固定だが、最終的には上から引数としてもらう形にする。
-    def __init__(self):
-        self._usage_db = SQliteUsageDB()
+    def __init__(self, app_context: AppContext):
+        self._usage_db = SQliteUsageDB(app_context)
+        self._user_id = app_context.user_id
 
-    def check_allowance(self, user_id: str):
-        current_status: CurrentStatus | None = self._usage_db.get_status(user_id)
+    def check_allowance(self):
+        current_status: CurrentStatus | None = self._usage_db.get_status()
 
         if current_status is None:
-            raise ValueError(f"Unregistored user: {user_id}. set available_cost.")
+            raise ValueError(f"Unregistored user: {self._user_id}. set available_cost.")
 
         if current_status["total_cost"] >= current_status["available_cost"]:
             raise ValueError("cost over.")
 
 
-    def write_log(self, user_id: str, usage_db: Usage):
-        self._usage_db.write_log(user_id, usage_db)
+    def write_log(self, usage_db: Usage):
+        self._usage_db.write_log(usage_db)
 
-    def get_status(self, user_id: str) -> CurrentStatus | None:
-        return self._usage_db.get_status(user_id)
+    def get_status(self) -> CurrentStatus | None:
+        return self._usage_db.get_status()
 
-    def set_available_cost(self, user_id: str, available_cost: float) -> None:
-        return self._usage_db.set_available_cost(user_id, available_cost)
+    def set_available_cost(self, available_cost: float) -> None:
+        return self._usage_db.set_available_cost(available_cost)
