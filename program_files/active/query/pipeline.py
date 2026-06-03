@@ -59,6 +59,11 @@ class QueryPipeline:
         #Prompt生成        
         prompt_str: str = self._prompt_builder.build(generated_query, history, context_str)
 
+        #LLM処理
+        llm_response: str = self._llm_manager.generate(prompt_str)
+
+        return llm_response
+
 
 
 

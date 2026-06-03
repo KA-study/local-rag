@@ -30,6 +30,10 @@ class Session:
             query: str = self._ui.get_input()
 
             #QueryPipeline
+            output: str = self._pipeline.run(
+                    query,
+                    self._history,
+                )
 
             #出力
 
