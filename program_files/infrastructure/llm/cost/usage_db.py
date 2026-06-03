@@ -119,7 +119,7 @@ class SQliteUsageDB(UsageDB):
         self._conn.close()
 
     
-    def set_avalable_cost(self, user_id: str, available_cost: float) -> None:
+    def set_available_cost(self, user_id: str, available_cost: float) -> None:
         self._conn.execute(
             """
             INSERT INTO current_status (
