@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from shared.schemas import Usage
+from infrastructure.llm.cost._types import CurrentStatus
 
 class UsageDB(ABC):
 
@@ -9,7 +10,7 @@ class UsageDB(ABC):
         ...
 
     @abstractmethod
-    def get_status(self, user_id: str) -> dict | None:
+    def get_status(self, user_id: str) -> CurrentStatus | None:
         ...
 
     @abstractmethod

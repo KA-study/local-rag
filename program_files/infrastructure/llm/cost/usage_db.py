@@ -5,7 +5,8 @@ from infrastructure.llm.cost.base import UsageDB
 from infrastructure.llm.cost.service import calc_cost
 from infrastructure.llm.cost._types import (
     CREATE_CURRENT_STATUS_TABLE,
-    CREATE_USAGE_LOG_TABLE
+    CREATE_USAGE_LOG_TABLE,
+    CurrentStatus
 )
 from shared.schemas import Usage
 
@@ -90,7 +91,7 @@ class SQliteUsageDB(UsageDB):
             raise 
 
 
-    def get_status(self, user_id: str) -> dict | None:
+    def get_status(self, user_id: str) -> CurrentStatus | None:
         row = self._conn.execute(
             """
             SELECT * FROM current_status
@@ -102,7 +103,15 @@ class SQliteUsageDB(UsageDB):
         if row is None:
             return None
 
-        return dict(row)
+        current_status: CurrentStatus = {
+            "user_id": row["user_id"],
+            "total_input_tokens": row["total_input_tokens"],
+            "total_output_tokens": row["total_output_tokens"],
+            "total_cost": row["total_cost"],
+        }
+
+
+        return current_status
 
 
     def close(self) -> None:

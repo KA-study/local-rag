@@ -1,4 +1,4 @@
-
+from typing import TypedDict
 
 CREATE_USAGE_LOG_TABLE = """
 CREATE TABLE IF NOT EXISTS usage_log (
@@ -21,3 +21,9 @@ CREATE TABLE IF NOT EXISTS current_status (
     total_cost REAL NOT NULL DEFAULT 0
 )
 """
+
+class CurrentStatus(TypedDict):
+    user_id: str
+    total_input_tokens: int
+    total_output_tokens: int
+    total_cost: float
