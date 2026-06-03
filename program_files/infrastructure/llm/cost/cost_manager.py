@@ -11,8 +11,15 @@ class CostManager:
     def __init__(self):
         self._usage_db = SQliteUsageDB()
 
-    def check_allowance(self):
-        ...
+    def check_allowance(self, user_id: str):
+        current_status: CurrentStatus | None = self._usage_db.get_status(user_id)
+
+        if current_status is None:
+            raise ValueError(f"Unregistored user: {user_id}. set available_cost.")
+
+        if current_status["total_cost"] >= current_status["available_cost"]:
+            raise ValueError("cost over.")
+
 
     def write_log(self, user_id: str, usage_db: Usage):
         self._usage_db.write_log(user_id, usage_db)
