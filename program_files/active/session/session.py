@@ -1,6 +1,6 @@
 
 from app.context import AppContext
-from active.session.history.history_manager import History
+from active.session.history.history_manager import HistoryManager
 from active.session._types import SessionContext
 from active.query.pipeline import QueryPipeline
 from active._types import Message
@@ -13,16 +13,16 @@ class Session:
         self,
         app_context: AppContext,
         session_context: SessionContext,
-        history: History,
+        history_manager: HistoryManager,
         ui: ChatInterface
     ):
 
         self._session_context = session_context
-        self._history = history
-        self._pipeline = QueryPipeline(app_context)
+        self._pipeline = QueryPipeline(app_context, history_manager)
         self._ui: ChatInterface = ui
         self._app_context = app_context
 
+        self._history_manager = history_manager
 
     def run(self):
     
@@ -36,8 +36,7 @@ class Session:
 
             #QueryPipeline
             assistant_output: Message = self._pipeline.run(
-                    message,
-                    self._history,
+                    message
                 )
 
             #出力
@@ -47,6 +46,7 @@ class Session:
             )
 
             #履歴変更（history）
+            self._history_manager.save_history(message)
 
 
 

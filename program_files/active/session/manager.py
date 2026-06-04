@@ -1,4 +1,5 @@
 #ここでSessionを呼ぶ
+#ここでhistory_managerをインスタンス化する
 
 from active.session.session import Session
 

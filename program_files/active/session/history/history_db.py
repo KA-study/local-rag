@@ -26,7 +26,7 @@ def SQliteHistoryDB(HistoryDB):
         self._conn.execute(CREATE_HISTORY_DB)
         
 
-    def insert_messages(self, message: Message) -> None:
+    def insert_message(self, message: Message) -> None:
        
         user_id = self._app_context.user_id
         session_id = self._session_context.session_id
@@ -45,7 +45,7 @@ def SQliteHistoryDB(HistoryDB):
         )
 
 
-    def load_messages(self) -> list[Message]:
+    def load_messages(self) -> list[Message] | None:
 
         user_id = self._app_context.user_id
         session_id = self._session_context.session_id

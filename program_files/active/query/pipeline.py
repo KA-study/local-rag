@@ -20,7 +20,7 @@ LLMOutputをデータ化
 解答
 '''
 
-from active.session.history import History
+from active.session.history.history_manager import HistoryManager
 from active.query.generator import QueryGenerator
 from active.query.retriever import Retriever
 from active.query.context_builder import ContextBuilder
@@ -32,19 +32,22 @@ from app.context import AppContext
 
 class QueryPipeline:
 
-    def __init__(self, app_context: AppContext):
+    def __init__(
+        self,
+        app_context: AppContext,
+        history_manager: HistoryManager
+    ):
         self._app_context = app_context
         #ここは後ほど上から持ってこれるようにする。
         self._query_generator = QueryGenerator()
         self._retriever = Retriever()
-        self._prompt_builder = PromptBuilder()
+        self._prompt_builder = PromptBuilder(history_manager)
         self._llm_manager = LLMManager(app_context)
         self._context_builder = ContextBuilder()
 
     def run(
         self,
-        message: Message,
-        history: History
+        message: Message
     ) -> Message:
         '''
         質問一回分を処理
@@ -60,7 +63,10 @@ class QueryPipeline:
         context_str: str = self._context_builder.build(retrieved_chunks)
 
         #Prompt生成        
-        prompt_str: str = self._prompt_builder.build(generated_message, history, context_str)
+        prompt_str: str = self._prompt_builder.build(
+            generated_message,
+            context_str
+        )
 
         #LLM処理
         llm_response: str = self._llm_manager.generate(prompt_str)
