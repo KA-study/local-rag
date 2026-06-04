@@ -45,4 +45,35 @@ def SQliteHistoryDB(HistoryDB):
         )
 
 
+    def load_messages(self) -> list[Message]:
 
+        user_id = self._app_context.user_id
+        session_id = self._session_context.session_id
+
+        rows = self._conn.execute(
+            """
+                SELECT role, content
+                FROM messages
+                WHERE user_id = ?
+                AND session_id = ?
+                ORDER BY message_id ASC
+            """,
+            (
+                user_id,
+                session_id
+            )
+        ).fetchall()
+
+        role_index = 0
+        content_index = 1
+        created_at_index = 2
+
+        messages = [
+            Message(
+                role=r[role_index],
+                content=r[content_index]
+            )
+            for r in rows
+        ]
+
+        return messages
