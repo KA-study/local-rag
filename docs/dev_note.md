@@ -1,3 +1,13 @@
+# 2026/06/04 - session_idの実装
+
+## 結論
+session_id(sessionを管理するdataclass)を追加し、またそれによってsessionを管理できるようにする。
+
+## 詳細
+session_idに従って、用いるhistoryなどを変更する。
+
+---
+
 # 2026/06/04 - chatブロックのデータ形式
 
 ## 結論
