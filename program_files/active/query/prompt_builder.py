@@ -1,6 +1,6 @@
 #プロンプト生成
 from active.session.history import History
-from shared.schemas import RetrievedChunk
+from active._types import Message
 
 class PromptBuilder:
     TEMPLATE = """
@@ -19,10 +19,12 @@ class PromptBuilder:
 
     def build(
         self,
-        query: str,
+        message: Message,
         history: History,
         context: str
     ) -> str:
+
+        query = message.content
 
         history_str = history.to_prompt()
 

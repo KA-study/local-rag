@@ -2,7 +2,8 @@
 from app.context import AppContext
 from active.session.history import History
 from active.query.pipeline import QueryPipeline
-from active.ui.base import UserInterface
+from active._types import Message
+from interface.chat.base import ChatInterface
 
 class Session:
 
@@ -12,13 +13,13 @@ class Session:
         app_context: AppContext,
         session_id: str,
         history: History,
-        ui: UserInterface
+        ui: ChatInterface
     ):
 
         self._session_id = session_id
         self._history = history
         self._pipeline = QueryPipeline(app_context)
-        self._ui = ui
+        self._ui: ChatInterface = ui
         self._app_context = app_context
 
 
@@ -29,12 +30,16 @@ class Session:
             #入力
             query: str = self._ui.get_input()
 
+            #入力に意味付け
+            message = Message(role="user", content=query)
+
             #QueryPipeline
-            output: str = self._pipeline.run(
-                    query,
+            assistant_output: Message = self._pipeline.run(
+                    message,
                     self._history,
                 )
 
             #出力
+            self._ui.display_message(assistant_output.content)
 
-            #履歴変更
+            #履歴変更（history）

@@ -13,6 +13,7 @@ RetrievedChunkを返す
 '''
 import numpy
 
+from active._types import Message
 from infrastructure.embedding.embedder import STEmbedder
 from infrastructure.vector_store.chroma_store import ChromaVectorStore
 from shared.schemas import RetrievedChunk
@@ -26,8 +27,9 @@ class Retriever:
 
     def retrieve(
         self,
-        query: str
+        message: Message
     ) -> list[RetrievedChunk]:
+        query = message.content
 
         #embedding
         query_embedding: numpy.ndarray = self._embedder.embed(query)

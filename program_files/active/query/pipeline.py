@@ -15,6 +15,8 @@ PromptBuilder
 
 LLMClient
 
+LLMOutputをデータ化
+
 解答
 '''
 
@@ -23,6 +25,7 @@ from active.query.generator import QueryGenerator
 from active.query.retriever import Retriever
 from active.query.context_builder import ContextBuilder
 from active.query.prompt_builder import PromptBuilder
+from active._types import Message
 from infrastructure.llm.llm_manager import LLMManager
 from shared.schemas import RetrievedChunk
 from app.context import AppContext
@@ -40,29 +43,32 @@ class QueryPipeline:
 
     def run(
         self,
-        query: str,
+        message: Message,
         history: History
-    ) -> str:
+    ) -> Message:
         '''
         質問一回分を処理
         '''
 
         #検索クエリ生成
-        generated_query: str = self._query_generator.generate(query)
+        generated_message: Message = self._query_generator.generate(message)
 
         #Retrieve
-        retrieved_chunks: list[RetrievedChunk] = self._retriever.retrieve(generated_query)
+        retrieved_chunks: list[RetrievedChunk] = self._retriever.retrieve(generated_message)
 
         #Context生成
         context_str: str = self._context_builder.build(retrieved_chunks)
 
         #Prompt生成        
-        prompt_str: str = self._prompt_builder.build(generated_query, history, context_str)
+        prompt_str: str = self._prompt_builder.build(generated_message, history, context_str)
 
         #LLM処理
         llm_response: str = self._llm_manager.generate(prompt_str)
 
-        return llm_response
+        #LLM Response 意味付け
+        llm_message = Message(role="assistant", content=llm_response)
+
+        return llm_message
 
 
 
