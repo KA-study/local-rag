@@ -1,4 +1,4 @@
-
+#history_id: str = f"{user_id}.{session_id}"  
 CREATE_HISTORY_DB = """
 CREATE TABLE IF NOT EXISTS messages (
     message_id INTEGER PRIMARY KEY AUTOINCREMENT,

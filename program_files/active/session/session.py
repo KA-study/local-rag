@@ -1,6 +1,7 @@
 
 from app.context import AppContext
-from active.session.history import History
+from active.session.history.history_manager import History
+from active.session._types import SessionContext
 from active.query.pipeline import QueryPipeline
 from active._types import Message
 from interface.chat.base import ChatInterface
@@ -11,12 +12,12 @@ class Session:
     def __init__(
         self,
         app_context: AppContext,
-        session_id: str,
+        session_context: SessionContext,
         history: History,
         ui: ChatInterface
     ):
 
-        self._session_id = session_id
+        self._session_context = session_context
         self._history = history
         self._pipeline = QueryPipeline(app_context)
         self._ui: ChatInterface = ui
