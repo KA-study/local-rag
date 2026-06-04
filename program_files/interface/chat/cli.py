@@ -5,5 +5,5 @@ class CliChatInterface(ChatInterface):
     def get_input(self) -> str:
         return input(">>> ")
 
-    def output(self, text: str) -> None:
-        print(text)
+    def display_message(self, role: str, text: str) -> None:
+        print(f"{role}: {text}\n")

@@ -40,6 +40,13 @@ class Session:
                 )
 
             #出力
-            self._ui.display_message(assistant_output.content)
+            self._ui.display_message(
+                role=assistant_output.role,
+                text=assistant_output.content
+            )
 
             #履歴変更（history）
+
+
+
+

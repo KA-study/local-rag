@@ -7,6 +7,7 @@ class ChatInterface(Protocol):
 
     def display_message(
         self,
+        role: str,
         text: str
     ) -> None:
         ...
