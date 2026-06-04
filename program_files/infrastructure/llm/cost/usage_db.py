@@ -16,7 +16,6 @@ class SQliteUsageDB(UsageDB):
 
     def __init__(self, app_context: AppContext, db_path: str = "usage.db"):
         self._conn = sqlite3.connect(db_path)
-        self._conn.row_factory = sqlite3.Row  # dict風アクセス用
         self._user_id = app_context.user_id
 
         self._init_tables()
