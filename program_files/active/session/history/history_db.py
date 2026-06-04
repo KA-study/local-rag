@@ -26,21 +26,23 @@ def SQliteHistoryDB(HistoryDB):
         self._conn.execute(CREATE_HISTORY_DB)
         
 
-    def insert_messages(self, message: Message):
+    def insert_messages(self, message: Message) -> None:
        
         user_id = self._app_context.user_id
         session_id = self._session_context.session_id
 
-        history_id: str = f"{user_id}.{session_id}"
-
         self._conn.execute(
             """
-                INSERT INTO messages (history_id, role, content)
-                VALUES (?, ?, ?)
+                INSERT INTO messages (user_id, session_id, role, content)
+                VALUES (?, ?, ?, ?)
             """, 
             (
-                history_id,
+                user_id,
+                session_id,
                 message.role,
                 message.content
             )
         )
+
+
+
