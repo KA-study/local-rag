@@ -1,11 +1,11 @@
 from typing import Protocol
 
-class UserInterface(Protocol):
+class ChatInterface(Protocol):
 
     def get_input(self) -> str:
         ...
 
-    def output(
+    def display_message(
         self,
         text: str
     ) -> None:

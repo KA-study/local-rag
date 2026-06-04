@@ -1,6 +1,6 @@
-from active.ui.base import UserInterface
+from interface.chat.base import ChatInterface
 
-class CliInterface:
+class CliChatInterface(ChatInterface):
 
     def get_input(self) -> str:
         return input(">>> ")
