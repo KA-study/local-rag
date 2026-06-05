@@ -7,17 +7,15 @@ from active._types import Message
 from app.context import AppContext
 
 
-def SQliteHistoryDB(HistoryDB):
+class SQliteHistoryDB(HistoryDB):
 
     def __init__(
         self,
         app_context: AppContext,
-        session_context: SessionContext,
         db_path: str = "history.db"
     ):
-        self._conn = sqlite3.connect(self.db_path)
+        self._conn = sqlite3.connect(db_path)
         self._app_context = app_context
-        self._session_context = session_context
 
         self._init_table()
 
@@ -26,10 +24,14 @@ def SQliteHistoryDB(HistoryDB):
         self._conn.execute(CREATE_HISTORY_DB)
         
 
-    def insert_message(self, message: Message) -> None:
+    def insert_message(
+        self,
+        message: Message,
+        session_context: SessionContext
+    ) -> None:
        
         user_id = self._app_context.user_id
-        session_id = self._session_context.session_id
+        session_id = session_context.session_id
 
         self._conn.execute(
             """
@@ -45,10 +47,13 @@ def SQliteHistoryDB(HistoryDB):
         )
 
 
-    def load_messages(self) -> list[Message] | None:
+    def load_messages(
+        self,
+        session_context: SessionContext
+    ) -> list[Message] | None:
 
         user_id = self._app_context.user_id
-        session_id = self._session_context.session_id
+        session_id = session_context.session_id
 
         rows = self._conn.execute(
             """

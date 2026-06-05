@@ -9,6 +9,7 @@ from interface.chat.base import ChatInterface
 class Session:
 
     #Sessionインスタンス化時に、CliInterfaceを引数として渡して初めて、Protocolの静的チェックが効く。
+    #session開始時（このクラスがインスタンス化されたとき）historyを見て、あったらそれをすべて表示する。
     def __init__(
         self,
         app_context: AppContext,
@@ -46,7 +47,12 @@ class Session:
             )
 
             #履歴変更（history）
-            self._history_manager.save_history(message)
+            self._history_manager.save_history(
+                message,
+                self._session_context
+            )
+
+            #コマンド確認（session終了）
 
 
 
