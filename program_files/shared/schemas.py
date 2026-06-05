@@ -23,6 +23,7 @@ class RetrievedChunk:
     chunk: Chunk
     #現在、小さいほど強い
     distance: float
+    #このdistanceがどのchunk/embeddingからの距離なのかについてのデータを含むべきでは？
 
 @dataclass
 class LLMResponse:

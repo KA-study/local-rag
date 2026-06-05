@@ -81,6 +81,7 @@ class ChromaVectorStore(VectorStore):
             raise ValueError("some data in chromedb was racked.")
 
         #batchではなく、単一のqueryであるから、[0]指定
+        #result["documents"] = [[...],] という構造
         texts = result["documents"][0]
         metadatas = result["metadatas"][0]
         distances = result["distances"][0]
