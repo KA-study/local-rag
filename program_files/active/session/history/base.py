@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-from active.session._types import SessionContext
 
 from active._types import Message
 
@@ -10,13 +9,19 @@ class HistoryDB(ABC):
     def insert_message(
         self,
         message: Message,
-        session_context: SessionContext
+        session_id: str
     ):
         ...
 
     @abstractmethod
     def load_messages(
         self,
-        session_context: SessionContext
+        session_id: str
     ) -> list[Message] | None:
+        ...
+
+    @abstractmethod
+    def get_session_ids(
+        self
+    ) -> list[str]:
         ...

@@ -25,7 +25,7 @@ class HistoryManager:
     ):
         self._history_db.insert_message(
             message,
-            session_context
+            session_context.session_id
         )
 
     def load_history(
@@ -34,8 +34,18 @@ class HistoryManager:
     ) -> list[Message] | None:
 
         return self._history_db.load_messages(
-            session_context
+            session_context.session_id
         )
+
+    def get_all_session_contexts(self) -> list[SessionContext]:
+
+        session_ids: list[str] = self._history_db.get_session_ids()
+            
+        session_contexts: list[SessionContext] = [
+            SessionContext(session_id=session_id)
+            for session_id in session_ids
+                ]
+
 
 
 

@@ -2,7 +2,6 @@ import sqlite3
 
 from active.session.history._types import CREATE_HISTORY_DB
 from active.session.history.base import HistoryDB
-from active.session._types import SessionContext
 from active._types import Message
 from app.context import AppContext
 
@@ -27,11 +26,10 @@ class SQliteHistoryDB(HistoryDB):
     def insert_message(
         self,
         message: Message,
-        session_context: SessionContext
+        session_id: str
     ) -> None:
        
         user_id = self._app_context.user_id
-        session_id = session_context.session_id
 
         self._conn.execute(
             """
@@ -49,11 +47,10 @@ class SQliteHistoryDB(HistoryDB):
 
     def load_messages(
         self,
-        session_context: SessionContext
+        session_id: str
     ) -> list[Message] | None:
 
         user_id = self._app_context.user_id
-        session_id = session_context.session_id
 
         rows = self._conn.execute(
             """
@@ -82,3 +79,34 @@ class SQliteHistoryDB(HistoryDB):
         ]
 
         return messages
+
+    
+    def get_session_ids(self) -> list[str]:
+
+        user_id = self._app_context.user_id
+
+        rows = self._conn.execute(
+            """
+                SELECT role, content
+                FROM messages
+                WHERE user_id = ?
+                ORDER BY message_id ASC
+            """,
+            (
+                user_id
+            )
+        ).fetchall()
+
+        session_id = 0
+        role_index = 1
+        content_index = 2
+        created_at_index = 3
+
+        session_id = [
+            r[session_id]
+            for r in rows
+        ]
+
+        return session_id
+
+
