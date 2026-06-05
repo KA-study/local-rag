@@ -26,6 +26,7 @@ class SessionManager:
         app_context: AppContext
     ):
         self._app_context = app_context
+        self._history_manager = HistoryManager(app_context)
 
     
     def run(self):
@@ -33,4 +34,6 @@ class SessionManager:
         while True:
 
             #セッション一覧取得
+            session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
 
+            #セッション一覧および新規作成を表示

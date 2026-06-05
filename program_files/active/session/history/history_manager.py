@@ -37,7 +37,7 @@ class HistoryManager:
             session_context.session_id
         )
 
-    def get_all_session_contexts(self) -> list[SessionContext]:
+    def get_session_contexts(self) -> list[SessionContext]:
 
         session_ids: list[str] = self._history_db.get_session_ids()
             
@@ -45,6 +45,8 @@ class HistoryManager:
             SessionContext(session_id=session_id)
             for session_id in session_ids
                 ]
+
+        return session_contexts
 
 
 
