@@ -3,8 +3,10 @@
 
 from active.session.session import Session
 from active.session.history.history_manager import HistoryManager
+from active.session.interface_adaptor.session_manager import SessionManagerInterfaceAdapter
 from active.session._types import SessionContext
 from app.context import AppContext
+from interface.session_manager.cli import CliSessionManagerInterface
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。
 
@@ -27,6 +29,10 @@ class SessionManager:
     ):
         self._app_context = app_context
         self._history_manager = HistoryManager(app_context)
+        #このcliとguiの切り替えは、後ほどよく考えて再実装
+        self._s_m_interface_adapter = SessionManagerInterfaceAdapter(
+            CliSessionManagerInterface()
+        )
 
     
     def run(self):
@@ -37,3 +43,5 @@ class SessionManager:
             session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
 
             #セッション一覧および新規作成を表示
+            session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
+            

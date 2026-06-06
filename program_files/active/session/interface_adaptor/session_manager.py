@@ -27,11 +27,9 @@ class SessionManagerInterfaceAdapter:
 
         #session_id == "_NEW_"だった時の処理
         if session_id == "_NEW_":
-           ... 
-
+            session_id: str = self._s_m_interface.create_session_id()
 
         session_context = SessionContext(session_id=session_id)
 
         return session_context
-
 

@@ -1,4 +1,4 @@
-
+from datetime import datetime
 
 from interface.session_manager.base import SessionManagerInterface
 
@@ -40,6 +40,15 @@ class CliSessionManagerInterface(SessionManagerInterface):
 
             print("Invalid input")
 
+    def create_session_id(self) -> str:
+        
+        session_name: str = input("new session name >> ")
+
+        now: str = datetime.now().isoformat()
+
+        session_id: str = session_name + now
+
+        return session_id
 
 
 

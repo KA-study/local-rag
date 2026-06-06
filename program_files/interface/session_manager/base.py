@@ -9,5 +9,5 @@ class SessionManagerInterface(Protocol):
     ) -> str:
         ...
 
-    def create_session(self) -> str:
+    def create_session_id(self) -> str:
         ...
