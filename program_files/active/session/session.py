@@ -2,6 +2,7 @@
 from app.context import AppContext
 from active.session.history.history_manager import HistoryManager
 from active.session._types import SessionContext
+from active.session.interface.chat import ChatInterfaceAdapter
 from active.query.pipeline import QueryPipeline
 from active._types import Message
 from interface.chat.base import ChatInterface
@@ -20,7 +21,7 @@ class Session:
 
         self._session_context = session_context
         self._pipeline = QueryPipeline(app_context, history_manager)
-        self._ui: ChatInterface = ui
+        self._ui = ChatInterfaceAdapter(ui)
         self._app_context = app_context
 
         self._history_manager = history_manager
@@ -30,21 +31,13 @@ class Session:
         while True:
 
             #入力
-            query: str = self._ui.get_input()
-
-            #入力に意味付け
-            message = Message(role="user", content=query)
+            message: Message = self._ui.get_input()
 
             #QueryPipeline
-            assistant_output: Message = self._pipeline.run(
-                    message
-                )
+            assistant_output: Message = self._pipeline.run(message)
 
             #出力
-            self._ui.display_message(
-                role=assistant_output.role,
-                text=assistant_output.content
-            )
+            self._ui.display_message(assistant_output)
 
             #履歴変更（history）
             self._history_manager.save_history(
