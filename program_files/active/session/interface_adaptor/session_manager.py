@@ -23,7 +23,7 @@ class SessionManagerInterfaceAdapter:
             for session_context in session_contexts
         ]
 
-        session_id: str = self._s_m_interface.select_session(session_ids)
+        session_id: str = self._s_m_interface.select_session_id(session_ids)
 
         #session_id == "_NEW_"だった時の処理
         if session_id == "_NEW_":
