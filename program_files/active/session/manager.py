@@ -3,7 +3,7 @@
 
 from active.session.session import Session
 from active.session.history.history_manager import HistoryManager
-from active.session.interface_adaptor.session_manager import SessionManagerInterfaceAdapter
+from active.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
 from active.session._types import SessionContext
 from app.context import AppContext
 from interface.session_manager.cli import CliSessionManagerInterface
@@ -42,6 +42,8 @@ class SessionManager:
             #セッション一覧取得
             session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
 
-            #セッション一覧および新規作成を表示
+            #セッション一覧および新規作成を表示し、選択されたsessionを取得
             session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
             
+            #選択されたsessionでsession.run()
+            self.
