@@ -7,6 +7,7 @@ from active.session.interface_adapter.session_manager import SessionManagerInter
 from active.session._types import SessionContext
 from app.context import AppContext
 from interface.session_manager.cli import CliSessionManagerInterface
+from interface.chat.cli import CliChatInterface
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。
 
@@ -46,4 +47,16 @@ class SessionManager:
             session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
             
             #選択されたsessionでsession.run()
-            self.
+            session = Session(
+                app_context=self._app_context,
+                session_context=session_context,
+                history_manager=self._history_manager,
+                #ここをどうするか。
+                ui=CliChatInterface()
+            )
+
+            session.run()
+
+            #コマンド確認（SessionManager終了）
+            ...
+
