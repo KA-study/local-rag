@@ -1,5 +1,6 @@
 
 from infrastructure.llm.llm_engine.open_ai import OpenAILLM
+from infrastructure.llm.llm_engine.fake_llm import FakeLLM
 from infrastructure.llm.cost.cost_manager import CostManager
 from app.context import AppContext
 from shared.schemas import LLMResponse
@@ -12,9 +13,8 @@ class LLMManager:
     ):
         self._app_context = app_context
         #ここは一旦固定だが、最終的には上層部でまとめて管理し、引数として受け取る形にする。
-        self.llm = OpenAILLM()
+        self.llm = FakeLLM()
         self.cost_manager = CostManager(app_context)
-        self.model_name = "gpt-4.1-mini"
 
 
     def generate(self, prompt: str) -> str:
@@ -29,7 +29,6 @@ class LLMManager:
         res: LLMResponse = self.llm.generate(prompt)
 
         #  usageがある場合のみコスト加算
-        #ここでmodel_name渡す
         if res.usage is not None:
             self.cost_manager.write_log_and_status(res.usage)
 
