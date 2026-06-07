@@ -6,6 +6,7 @@ from active.session.interface_adapter.chat import ChatInterfaceAdapter
 from active.query.pipeline import QueryPipeline
 from active._types import Message
 from interface.chat.base import ChatInterface
+from shared.schemas import ExitCommandError
 
 class Session:
 
@@ -31,7 +32,11 @@ class Session:
         while True:
 
             #入力
-            message: Message = self._ui.get_input()
+            #:qが実行されたとき、ここにエラーが出て、上でそれをハンドリング
+            try:
+                message: Message = self._ui.get_input()
+            except ExitCommandError:
+                break
 
             #QueryPipeline
             assistant_output: Message = self._pipeline.run(message)
@@ -45,7 +50,6 @@ class Session:
                 self._session_context
             )
 
-            #コマンド確認（session終了）
 
 
 

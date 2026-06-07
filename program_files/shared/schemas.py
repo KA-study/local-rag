@@ -46,3 +46,7 @@ class ModelPrice:
 PRICE_TABLE: dict[str, ModelPrice] = {
     "gpt-4.1-mini": ModelPrice(0.40, 1.60),
 }
+
+class ExitCommandError(Exception):
+    pass
+    #現在の処理ブロックを終了するための例外

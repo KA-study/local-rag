@@ -11,3 +11,6 @@ class ChatInterface(Protocol):
         text: str
     ) -> None:
         ...
+
+    def _check_exit(self, user_input: str):
+        ...
