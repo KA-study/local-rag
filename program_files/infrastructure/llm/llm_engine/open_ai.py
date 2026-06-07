@@ -1,11 +1,12 @@
 from openai import OpenAI
 
+from infrastructure.llm.llm_engine.base import LLM
 from shared.schemas import LLMResponse
 from shared.schemas import Usage
 
 #呼び出し側は、open_ai: LLM = OpenAILLM　とすることで、protocolを有効化すること。
 #OpenAI の特殊型はこのクラス内に完全に閉じ込める。
-class OpenAILLM:
+class OpenAILLM(LLM):
     
     def __init__(self, model: str = "gpt-4.1-mini"):
         self.client = OpenAI()
