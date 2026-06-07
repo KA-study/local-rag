@@ -8,6 +8,7 @@ from active.session._types import SessionContext
 from app.context import AppContext
 from interface.session_manager.cli import CliSessionManagerInterface
 from interface.chat.cli import CliChatInterface
+from shared.schemas import ExitCommandError
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。
 
@@ -44,9 +45,13 @@ class SessionManager:
             session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
 
             #セッション一覧および新規作成を表示し、選択されたsessionを取得
-            session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
+            try:
+                session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
+            except ExitCommandError:
+                break
             
             #選択されたsessionでsession.run()
+            #ここに、各sessionが終了したときの処理
             session = Session(
                 app_context=self._app_context,
                 session_context=session_context,
@@ -57,6 +62,4 @@ class SessionManager:
 
             session.run()
 
-            #コマンド確認（SessionManager終了）
-            ...
 

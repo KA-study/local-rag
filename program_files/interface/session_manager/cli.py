@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from interface.session_manager.base import SessionManagerInterface
+from shared.schemas import ExitCommandError
 
 
 class CliSessionManagerInterface(SessionManagerInterface):
@@ -21,6 +22,9 @@ class CliSessionManagerInterface(SessionManagerInterface):
         while True:
             choice: str = input("select: ")
 
+            #exit command check
+            self._check_exit(user_input=choice)
+
             #new_session指定の時
             if choice == "n":
                 return "_NEW_"
@@ -40,9 +44,14 @@ class CliSessionManagerInterface(SessionManagerInterface):
 
             print("Invalid input")
 
+
     def create_session_id(self) -> str:
         
         session_name: str = input("new session name >> ")
+
+        #exit command check
+        self._check_exit(user_input=session_name)
+        
 
         now: str = datetime.now().isoformat()
 
@@ -51,4 +60,8 @@ class CliSessionManagerInterface(SessionManagerInterface):
         return session_id
 
 
+    def _check_exit(self, user_input):
+
+        if user_input == ":q":
+            raise ExitCommandError()
 
