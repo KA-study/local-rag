@@ -4,6 +4,7 @@ from interface.chat.base import ChatInterface
 from interface.chat.cli import CliChatInterface
 from shared.schemas import ExitCommandError
 
+#現時点の書き方は、GUIには対応していない（GUIはinput()によって作動するわけではないため。)
 #======ChatInterface.get_input()==============
 def test_get_input(monkeypatch):
 
@@ -35,9 +36,9 @@ def test_get_input_exit_command(monkeypatch):
 #===========ChatInterface.display_message()=============
 def test_display_message(capsys):
 
-    interface = CliChatInterface()
+    chat_interface = CliChatInterface()
 
-    interface.display_message(
+    chat_interface.display_message(
         "assistant",
         "hello"
     )
