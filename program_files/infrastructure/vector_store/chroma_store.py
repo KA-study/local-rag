@@ -1,9 +1,9 @@
 import chromadb
 from typing import Any
 
-from infrastructure.vector_store._types import PERSIST_DIRECTORY, COLLECTION_NAME
-from infrastructure.vector_store.base import VectorStore
-from shared.schemas import Chunk, EmbeddedChunk, RetrievedChunk
+from program_files.infrastructure.vector_store._types import PERSIST_DIRECTORY, COLLECTION_NAME
+from program_files.infrastructure.vector_store.base import VectorStore
+from program_files.shared.schemas import Chunk, EmbeddedChunk, RetrievedChunk
 
 class ChromaVectorStore(VectorStore):
     

@@ -1,7 +1,7 @@
 import numpy
 
-from infrastructure.embedding.base import BaseEmbedder
-from shared.schemas import Chunk, EmbeddedChunk
+from program_files.infrastructure.embedding.base import BaseEmbedder
+from program_files.shared.schemas import Chunk, EmbeddedChunk
 
 def create_embedded_chunks(
     chunks: list[Chunk],

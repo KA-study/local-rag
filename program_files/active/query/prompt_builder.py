@@ -1,6 +1,6 @@
 #プロンプト生成
-from active.session.history.history_manager import HistoryManager
-from active._types import Message
+from program_files.active.session.history.history_manager import HistoryManager
+from program_files.active._types import Message
 
 class PromptBuilder:
 

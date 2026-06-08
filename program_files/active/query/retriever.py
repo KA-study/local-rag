@@ -13,10 +13,10 @@ RetrievedChunkを返す
 '''
 import numpy
 
-from active._types import Message
-from infrastructure.embedding.embedder import STEmbedder
-from infrastructure.vector_store.chroma_store import ChromaVectorStore
-from shared.schemas import RetrievedChunk
+from program_files.active._types import Message
+from program_files.infrastructure.embedding.embedder import STEmbedder
+from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
+from program_files.shared.schemas import RetrievedChunk
 
 
 class Retriever:

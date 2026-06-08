@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy
 
-from shared.schemas import Chunk, EmbeddedChunk
+from program_files.shared.schemas import Chunk, EmbeddedChunk
 
 class BaseEmbedder(ABC):
     """

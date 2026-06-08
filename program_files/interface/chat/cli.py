@@ -1,5 +1,5 @@
-from interface.chat.base import ChatInterface
-from shared.schemas import ExitCommandError
+from program_files.interface.chat.base import ChatInterface
+from program_files.shared.schemas import ExitCommandError
 
 class CliChatInterface(ChatInterface):
 

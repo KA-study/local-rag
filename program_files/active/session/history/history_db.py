@@ -1,9 +1,9 @@
 import sqlite3
 
-from active.session.history._types import CREATE_HISTORY_DB
-from active.session.history.base import HistoryDB
-from active._types import Message
-from app.context import AppContext
+from program_files.active.session.history._types import CREATE_HISTORY_DB
+from program_files.active.session.history.base import HistoryDB
+from program_files.active._types import Message
+from program_files.app.context import AppContext
 
 
 class SQliteHistoryDB(HistoryDB):

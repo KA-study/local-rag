@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from interface.session_manager.base import SessionManagerInterface
-from shared.schemas import ExitCommandError
+from program_files.interface.session_manager.base import SessionManagerInterface
+from program_files.shared.schemas import ExitCommandError
 
 
 class CliSessionManagerInterface(SessionManagerInterface):

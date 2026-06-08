@@ -1,10 +1,10 @@
 
 
-from active.session.history.base import HistoryDB
-from active.session.history.history_db import SQliteHistoryDB
-from active.session._types import SessionContext
-from active._types import Message
-from app.context import AppContext
+from program_files.active.session.history.base import HistoryDB
+from program_files.active.session.history.history_db import SQliteHistoryDB
+from program_files.active.session._types import SessionContext
+from program_files.active._types import Message
+from program_files.app.context import AppContext
 
 
 class HistoryManager:

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from shared.schemas import EmbeddedChunk, RetrievedChunk
+from program_files.shared.schemas import EmbeddedChunk, RetrievedChunk
 
 class VectorStore(ABC):
 

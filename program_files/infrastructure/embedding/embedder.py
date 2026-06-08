@@ -2,8 +2,8 @@ from sentence_transformers import SentenceTransformer
 import numpy
 from typing import cast
 
-from infrastructure.embedding._types import BATCH_SIZE, MODEL_NAME
-from infrastructure.embedding.base import BaseEmbedder
+from program_files.infrastructure.embedding._types import BATCH_SIZE, MODEL_NAME
+from program_files.infrastructure.embedding.base import BaseEmbedder
 
 class STEmbedder(BaseEmbedder):
 

@@ -1,6 +1,6 @@
 
 
-from shared.schemas import RetrievedChunk
+from program_files.shared.schemas import RetrievedChunk
 
 class ContextBuilder:
 

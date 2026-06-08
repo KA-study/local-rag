@@ -1,7 +1,7 @@
 
 
-from active.session._types import SessionContext
-from interface.session_manager.base import SessionManagerInterface
+from program_files.active.session._types import SessionContext
+from program_files.interface.session_manager.base import SessionManagerInterface
 
 
 class SessionManagerInterfaceAdapter:

@@ -1,11 +1,9 @@
-import numpy
-
-from passive.pdf.loader import PypdfLoader
-from passive.pdf.chunker import TokenChunker
-from passive.service import  create_embedded_chunks
-from infrastructure.embedding.embedder import STEmbedder
-from infrastructure.vector_store.chroma_store import ChromaVectorStore
-from shared.schemas import Document, Chunk, EmbeddedChunk
+from program_files.passive.pdf.loader import PypdfLoader
+from program_files.passive.pdf.chunker import TokenChunker
+from program_files.passive.service import  create_embedded_chunks
+from program_files.infrastructure.embedding.embedder import STEmbedder
+from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
+from program_files.shared.schemas import Document, Chunk, EmbeddedChunk
 
 def passive_operator():
     

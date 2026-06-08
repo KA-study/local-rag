@@ -1,14 +1,14 @@
 import pytest
 
-from passive.pdf.base import PDFChunkerBase
-from passive.pdf.chunker import TokenChunker
-from shared.schemas import Document, Chunk
+from program_files.passive.pdf.base import PDFChunkerBase
+from program_files.passive.pdf.chunker import TokenChunker
+from program_files.shared.schemas import Document, Chunk
 
 
 @pytest.mark.parametrize(
     "chunker",
     [
-        TokenChunker,
+        TokenChunker(),
     ]
 )
 def test_make_chunk(chunker: PDFChunkerBase):

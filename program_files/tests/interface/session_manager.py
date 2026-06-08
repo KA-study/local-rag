@@ -1,8 +1,8 @@
 import pytest
 
-from interface.session_manager.base import SessionManagerInterface
-from interface.session_manager.cli import CliSessionManagerInterface
-from shared.schemas import ExitCommandError
+from program_files.interface.session_manager.base import SessionManagerInterface
+from program_files.interface.session_manager.cli import CliSessionManagerInterface
+from program_files.shared.schemas import ExitCommandError
 
 
 # ====== SessionManagerInterface.select_session_id() ======

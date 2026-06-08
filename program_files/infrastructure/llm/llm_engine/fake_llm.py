@@ -1,7 +1,7 @@
 
 
-from shared.schemas import LLMResponse, Usage
-from infrastructure.llm.llm_engine.base import LLM
+from program_files.shared.schemas import LLMResponse, Usage
+from program_files.infrastructure.llm.llm_engine.base import LLM
 
 class FakeLLM(LLM):
 

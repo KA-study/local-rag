@@ -1,6 +1,6 @@
 
 
-from shared.schemas import PRICE_TABLE
+from program_files.shared.schemas import PRICE_TABLE
 
 
 def calc_cost(input_tokens: int, output_tokens: int, model_name: str) -> float:

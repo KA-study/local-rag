@@ -2,9 +2,9 @@ from pathlib import Path
 from pypdf import PdfReader
 import re
 
-from passive.pdf._types import PDF_PATH
-from pdf.base import PDFLoaderBase
-from shared.schemas import Document
+from program_files.passive.pdf._types import PDF_PATH
+from program_files.passive.pdf.base import PDFLoaderBase
+from program_files.shared.schemas import Document
 
 class PypdfLoader(PDFLoaderBase):
     """

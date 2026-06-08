@@ -1,12 +1,12 @@
 
-from app.context import AppContext
-from active.session.history.history_manager import HistoryManager
-from active.session._types import SessionContext
-from active.session.interface_adapter.chat import ChatInterfaceAdapter
-from active.query.pipeline import QueryPipeline
-from active._types import Message
-from interface.chat.base import ChatInterface
-from shared.schemas import ExitCommandError
+from program_files.app.context import AppContext
+from program_files.active.session.history.history_manager import HistoryManager
+from program_files.active.session._types import SessionContext
+from program_files.active.session.interface_adapter.chat import ChatInterfaceAdapter
+from program_files.active.query.pipeline import QueryPipeline
+from program_files.active._types import Message
+from program_files.interface.chat.base import ChatInterface
+from program_files.shared.schemas import ExitCommandError
 
 class Session:
 

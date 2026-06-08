@@ -1,8 +1,8 @@
 import pytest
 
-from interface.chat.base import ChatInterface
-from interface.chat.cli import CliChatInterface
-from shared.schemas import ExitCommandError
+from program_files.interface.chat.base import ChatInterface
+from program_files.interface.chat.cli import CliChatInterface
+from program_files.shared.schemas import ExitCommandError
 
 #現時点の書き方は、GUIには対応していない（GUIはinput()によって作動するわけではないため。)
 #======ChatInterface.get_input()==============

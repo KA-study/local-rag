@@ -1,14 +1,14 @@
 #ここでSessionを呼ぶ
 #ここでhistory_managerをインスタンス化する
 
-from active.session.session import Session
-from active.session.history.history_manager import HistoryManager
-from active.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
-from active.session._types import SessionContext
-from app.context import AppContext
-from interface.session_manager.cli import CliSessionManagerInterface
-from interface.chat.cli import CliChatInterface
-from shared.schemas import ExitCommandError
+from program_files.active.session.session import Session
+from program_files.active.session.history.history_manager import HistoryManager
+from program_files.active.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
+from program_files.active.session._types import SessionContext
+from program_files.app.context import AppContext
+from program_files.interface.session_manager.cli import CliSessionManagerInterface
+from program_files.interface.chat.cli import CliChatInterface
+from program_files.shared.schemas import ExitCommandError
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。
 

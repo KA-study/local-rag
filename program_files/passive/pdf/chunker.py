@@ -1,7 +1,7 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from pdf.base import PDFChunkerBase
-from shared.schemas import Document, Chunk
+from program_files.passive.pdf.base import PDFChunkerBase
+from program_files.shared.schemas import Document, Chunk
 
 
 class TokenChunker(PDFChunkerBase):

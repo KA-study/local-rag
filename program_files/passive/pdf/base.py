@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from shared.schemas import Document
 from pathlib import Path
 
-from shared.schemas import Chunk
+from program_files.shared.schemas import Chunk
 
 #===========PDFLoader=================
 class PDFLoaderBase(ABC):

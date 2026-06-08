@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from shared.schemas import ExitCommandError
+from program_files.shared.schemas import ExitCommandError
 
 class SessionManagerInterface(Protocol):
 

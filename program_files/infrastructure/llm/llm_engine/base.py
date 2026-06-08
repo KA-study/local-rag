@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from shared.schemas import LLMResponse
+from program_files.shared.schemas import LLMResponse
 
 class LLM(Protocol):
     def generate(self, prompt: str) -> LLMResponse:
