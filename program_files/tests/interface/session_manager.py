@@ -70,3 +70,30 @@ def test_select_session_id_exit_command(monkeypatch):
         )
 
 
+# ====== SessionManagerInterface.create_session_id() ======
+
+def test_create_session_id(monkeypatch):
+
+    session_manager: SessionManagerInterface = CliSessionManagerInterface()
+
+    monkeypatch.setattr(
+        "builtins.input",
+        lambda _: "test_session"
+    )
+
+    result = session_manager.create_session_id()
+
+    assert result.startswith("test_session")
+
+
+def test_create_session_id_exit_command(monkeypatch):
+
+    session_manager: SessionManagerInterface = CliSessionManagerInterface()
+
+    monkeypatch.setattr(
+        "builtins.input",
+        lambda _: ":q"
+    )
+
+    with pytest.raises(ExitCommandError):
+        session_manager.create_session_id()
