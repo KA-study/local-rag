@@ -81,5 +81,3 @@ def test_load_pdf_source_is_str(monkeypatch):
 
     assert isinstance(docs[0].source, str)
 
-print(PypdfLoader)
-print(type(PypdfLoader))
