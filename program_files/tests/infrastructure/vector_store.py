@@ -15,6 +15,7 @@ def test_add_and_count(vector_store: VectorStore):
 
     assert vector_store.count() == 1
 
+
 def test_search_returns_added_chunk(vector_store: VectorStore):
     chunk = sample_chunk()
 
@@ -27,3 +28,19 @@ def test_search_returns_added_chunk(vector_store: VectorStore):
 
     assert len(result) == 1
     assert result[0].chunk.text == chunk.chunk.text
+
+
+def test_delete(vector_store: VectorStore):
+    chunk = sample_chunk()
+
+    vector_store.add([chunk])
+
+    chunk_id = (
+        f"{chunk.chunk.source}_"
+        f"{chunk.chunk.page}_"
+        f"{chunk.chunk.chunk_index}"
+    )
+
+    vector_store.delete([chunk_id])
+
+    assert vector_store.count() == 0
