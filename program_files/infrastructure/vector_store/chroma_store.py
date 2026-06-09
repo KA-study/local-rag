@@ -9,14 +9,16 @@ class ChromaVectorStore(VectorStore):
     
     def __init__(
             self,
+            persist_directory: str = PERSIST_DIRECTORY,
+            collection_name: str = COLLECTION_NAME
     ) -> None:
 
         self._client = chromadb.PersistentClient(
-            path = PERSIST_DIRECTORY
+            path=persist_directory
         )
 
         self._collection = self._client.get_or_create_collection(
-            name=COLLECTION_NAME
+            name=collection_name
         )
         
 

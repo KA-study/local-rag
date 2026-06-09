@@ -1,15 +1,24 @@
 import pytest
+import uuid
 
 from program_files.infrastructure.vector_store.base import VectorStore
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
 from shared.schemas import EmbeddedChunk, Chunk
 
-
 @pytest.fixture(params=[
     ChromaVectorStore,
 ])
-def vector_store(request):
-    return request.param()
+def vector_store(request, tmp_path) -> VectorStore:
+
+    cls = request.param
+
+    if cls is ChromaVectorStore:
+        return cls(
+            persist_directory=str(tmp_path),
+            collection_name=f"test_{uuid.uuid4()}"
+        )
+
+    return cls()
 
 
 def sample_chunk() -> EmbeddedChunk:
