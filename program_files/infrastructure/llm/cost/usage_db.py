@@ -16,6 +16,7 @@ class SQliteUsageDB(UsageDB):
 
     def __init__(self, app_context: AppContext, db_path: str = "usage.db"):
         self._conn = sqlite3.connect(db_path)
+        self._conn.row_factory = sqlite3.Row
         self._user_id = app_context.user_id
 
         self._init_tables()
@@ -64,7 +65,7 @@ class SQliteUsageDB(UsageDB):
                     user_id,
                     total_input_tokens,
                     total_output_tokens,
-                    total_cost,
+                    total_cost
                 )
                 VALUES (?, ?, ?, ?)
                 ON CONFLICT(user_id)
@@ -130,7 +131,7 @@ class SQliteUsageDB(UsageDB):
                 total_cost,
                 available_cost
             )
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
             """,
             (
                 self._user_id,
@@ -140,4 +141,6 @@ class SQliteUsageDB(UsageDB):
                 available_cost
             )
         )
+
+        self._conn.commit()
          
