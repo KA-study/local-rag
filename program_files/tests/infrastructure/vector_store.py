@@ -1,11 +1,27 @@
-
+import pytest
 
 from program_files.infrastructure.vector_store.base import VectorStore
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
-from shared.schemas import EmbeddedChunk
+from shared.schemas import EmbeddedChunk, Chunk
+
+
+@pytest.fixture(params=[
+    ChromaVectorStore,
+])
+def vector_store(request):
+    return request.param()
+
 
 def sample_chunk() -> EmbeddedChunk:
-    ...
+    return EmbeddedChunk(
+        chunk=Chunk(
+            text="This is a test sentence.",
+            page=1,
+            source="sample.pdf",
+            chunk_index=0
+        ),
+        embedding=[0.1, 0.2, 0.3]
+    )
 
 
 def test_add_and_count(vector_store: VectorStore):
@@ -30,6 +46,7 @@ def test_search_returns_added_chunk(vector_store: VectorStore):
     assert result[0].chunk.text == chunk.chunk.text
 
 
+#chunk_idの管理を変更すべきだ。
 def test_delete(vector_store: VectorStore):
     chunk = sample_chunk()
 
