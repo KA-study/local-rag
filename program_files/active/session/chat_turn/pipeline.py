@@ -25,6 +25,7 @@ from program_files.active.session.chat_turn.generator import QueryGenerator
 from program_files.active.session.chat_turn.retriever import Retriever
 from program_files.active.session.chat_turn.context_builder import ContextBuilder
 from program_files.active.session.chat_turn.prompt_builder import PromptBuilder
+from program_files.active.session._types import SessionContext
 from program_files.active._types import Message
 from program_files.infrastructure.llm.llm_manager import LLMManager
 from program_files.shared.schemas import RetrievedChunk
@@ -35,13 +36,18 @@ class QueryPipeline:
     def __init__(
         self,
         app_context: AppContext,
+        session_context: SessionContext,
         history_manager: HistoryManager
     ):
         self._app_context = app_context
+        self._session_context = session_context
         #ここは後ほど上から持ってこれるようにする。
         self._query_generator = QueryGenerator()
         self._retriever = Retriever()
-        self._prompt_builder = PromptBuilder(history_manager)
+        self._prompt_builder = PromptBuilder(
+            session_context,
+            history_manager
+        )
         self._llm_manager = LLMManager(app_context)
         self._context_builder = ContextBuilder()
 
@@ -64,8 +70,8 @@ class QueryPipeline:
 
         #Prompt生成        
         prompt_str: str = self._prompt_builder.build(
-            generated_message,
-            context_str
+            message=generated_message,
+            context=context_str
         )
 
         #LLM処理
