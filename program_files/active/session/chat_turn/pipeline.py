@@ -21,10 +21,10 @@ LLMOutputをデータ化
 '''
 
 from program_files.active.session.history.history_manager import HistoryManager
-from program_files.active.chat_turn.generator import QueryGenerator
-from program_files.active.chat_turn.retriever import Retriever
-from program_files.active.chat_turn.context_builder import ContextBuilder
-from program_files.active.chat_turn.prompt_builder import PromptBuilder
+from program_files.active.session.chat_turn.generator import QueryGenerator
+from program_files.active.session.chat_turn.retriever import Retriever
+from program_files.active.session.chat_turn.context_builder import ContextBuilder
+from program_files.active.session.chat_turn.prompt_builder import PromptBuilder
 from program_files.active._types import Message
 from program_files.infrastructure.llm.llm_manager import LLMManager
 from program_files.shared.schemas import RetrievedChunk

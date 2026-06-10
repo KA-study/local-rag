@@ -3,7 +3,7 @@ from program_files.app.context import AppContext
 from program_files.active.session.history.history_manager import HistoryManager
 from program_files.active.session._types import SessionContext
 from program_files.active.session.interface_adapter.chat import ChatInterfaceAdapter
-from program_files.active.chat_turn.pipeline import QueryPipeline
+from program_files.active.session.chat_turn.pipeline import QueryPipeline
 from program_files.active._types import Message
 from program_files.interface.chat.base import ChatInterface
 from program_files.shared.schemas import ExitCommandError
