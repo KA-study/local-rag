@@ -8,9 +8,7 @@ from program_files.app.context import AppContext
 from program_files.shared.schemas import Usage
 
 
-# =========================
-# Fixture
-# =========================
+#===============Fixture=============================
 
 @pytest.fixture(params=[
     SQliteUsageDB,
@@ -27,9 +25,7 @@ def usage_db(request) -> Generator[UsageDB, None, None]:
     db.close()
 
 
-# =========================
-# Tests
-# =========================
+#================Tests=================================
 
 def test_get_status_returns_none_if_empty(
     usage_db: UsageDB
@@ -50,5 +46,35 @@ def test_set_available_cost(
     assert status["total_input_tokens"] == 0
     assert status["total_output_tokens"] == 0
     assert status["total_cost"] == 0
+    assert status["available_cost"] == 100
+
+
+def test_write_log_and_status(
+    usage_db: UsageDB,
+    monkeypatch
+):
+    monkeypatch.setattr(
+        "program_files.infrastructure.llm.cost.sqlite_db.calc_cost",
+        lambda *_: 1.5
+    )
+
+    usage_db.set_available_cost(100)
+
+    usage = Usage(
+        model_name="fake-model",
+        input_tokens=10,
+        output_tokens=20,
+    )
+
+    usage_db.write_log_and_status(usage)
+
+    status = usage_db.get_status()
+
+    assert status is not None
+
+    assert status["user_id"] == "test_user"
+    assert status["total_input_tokens"] == 10
+    assert status["total_output_tokens"] == 20
+    assert status["total_cost"] == 1.5
     assert status["available_cost"] == 100
 
