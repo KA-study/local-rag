@@ -25,7 +25,7 @@ end
 
 subgraph Infrastructure
     subgraph LLM
-        LLM
+        LLMOperator
         LLMEngine
     end
     VectorStore
