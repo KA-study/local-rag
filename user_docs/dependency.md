@@ -34,14 +34,14 @@ end
 
 Session --> Query
 Session --> History
-session --> SessionManagerInterfaceAdapter
+Session --> SessionManagerInterfaceAdapter
 Query --> ChatInterfaceAdapter
 Query --> LLM
 Query --> Embedder
 Query --> VectorStore
 
 SessionManagerInterfaceAdapter --> SessionManagerInterface
-ChatItnerfaceAdapter --> ChatInterface
+ChatInterfaceAdapter --> ChatInterface
 
 
 PassiveOperator --> Chunker
@@ -50,6 +50,6 @@ PassiveOperator --> Embedder
 PassiveOperator --> VectorStore
 
 
-LLM --> LLMEngine
+LLMOperator --> LLMEngine
 
 ```
