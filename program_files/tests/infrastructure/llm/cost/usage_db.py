@@ -78,3 +78,38 @@ def test_write_log_and_status(
     assert status["total_cost"] == 1.5
     assert status["available_cost"] == 100
 
+
+def test_write_log_accumulates(
+    usage_db: UsageDB,
+    monkeypatch
+):
+    monkeypatch.setattr(
+        "program_files.infrastructure.llm.cost.sqlite_db.calc_cost",
+        lambda *_: 1.5
+    )
+
+    usage_db.set_available_cost(100)
+
+    usage1 = Usage(
+        model_name="fake-model",
+        input_tokens=10,
+        output_tokens=20,
+    )
+
+    usage2 = Usage(
+        model_name="fake-model",
+        input_tokens=30,
+        output_tokens=40,
+    )
+
+    usage_db.write_log_and_status(usage1)
+    usage_db.write_log_and_status(usage2)
+
+    status = usage_db.get_status()
+
+    assert status is not None
+
+    assert status["total_input_tokens"] == 40
+    assert status["total_output_tokens"] == 60
+    assert status["total_cost"] == 3.0
+    assert status["available_cost"] == 100
