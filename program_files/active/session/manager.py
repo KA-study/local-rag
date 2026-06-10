@@ -45,13 +45,13 @@ class SessionManager:
             session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
 
             #セッション一覧および新規作成を表示し、選択されたsessionを取得
+            #SessionManagerブロックを抜け出す処理
             try:
                 session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
             except ExitCommandError:
                 break
             
             #選択されたsessionでsession.run()
-            #ここに、各sessionが終了したときの処理
             session = Session(
                 app_context=self._app_context,
                 session_context=session_context,
@@ -60,6 +60,7 @@ class SessionManager:
                 ui=CliChatInterface()
             )
 
+            #ここに、各sessionが終了したときの処理
             session.run()
 
 

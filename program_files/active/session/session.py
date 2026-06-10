@@ -21,7 +21,10 @@ class Session:
     ):
 
         self._session_context = session_context
-        self._pipeline = QueryPipeline(app_context, history_manager)
+        self._pipeline = QueryPipeline(
+            app_context,
+            session_context,
+            history_manager)
         self._ui = ChatInterfaceAdapter(ui)
         self._app_context = app_context
 
