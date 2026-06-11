@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-from program_files.active.session.history.history_db import SQliteHistoryDB
+from program_files.session.history.history_db import SQliteHistoryDB
 from program_files.passive.pdf.loader import PypdfLoader
 from program_files.passive.pdf.chunker import TokenChunker
 from program_files.interface.chat.cli import CliChatInterface
