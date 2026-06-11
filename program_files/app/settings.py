@@ -14,7 +14,7 @@ from program_files.infrastructure.llm.cost.base import UsageDB
 
 
 @dataclass
-class ActiveSettings:
+class SessionSettings:
     history_db: type[HistoryDB]
 
     def __post_init__(self):
@@ -69,7 +69,7 @@ class InfrastructureSettings:
 
 @dataclass 
 class Settings:
-    active: ActiveSettings
+    session: SessionSettings
     passive: PassiveSettings
     interface: InterfaceSettings
     infrastructure: InfrastructureSettings
