@@ -1,6 +1,6 @@
 
 
-from program_files.active.session._types import SessionContext
+from program_files.session._types import SessionContext
 from program_files.interface.session_manager.base import SessionManagerInterface
 
 

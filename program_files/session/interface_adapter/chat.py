@@ -1,7 +1,7 @@
 
 
 from program_files.interface.chat.base import ChatInterface
-from program_files.active._types import Message
+from program_files.session._types import Message
 
 
 class ChatInterfaceAdapter:

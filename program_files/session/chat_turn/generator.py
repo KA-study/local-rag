@@ -1,5 +1,5 @@
 #クエリジェネレーター
-from program_files.active._types import Message
+from program_files.session._types import Message
 
 class QueryGenerator:
 

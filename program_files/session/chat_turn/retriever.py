@@ -13,7 +13,7 @@ RetrievedChunkを返す
 '''
 import numpy
 
-from program_files.active._types import Message
+from program_files.session._types import Message
 from program_files.infrastructure.embedding.embedder import STEmbedder
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
 from program_files.shared.schemas import RetrievedChunk

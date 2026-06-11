@@ -1,6 +1,9 @@
-from typing import Literal
 from dataclasses import dataclass
+from typing import Literal
 
+@dataclass
+class SessionContext:
+    session_id: str
 
 Role = Literal["user", "assistant"]
 

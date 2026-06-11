@@ -1,10 +1,10 @@
 #ここでSessionを呼ぶ
 #ここでhistory_managerをインスタンス化する
 
-from program_files.active.session.session import Session
-from program_files.active.session.history.history_manager import HistoryManager
-from program_files.active.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
-from program_files.active.session._types import SessionContext
+from program_files.session.session import Session
+from program_files.session.history.history_manager import HistoryManager
+from program_files.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
+from program_files.session._types import SessionContext
 from program_files.app.context import AppContext
 from program_files.interface.session_manager.cli import CliSessionManagerInterface
 from program_files.interface.chat.cli import CliChatInterface

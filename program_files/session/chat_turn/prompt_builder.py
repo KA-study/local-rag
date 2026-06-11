@@ -1,8 +1,8 @@
 #プロンプト生成
-from program_files.active.session.history.history_manager import HistoryManager
-from program_files.active.session._types import SessionContext
-from program_files.active._types import Message
-from program_files.active.session._types import SessionContext
+from program_files.session.history.history_manager import HistoryManager
+from program_files.session._types import SessionContext
+from program_files.session._types import Message
+from program_files.session._types import SessionContext
 
 class PromptBuilder:
 
