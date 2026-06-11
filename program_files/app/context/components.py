@@ -13,7 +13,7 @@ from program_files.infrastructure.vector_store.base import VectorStore
 from program_files.infrastructure.llm.cost.base import UsageDB
 
 
-@dataclass
+@dataclass(frozen=True)
 class SessionComponents:
     history_db: type[HistoryDB]
 
@@ -23,7 +23,7 @@ class SessionComponents:
                 "history_db must be subclass of HistoryDB."
             )
 
-@dataclass
+@dataclass(frozen=True)
 class PassiveComponents:
     pdf_loader: type[PDFLoaderBase]
     chunker: type[PDFChunkerBase]
@@ -39,12 +39,12 @@ class PassiveComponents:
             )
 
 #Protocolで実装しているためsubclassチェックは省略
-@dataclass
+@dataclass(frozen=True)
 class InterfaceComponents:
     chat_interface: type[ChatInterface]
     session_manager_interface: type[SessionManagerInterface]
 
-@dataclass
+@dataclass(frozen=True)
 class InfrastructureComponents:
     vector_store: type[VectorStore]
     #Protocolで実装しているためsubclassチェックは省略
@@ -67,7 +67,7 @@ class InfrastructureComponents:
             )
 
 
-@dataclass 
+@dataclass(frozen=True)
 class Components:
     session: SessionComponents
     passive: PassiveComponents

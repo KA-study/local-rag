@@ -1,11 +1,11 @@
-from program_files.app.components import (
+from program_files.app.context.components import (
     Components,
     SessionComponents,
     PassiveComponents,
     InterfaceComponents,
     InfrastructureComponents,
 )
-from program_files.app.user_config import (
+from program_files.app.context.user_config import (
     Path,
     UserConfig
 )
