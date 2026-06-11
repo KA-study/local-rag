@@ -14,7 +14,7 @@ from program_files.infrastructure.llm.cost.base import UsageDB
 
 
 @dataclass
-class SessionSettings:
+class SessionComponents:
     history_db: type[HistoryDB]
 
     def __post_init__(self):
@@ -24,7 +24,7 @@ class SessionSettings:
             )
 
 @dataclass
-class PassiveSettings:
+class PassiveComponents:
     pdf_loader: type[PDFLoaderBase]
     chunker: type[PDFChunkerBase]
 
@@ -40,12 +40,12 @@ class PassiveSettings:
 
 #Protocolで実装しているためsubclassチェックは省略
 @dataclass
-class InterfaceSettings:
+class InterfaceComponents:
     chat_interface: type[ChatInterface]
     session_manager_interface: type[SessionManagerInterface]
 
 @dataclass
-class InfrastructureSettings:
+class InfrastructureComponents:
     vector_store: type[VectorStore]
     #Protocolで実装しているためsubclassチェックは省略
     llm_engine: type[LLM]
@@ -68,8 +68,8 @@ class InfrastructureSettings:
 
 
 @dataclass 
-class Settings:
-    session: SessionSettings
-    passive: PassiveSettings
-    interface: InterfaceSettings
-    infrastructure: InfrastructureSettings
+class Components:
+    session: SessionComponents
+    passive: PassiveComponents
+    interface: InterfaceComponents
+    infrastructure: InfrastructureComponents

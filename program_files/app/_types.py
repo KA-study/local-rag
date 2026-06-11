@@ -1,9 +1,9 @@
 from program_files.app.settings import (
-    Settings,
-    SessionSettings,
-    PassiveSettings,
-    InterfaceSettings,
-    InfrastructureSettings,
+    Components,
+    SessionComponents,
+    PassiveComponents,
+    InterfaceComponents,
+    InfrastructureComponents,
 )
 from program_files.session.history.history_db import HistoryDB
 from program_files.passive.pdf.loader import PypdfLoader
@@ -19,30 +19,30 @@ from program_files.infrastructure.embedding.embedder import STEmbedder
 DEFAULT_USER_ID: str = "default"
 
 
-DEFAULT_SESSION_SETTINGS = SessionSettings(
+DEFAULT_SESSION_COMPONENTS = SessionComponents(
     history_db=HistoryDB
 )
 
-DEFAULT_PASSIVE_SETTINGS = PassiveSettings(
+DEFAULT_PASSIVE_COMPONENTS = PassiveComponents(
     pdf_loader=PypdfLoader,
     chunker=TokenChunker,
 )
 
-DEFAULT_INTERFACE_SETTINGS = InterfaceSettings(
+DEFAULT_INTERFACE_COMPONENTS = InterfaceComponents(
     chat_interface=CliChatInterface,
     session_manager_interface=CliSessionManagerInterface
 )
 
-DEFAULT_INFRASTRUCTURE_SETTINGS = InfrastructureSettings(
+DEFAULT_INFRASTRUCTURE_COMPONENTS = InfrastructureComponents(
     vector_store=ChromaVectorStore,
     llm_engine=FakeLLM,
     usage_db=UsageDB,
     embedder=STEmbedder,
 )
 
-DEFAULT_SETTINGS = Settings(
-    session=DEFAULT_SESSION_SETTINGS,
-    passive=DEFAULT_PASSIVE_SETTINGS,
-    interface=DEFAULT_INTERFACE_SETTINGS,
-    infrastructure=DEFAULT_INFRASTRUCTURE_SETTINGS,
+DEFAULT_COMPONENTS = Components(
+    session=DEFAULT_SESSION_COMPONENTS,
+    passive=DEFAULT_PASSIVE_COMPONENTS,
+    interface=DEFAULT_INTERFACE_COMPONENTS,
+    infrastructure=DEFAULT_INFRASTRUCTURE_COMPONENTS,
 )
