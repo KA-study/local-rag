@@ -2,7 +2,6 @@ from program_files.app.context.components import (
     Components,
     SessionComponents,
     PassiveComponents,
-    InterfaceComponents,
     InfrastructureComponents,
 )
 from program_files.app.context.user_config import (
@@ -34,11 +33,6 @@ DEFAULT_PASSIVE_COMPONENTS = PassiveComponents(
     chunker=TokenChunker,
 )
 
-DEFAULT_INTERFACE_COMPONENTS = InterfaceComponents(
-    chat_interface=CliChatInterface,
-    session_manager_interface=CliSessionManagerInterface
-)
-
 DEFAULT_INFRASTRUCTURE_COMPONENTS = InfrastructureComponents(
     vector_store=ChromaVectorStore,
     llm_engine=FakeLLM,
@@ -49,7 +43,6 @@ DEFAULT_INFRASTRUCTURE_COMPONENTS = InfrastructureComponents(
 DEFAULT_COMPONENTS = Components(
     session=DEFAULT_SESSION_COMPONENTS,
     passive=DEFAULT_PASSIVE_COMPONENTS,
-    interface=DEFAULT_INTERFACE_COMPONENTS,
     infrastructure=DEFAULT_INFRASTRUCTURE_COMPONENTS,
 )
 

@@ -38,12 +38,6 @@ class PassiveComponents:
                 "chunker must be subclass of PDFChunkerBase."
             )
 
-#Protocolで実装しているためsubclassチェックは省略
-@dataclass(frozen=True)
-class InterfaceComponents:
-    chat_interface: type[ChatInterface]
-    session_manager_interface: type[SessionManagerInterface]
-
 @dataclass(frozen=True)
 class InfrastructureComponents:
     vector_store: type[VectorStore]
@@ -71,5 +65,4 @@ class InfrastructureComponents:
 class Components:
     session: SessionComponents
     passive: PassiveComponents
-    interface: InterfaceComponents
     infrastructure: InfrastructureComponents

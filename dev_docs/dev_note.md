@@ -1,3 +1,16 @@
+# 2026/06/12 - Interfaceクラス差し替え機能の分離
+
+## 結論
+Interfaceは他のcomponentsとは分離して実装する
+
+## 理由
+Componentsの変更には、Interfaceが必要である。
+したがって、Interfaceはプログラム実行時にはすでに決定されていなければならない。
+そのため、Interfaceごとにプログラム全体のentry pointを作り、それによって用いるInterfaceを変更する。
+Interfaceはuser_idに依存しない。
+
+---
+
 # 2026/06/11 - AppContextの一意的存在の保証
 
 ## 結論
