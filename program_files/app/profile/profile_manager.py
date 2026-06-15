@@ -3,7 +3,7 @@
 from program_files.app.context.context import AppContext
 from program_files.app.context.components import Components
 
-class AppState:
+class ProfileManager:
     
     def __init__(self):
         self._context = AppContext() #frozen
