@@ -3,7 +3,7 @@ import sqlite3
 from program_files.session.history._types import CREATE_HISTORY_DB
 from program_files.session.history.base import HistoryDB
 from program_files.session._types import Message
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 
 
 class SQliteHistoryDB(HistoryDB):

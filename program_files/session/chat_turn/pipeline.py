@@ -29,7 +29,7 @@ from program_files.session._types import SessionContext
 from program_files.session._types import Message
 from program_files.infrastructure.llm.llm_manager import LLMManager
 from program_files.shared.schemas import RetrievedChunk
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 
 class QueryPipeline:
 

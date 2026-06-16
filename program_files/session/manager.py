@@ -5,9 +5,7 @@ from program_files.session.session import Session
 from program_files.session.history.history_manager import HistoryManager
 from program_files.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
 from program_files.session._types import SessionContext
-from program_files.app.context import AppContext
-from program_files.interface.session_manager.cli import CliSessionManagerInterface
-from program_files.interface.chat.cli import CliChatInterface
+from program_files.app.context.context import AppContext
 from program_files.shared.schemas import ExitCommandError
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。

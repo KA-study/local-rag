@@ -4,7 +4,7 @@ from program_files.session.history.base import HistoryDB
 from program_files.session.history.history_db import SQliteHistoryDB
 from program_files.session._types import SessionContext
 from program_files.session._types import Message
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 
 
 class HistoryManager:

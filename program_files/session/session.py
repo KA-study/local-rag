@@ -1,11 +1,10 @@
 
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 from program_files.session.history.history_manager import HistoryManager
 from program_files.session._types import SessionContext
 from program_files.session.interface_adapter.chat import ChatInterfaceAdapter
 from program_files.session.chat_turn.pipeline import QueryPipeline
 from program_files.session._types import Message
-from program_files.interface.chat.base import ChatInterface
 from program_files.shared.schemas import ExitCommandError
 
 class Session:
