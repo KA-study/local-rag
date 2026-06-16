@@ -1,16 +1,15 @@
 
 
 from program_files.session._types import SessionContext
-from program_files.interface.session_manager.base import SessionManagerInterface
+from program_files.runtime import Runtime
 
 
 class SessionManagerInterfaceAdapter:
 
     def __init__(
         self,
-        session_manager_interface: SessionManagerInterface
     ):
-        self._s_m_interface = session_manager_interface
+        self._s_m_interface = Runtime.get_interface().session_manager()
 
 
     def select_session(

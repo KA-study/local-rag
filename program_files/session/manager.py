@@ -30,9 +30,7 @@ class SessionManager:
         self._app_context = app_context
         self._history_manager = HistoryManager(app_context)
         #このcliとguiの切り替えは、後ほどよく考えて再実装
-        self._s_m_interface_adapter = SessionManagerInterfaceAdapter(
-            CliSessionManagerInterface()
-        )
+        self._s_m_interface_adapter = SessionManagerInterfaceAdapter()
 
     
     def run(self):
@@ -54,8 +52,6 @@ class SessionManager:
                 app_context=self._app_context,
                 session_context=session_context,
                 history_manager=self._history_manager,
-                #ここをどうするか。
-                ui=CliChatInterface()
             )
 
             #ここに、各sessionが終了したときの処理

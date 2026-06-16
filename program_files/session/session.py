@@ -16,7 +16,6 @@ class Session:
         app_context: AppContext,
         session_context: SessionContext,
         history_manager: HistoryManager,
-        ui: ChatInterface
     ):
 
         self._session_context = session_context
@@ -25,7 +24,7 @@ class Session:
             session_context,
             history_manager
         )
-        self._ui = ChatInterfaceAdapter(ui)
+        self._ui = ChatInterfaceAdapter()
         self._app_context = app_context
 
         self._history_manager = history_manager
