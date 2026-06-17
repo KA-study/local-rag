@@ -1,5 +1,10 @@
 from dataclasses import dataclass
 
+"""
+重要：
+このファイルは、ほかのファイルからインポートしてはならない。
+"""
+
 @dataclass
 class Document:
     page: int
@@ -50,3 +55,13 @@ PRICE_TABLE: dict[str, ModelPrice] = {
 class ExitCommandError(Exception):
     pass
     #現在の処理ブロックを終了するための例外
+
+#=================interface関連=====================
+
+@dataclass
+class ComponentsTreeNode:
+    name: str
+    current: str | None
+    choices: list[str] | None
+    #前方参照
+    children: list["ComponentsTreeNode"]

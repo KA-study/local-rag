@@ -1,5 +1,5 @@
 from typing import Protocol
-from app.context.components import Components
+from program_files.shared.schemas import ComponentsTreeNode
 
 
 class EditComponentsInterface(Protocol):
@@ -11,6 +11,6 @@ class EditComponentsInterface(Protocol):
     #現在選択されているComponentsと、選択可能なComponentsの表示
     def display_list(
         self,
-        components: Components,
+        components_tree: ComponentsTreeNode,
     ):
         ...

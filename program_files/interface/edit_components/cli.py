@@ -1,7 +1,5 @@
-from dataclasses import field
-
 from program_files.interface.edit_components.base import EditComponentsInterface
-from program_files.app.context.components import Components
+from program_files.shared.schemas import ComponentsTreeNode
 
 class CliEditComponentsInterface(EditComponentsInterface):
 
@@ -10,5 +8,6 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
     def display_list(
         self,
-        components: Components,
+        components_tree: ComponentsTreeNode,
     ) -> None:
+        ...
