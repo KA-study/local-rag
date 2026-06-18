@@ -1,3 +1,12 @@
+# 2026/06/18 - ComponentsかComponentか
+
+## 結論
+Componentsのままにする。
+
+## 詳細
+Componentは、言葉の意味を考えると、ComponentsではなくComponentとするべきである。
+しかしながら、当プロジェクトにおけるComponentsは複数の差し替え可能クラスを保持することを強調したいため、複数形とする。
+
 # 2026/06/16 - Interfaceのプリミティブ限定の部分的解除
 
 ## 結論
