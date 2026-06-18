@@ -53,3 +53,42 @@ class ComponentsRegistry:
             base,
             []
         )
+
+    @classmethod
+    def get_name(
+        cls,
+        implementation: type,
+    ) -> str:
+
+        for infos in cls._registry.values():
+            for info in infos:
+                if info.type is implementation:
+                    return info.name
+
+        raise ValueError(
+            f"{implementation.__name__} is not registered."
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
