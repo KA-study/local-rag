@@ -9,9 +9,14 @@ from program_files.infrastructure.llm.cost._types import (
     CurrentStatus
 )
 from program_files.app.context.context import AppContext
+from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Usage
 
 
+@ComponentsRegistry.component(
+    base=UsageDB,
+    name="sqlite_usage_db"
+)
 class SQliteUsageDB(UsageDB):
 
     def __init__(self, app_context: AppContext, db_path: str = "usage.db"):

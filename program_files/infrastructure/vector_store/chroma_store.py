@@ -3,8 +3,14 @@ from typing import Any
 
 from program_files.infrastructure.vector_store._types import PERSIST_DIRECTORY, COLLECTION_NAME
 from program_files.infrastructure.vector_store.base import VectorStore
+from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Chunk, EmbeddedChunk, RetrievedChunk
 
+
+@ComponentsRegistry.component(
+    base=VectorStore,
+    name="chroma_vector_store" 
+)
 class ChromaVectorStore(VectorStore):
     
     def __init__(

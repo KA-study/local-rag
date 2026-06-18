@@ -4,8 +4,14 @@ import re
 
 from program_files.passive.pdf._types import PDF_PATH
 from program_files.passive.pdf.base import PDFLoaderBase
+from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Document
 
+
+@ComponentsRegistry.component(
+    base=PDFLoaderBase,
+    name="py_pdf_loader"
+)
 class PypdfLoader(PDFLoaderBase):
     """
     pypdf実装のローダー

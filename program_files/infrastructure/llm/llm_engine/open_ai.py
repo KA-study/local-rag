@@ -2,10 +2,16 @@ from openai import OpenAI
 
 from program_files.infrastructure.llm.llm_engine.base import LLM
 from program_files.shared.schemas import LLMResponse
+from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Usage
+
 
 #呼び出し側は、open_ai: LLM = OpenAILLM　とすることで、protocolを有効化すること。
 #OpenAI の特殊型はこのクラス内に完全に閉じ込める。
+@ComponentsRegistry.component(
+    base=LLM,
+    name="open_ai_llm"
+)
 class OpenAILLM(LLM):
     
     def __init__(self, model: str = "gpt-4.1-mini"):

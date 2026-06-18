@@ -4,7 +4,13 @@ from typing import cast
 
 from program_files.infrastructure.embedding._types import BATCH_SIZE, MODEL_NAME
 from program_files.infrastructure.embedding.base import BaseEmbedder
+from program_files.app.registry.components_registry import ComponentRegistry
 
+
+@ComponentRegistry.component(
+    base=BaseEmbedder,
+    name="st_embedder"
+)
 class STEmbedder(BaseEmbedder):
 
 

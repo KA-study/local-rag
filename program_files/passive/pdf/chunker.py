@@ -2,8 +2,13 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from program_files.passive.pdf.base import PDFChunkerBase
 from program_files.shared.schemas import Document, Chunk
+from program_files.app.registry.components_registry import ComponentsRegistry
 
 
+@ComponentsRegistry.component(
+    base=PDFChunkerBase,
+    name="token_chunker"
+)
 class TokenChunker(PDFChunkerBase):
 
     def __init__(self):
