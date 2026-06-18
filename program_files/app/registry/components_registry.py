@@ -44,7 +44,7 @@ class ComponentsRegistry:
         return decorator
 
     @classmethod
-    def get_choices(
+    def get_choices_for_base(
         cls,
         base: type,
     ) -> list[ComponentsInfo]:
@@ -70,7 +70,7 @@ class ComponentsRegistry:
         )
 
     @classmethod
-    def get_choices_name(
+    def get_choices_for_implementation(
         cls,
         implementation: type,
     ) -> list[str]:
