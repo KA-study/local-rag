@@ -73,15 +73,12 @@ class ComponentsRegistry:
     def get_choices_for_implementation(
         cls,
         implementation: type,
-    ) -> list[str]:
+    ) -> list[ComponentsInfo]:
     
         for infos in cls._registry.values():
             for info in infos:
                 if info.type is implementation:
-                    return [
-                        choice.name
-                        for choice in infos
-                    ]
+                    return infos
 
         raise ValueError(
             f"{implementation.__name__} is not registered."
