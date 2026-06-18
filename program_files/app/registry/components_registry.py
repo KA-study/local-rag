@@ -69,6 +69,25 @@ class ComponentsRegistry:
             f"{implementation.__name__} is not registered."
         )
 
+    @classmethod
+    def get_choices_name(
+        cls,
+        implementation: type,
+    ) -> list[str]:
+    
+        for infos in cls._registry.values():
+            for info in infos:
+                if info.type is implementation:
+                    return [
+                        choice.name
+                        for choice in infos
+                    ]
+
+        raise ValueError(
+            f"{implementation.__name__} is not registered."
+        )
+
+
 
 
 
