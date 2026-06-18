@@ -2,7 +2,7 @@
 from program_files.infrastructure.llm.llm_engine.open_ai import OpenAILLM
 from program_files.infrastructure.llm.llm_engine.fake_llm import FakeLLM
 from program_files.infrastructure.llm.cost.cost_manager import CostManager
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 from program_files.shared.schemas import LLMResponse
 
 class LLMManager:

@@ -8,7 +8,7 @@ from program_files.infrastructure.llm.cost._types import (
     CREATE_USAGE_LOG_TABLE,
     CurrentStatus
 )
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 from program_files.shared.schemas import Usage
 
 

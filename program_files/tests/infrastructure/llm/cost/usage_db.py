@@ -4,7 +4,7 @@ from typing import Generator
 from program_files.infrastructure.llm.cost.base import UsageDB
 from program_files.infrastructure.llm.cost.usage_db import SQliteUsageDB
 
-from program_files.app.context import AppContext
+from program_files.app.context.context import AppContext
 from program_files.shared.schemas import Usage
 
 
