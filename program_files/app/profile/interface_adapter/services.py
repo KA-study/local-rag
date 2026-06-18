@@ -1,9 +1,11 @@
 from dataclasses import fields, is_dataclass
 
 from program_files.shared.schemas import ComponentsTreeNode
+from program_files.app.registry.components_registry import ComponentsRegistry
 
 
-def build_tree(name: str, obj: object) -> ComponentTreeNode:
+#再帰処理
+def build_tree(name: str, obj: object) -> ComponentsTreeNode:
     #枝部分処理
     if is_dataclass(obj):
         return ComponentsTreeNode(
@@ -19,7 +21,10 @@ def build_tree(name: str, obj: object) -> ComponentTreeNode:
     #葉部分処理
     return ComponentsTreeNode(
         name=name,
-        current=obj.__name__,       #仮置き
-        choices=get_choices(obj),   #仮置き
+        current=ComponentsRegistry.get_name(type[obj]),       #仮置き
+        choices=[
+            choice.name
+            for choice in ComponentsRegistry.get_choices_for_implementation(type[obj])
+        ],#仮置き
         children=[]
     )
