@@ -5,8 +5,6 @@ from program_files.passive.pdf.base import (
     PDFLoaderBase,
     PDFChunkerBase
 )
-from program_files.interface.chat.base import ChatInterface
-from program_files.interface.session_manager.base import SessionManagerInterface
 from program_files.infrastructure.embedding.base import BaseEmbedder
 from program_files.infrastructure.llm.llm_engine.base import LLM
 from program_files.infrastructure.vector_store.base import VectorStore
