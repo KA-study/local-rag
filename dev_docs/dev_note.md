@@ -1,3 +1,18 @@
+
+# 2026/06/19 - EditComponentsInterface設計
+
+## 結論
+get_inputとdisplay_listを廃止し、select_changeを実装する。
+
+## 理由
+主に、GUIとCLIの実行方法の差を埋めるためである。
+CLIは同期的に動くため、出力と入力を分離することができる。対して、
+GUIはまずエンティティを表示し、入力を待機する。そして、入力があってから、処理が実行される。
+すなわち、出力と入力がひとつながり、ということである。
+GUIに対応させるため、出力と入力がひとつながりになるようにするため、get_inputとdisplay_listを廃止し、select_changeを実装する。
+
+---
+
 # 2026/06/18 - ComponentsかComponentか
 
 ## 結論
@@ -6,6 +21,8 @@ Componentsのままにする。
 ## 詳細
 Componentは、言葉の意味を考えると、ComponentsではなくComponentとするべきである。
 しかしながら、当プロジェクトにおけるComponentsは複数の差し替え可能クラスを保持することを強調したいため、複数形とする。
+
+---
 
 # 2026/06/16 - Interfaceのプリミティブ限定の部分的解除
 
