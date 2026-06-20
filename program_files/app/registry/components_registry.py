@@ -1,6 +1,7 @@
 
 from program_files.app.registry.components_info import ComponentsInfo
 
+#global
 class ComponentsRegistry:
     _registry: dict[type, list[ComponentsInfo]] = {}
 

@@ -65,3 +65,8 @@ class ComponentsTreeNode:
     choices: list[str] | None
     #前方参照
     children: list["ComponentsTreeNode"]
+
+@dataclass
+class EditRequest:
+    path: tuple[str, ...]
+    selected_name: str
