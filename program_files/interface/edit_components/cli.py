@@ -24,11 +24,42 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
         return edit_request
 
-    def display_list(
+
+    def _get_input(
         self,
-        components_tree: ComponentsTreeNode,
-    ) -> None:
-        self._display_node(components_tree)
+        components_tree: ComponentsTreeNode
+    ) -> EditRequest:
+        user_input: str = input("> ")
+
+        """
+        - user_inputの形式
+        path name
+        - 具体例
+        session.history_db sqlite_history_db
+        """
+
+        path_str: str
+        name: str
+
+        path_str, name = user_input.split(" ")
+
+        path: list[str] = path_str.split(".")
+
+        #build EditRequest
+        if self._verify_with_node(
+            path=path,
+            selected_name=name,
+            node=components_tree,
+            ):
+
+            request = EditRequest(
+                path=tuple(path),
+                selected_name=name
+            )
+
+            return request
+        
+        raise ValueError()
 
 
     def _display_node(
