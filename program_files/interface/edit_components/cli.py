@@ -1,11 +1,28 @@
 from program_files.interface.edit_components.base import EditComponentsInterface
-from program_files.shared.schemas import ComponentsTreeNode
+from program_files.shared.schemas import (
+    ComponentsTreeNode,
+    EditRequest,
+)
 
 class CliEditComponentsInterface(EditComponentsInterface):
+    
+    def select_change(
+        self,
+        components_tree: ComponentsTreeNode
+    ) -> EditRequest:
 
-    def get_input(self) -> str:
-        return input("> ")
+        #display the list of components
+        self._display_node(components_tree) 
 
+        #get_input
+        while True:
+            try:
+                edit_request = self._get_input(components_tree)
+                break
+            except ValueError:
+                print(f"no components was found. try again.")
+
+        return edit_request
 
     def display_list(
         self,
