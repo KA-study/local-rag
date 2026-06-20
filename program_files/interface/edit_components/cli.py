@@ -79,3 +79,43 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
         for child in node.children:
             self._display_node(child, depth + 1)
+
+
+    def _verify_with_node(
+        self,
+        path: list[str],
+        selected_name: str,
+        node: ComponentsTreeNode,
+        depth: int = 0
+    ) -> bool:
+
+        # at a terminal point
+        if depth == len(path):
+            return (
+                node.choices is not None
+                and selected_name in node.choices
+            )
+
+        target_name = path[depth]
+
+        #ComponentsTreeNodeの一番上の親がComponentsなのに対して、
+        #user_inputからのpathは、その下、SessionComponents等からであるから。
+        for child in node.children:
+            if child.name == target_name:
+                return self._verify_with_node(
+                    path,
+                    selected_name,
+                    child,
+                    depth + 1,
+                )
+
+        return False
+
+
+
+
+
+
+
+
+
