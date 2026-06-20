@@ -1,7 +1,10 @@
 from dataclasses import is_dataclass, fields
 
 from program_files.runtime import Runtime
-from program_files.shared.schemas import ComponentsTreeNode
+from program_files.shared.schemas import (
+    ComponentsTreeNode,
+    EditRequest,
+)
 from program_files.app.context.components import Components
 from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.interface.edit_components.base import EditComponentsInterface
@@ -11,23 +14,22 @@ class EditComponentsInterfaceAdapter:
     def __init__(self):
         self._edit_components_interface: EditComponentsInterface = Runtime.get_interface().edit_components()
 
-
-    def get_input(self):
-        return self._edit_components_interface.get_input()
-
-
-    def display_list(
+    def select_change(
         self,
         components: Components
-    ) -> None:
-
+    ) -> EditRequest:
+        
+        #build components_tree
         components_tree: ComponentsTreeNode = self._build_tree(
             name="components",
             obj=components
         )
 
-        self._edit_components_interface.display_list(components_tree)
-      
+        #return EditRequest.
+        request: EditRequest = self._edit_components_interface.select_change(components_tree)
+        
+        return request
+
 
     #再帰処理
     def _build_tree(
