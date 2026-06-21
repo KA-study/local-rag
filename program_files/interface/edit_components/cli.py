@@ -29,7 +29,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
         self,
         components_tree: ComponentsTreeNode
     ) -> EditRequest:
-        user_input: str = input("> ")
+        user_input: str = self._input("> ")
 
         """
         - user_inputの形式

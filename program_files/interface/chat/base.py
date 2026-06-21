@@ -1,10 +1,15 @@
-from typing import Protocol
+from abc import ABC, abstractmethod
 
-class ChatInterface(Protocol):
+from program_files.interface.base.base_interface import Interface
 
+
+class ChatInterface(Interface, ABC):
+
+    @abstractmethod
     def get_input(self) -> str:
         ...
 
+    @abstractmethod
     def display_message(
         self,
         role: str,
@@ -12,5 +17,3 @@ class ChatInterface(Protocol):
     ) -> None:
         ...
 
-    def _check_exit(self, user_input: str):
-        ...
