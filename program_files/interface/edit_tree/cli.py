@@ -1,10 +1,10 @@
-from program_files.interface.edit_components.base import EditComponentsInterface
+from program_files.interface.edit_tree.base import EditTreeInterface
 from program_files.shared.schemas import (
     TreeNode,
     EditRequest,
 )
 
-class CliEditComponentsInterface(EditComponentsInterface):
+class CliEditTreeInterface(EditTreeInterface):
     
     def select_change(
         self,

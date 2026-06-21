@@ -7,12 +7,12 @@ from program_files.shared.schemas import (
 )
 from program_files.app.context.components import Components
 from program_files.app.registry.components_registry import ComponentsRegistry
-from program_files.interface.edit_components.base import EditComponentsInterface
+from program_files.interface.edit_tree.base import EditTreeInterface
 
-class EditComponentsInterfaceAdapter:
+class EditTreeInterfaceAdapter:
     
     def __init__(self):
-        self._edit_components_interface: EditComponentsInterface = Runtime.get_interface().edit_components()
+        self._edit_components_interface: EditTreeInterface = Runtime.get_interface().edit_components()
 
     def select_change(
         self,

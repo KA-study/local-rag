@@ -7,7 +7,7 @@ from program_files.shared.schemas import (
 from program_files.interface.base.base_interface import Interface
 
 
-class EditComponentsInterface(Interface, ABC):
+class EditTreeInterface(Interface, ABC):
 
     @abstractmethod
     def select_change(
