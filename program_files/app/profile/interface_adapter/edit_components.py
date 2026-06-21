@@ -2,7 +2,7 @@ from dataclasses import is_dataclass, fields
 
 from program_files.runtime import Runtime
 from program_files.shared.schemas import (
-    ComponentsTreeNode,
+    TreeNode,
     EditRequest,
 )
 from program_files.app.context.components import Components
@@ -20,7 +20,7 @@ class EditComponentsInterfaceAdapter:
     ) -> EditRequest:
         
         #build components_tree
-        components_tree: ComponentsTreeNode = self._build_tree(
+        components_tree: TreeNode = self._build_tree(
             name="components",
             obj=components
         )
@@ -36,11 +36,11 @@ class EditComponentsInterfaceAdapter:
         self,
         name: str,
         obj: object
-    ) -> ComponentsTreeNode:
+    ) -> TreeNode:
 
         #枝部分処理
         if is_dataclass(obj):
-            return ComponentsTreeNode(
+            return TreeNode(
                 name=name,
                 current=None,
                 choices=None,
@@ -51,7 +51,7 @@ class EditComponentsInterfaceAdapter:
             )
 
         #葉部分処理
-        return ComponentsTreeNode(
+        return TreeNode(
             name=name,
             current=ComponentsRegistry.get_name(type[obj]),       #仮置き
             choices=[

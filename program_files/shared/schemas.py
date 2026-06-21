@@ -59,12 +59,12 @@ class ExitCommandError(Exception):
 #=================interface関連=====================
 
 @dataclass
-class ComponentsTreeNode:
+class TreeNode:
     name: str
     current: str | None
     choices: list[str] | None
     #前方参照
-    children: list["ComponentsTreeNode"]
+    children: list["TreeNode"]
 
 @dataclass
 class EditRequest:

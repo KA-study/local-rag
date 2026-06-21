@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from program_files.shared.schemas import (
-    ComponentsTreeNode,
+    TreeNode,
     EditRequest,
 )
 
@@ -12,6 +12,6 @@ class EditComponentsInterface(Interface, ABC):
     @abstractmethod
     def select_change(
         self,
-        components_tree: ComponentsTreeNode
+        components_tree: TreeNode
         ) -> EditRequest:
         ...

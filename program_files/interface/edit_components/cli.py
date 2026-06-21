@@ -1,6 +1,6 @@
 from program_files.interface.edit_components.base import EditComponentsInterface
 from program_files.shared.schemas import (
-    ComponentsTreeNode,
+    TreeNode,
     EditRequest,
 )
 
@@ -8,7 +8,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
     
     def select_change(
         self,
-        components_tree: ComponentsTreeNode
+        components_tree: TreeNode
     ) -> EditRequest:
 
         #display the list of components
@@ -27,7 +27,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
     def _get_input(
         self,
-        components_tree: ComponentsTreeNode
+        components_tree: TreeNode
     ) -> EditRequest:
         user_input: str = self._input("> ")
 
@@ -64,7 +64,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
     def _display_node(
         self,
-        node: ComponentsTreeNode,
+        node: TreeNode,
         depth: int = 0,
     ) -> None:
         indent = "    " * depth
@@ -85,7 +85,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
         self,
         path: list[str],
         selected_name: str,
-        node: ComponentsTreeNode,
+        node: TreeNode,
         depth: int = 0
     ) -> bool:
 
@@ -98,7 +98,7 @@ class CliEditComponentsInterface(EditComponentsInterface):
 
         target_name = path[depth]
 
-        #ComponentsTreeNodeの一番上の親がComponentsなのに対して、
+        #TreeNodeの一番上の親がComponentsなのに対して、
         #user_inputからのpathは、その下、SessionComponents等からであるから。
         for child in node.children:
             if child.name == target_name:
