@@ -1,3 +1,16 @@
+# 2026/06/21 - _check_exitメソッドの廃止と統合
+
+## 結論
+- 各interfaceに実装していた_check_exitメソッドを廃止する。
+- すべてのinterfaceのrootにInterfaceクラスを設定し、Interfaceに@finalで_inputメソッドを実装する。
+
+## 詳細
+_inputメソッドは、引数をそのままinputに渡し、その戻り値が:q（当プログラム全体での共通ExitCommand）であるかを判定し、
+- :qでないならばそのまま戻り値としてinputの戻り値を戻す。
+- :qならばExitCommandErrorを送出する。
+このExitCommandErrorは、そのループブロックでハンドリングする。
+
+---
 
 # 2026/06/19 - EditComponentsInterface設計
 
