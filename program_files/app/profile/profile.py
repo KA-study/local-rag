@@ -39,8 +39,9 @@ class ProfileManager:
         self,
         app_context: AppContext
     ) -> AppContext:
-        config: UserConfig = app_context.user_config
+        user_config: UserConfig = app_context.user_config
 
         #select user_config
+        request: EditRequest = self._interface_adapter.select_change(user_config)
 
 

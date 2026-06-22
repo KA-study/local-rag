@@ -12,6 +12,6 @@ class EditTreeInterface(Interface, ABC):
     @abstractmethod
     def select_change(
         self,
-        components_tree: TreeNode
+        tree: TreeNode
         ) -> EditRequest:
         ...

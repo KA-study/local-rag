@@ -8,16 +8,16 @@ class CliEditTreeInterface(EditTreeInterface):
     
     def select_change(
         self,
-        components_tree: TreeNode
+        tree: TreeNode
     ) -> EditRequest:
 
         #display the list of components
-        self._display_node(components_tree) 
+        self._display_node(tree) 
 
         #get_input
         while True:
             try:
-                edit_request = self._get_input(components_tree)
+                edit_request = self._get_input(tree)
                 break
             except ValueError:
                 print(f"no components was found. try again.")
@@ -27,7 +27,7 @@ class CliEditTreeInterface(EditTreeInterface):
 
     def _get_input(
         self,
-        components_tree: TreeNode
+        tree: TreeNode
     ) -> EditRequest:
         user_input: str = self._input("> ")
 
@@ -49,7 +49,7 @@ class CliEditTreeInterface(EditTreeInterface):
         if self._verify_with_node(
             path=path,
             selected_name=name,
-            node=components_tree,
+            tree=tree,
             ):
 
             request = EditRequest(
@@ -64,20 +64,20 @@ class CliEditTreeInterface(EditTreeInterface):
 
     def _display_node(
         self,
-        node: TreeNode,
+        tree: TreeNode,
         depth: int = 0,
     ) -> None:
         indent = "    " * depth
 
         # 葉ノード
-        if node.current is not None and not node.children:
-            print(f"{indent}{node.name} ... {node.current}")
+        if tree.current is not None and not tree.children:
+            print(f"{indent}{tree.name} ... {tree.current}")
             return
 
         # 枝ノード
-        print(f"{indent}{node.name}")
+        print(f"{indent}{tree.name}")
 
-        for child in node.children:
+        for child in tree.children:
             self._display_node(child, depth + 1)
 
 
@@ -85,22 +85,22 @@ class CliEditTreeInterface(EditTreeInterface):
         self,
         path: list[str],
         selected_name: str,
-        node: TreeNode,
+        tree: TreeNode,
         depth: int = 0
     ) -> bool:
 
         # at a terminal point
         if depth == len(path):
             return (
-                node.choices is not None
-                and selected_name in node.choices
+                tree.choices is not None
+                and selected_name in tree.choices
             )
 
         target_name = path[depth]
 
         #TreeNodeの一番上の親がComponentsなのに対して、
         #user_inputからのpathは、その下、SessionComponents等からであるから。
-        for child in node.children:
+        for child in tree.children:
             if child.name == target_name:
                 return self._verify_with_node(
                     path,

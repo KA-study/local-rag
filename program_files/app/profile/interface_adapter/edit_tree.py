@@ -16,17 +16,17 @@ class EditTreeInterfaceAdapter:
 
     def select_change(
         self,
-        components: Components
+        obj
     ) -> EditRequest:
         
         #build components_tree
-        components_tree: TreeNode = self._build_tree(
+        tree: TreeNode = self._build_tree(
             name="components",
-            obj=components
+            obj=obj
         )
 
         #return EditRequest.
-        request: EditRequest = self._edit_components_interface.select_change(components_tree)
+        request: EditRequest = self._edit_components_interface.select_change(tree)
         
         return request
 
