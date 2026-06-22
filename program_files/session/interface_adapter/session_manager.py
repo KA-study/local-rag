@@ -1,7 +1,7 @@
 
 
 from program_files.session._types import SessionContext
-from program_files.runtime import Runtime
+from program_files.runtime import InterfaceMode
 
 
 class SessionManagerInterfaceAdapter:
@@ -9,7 +9,7 @@ class SessionManagerInterfaceAdapter:
     def __init__(
         self,
     ):
-        self._s_m_interface = Runtime.get_interface().session_manager()
+        self._s_m_interface = InterfaceMode.get_interface().session_manager()
 
 
     def select_session(

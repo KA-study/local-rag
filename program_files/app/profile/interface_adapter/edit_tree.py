@@ -1,6 +1,6 @@
 from dataclasses import is_dataclass, fields
 
-from program_files.runtime import Runtime
+from program_files.runtime import InterfaceMode
 from program_files.shared.schemas import (
     TreeNode,
     EditRequest,
@@ -14,7 +14,7 @@ from program_files.interface.edit_tree.base import EditTreeInterface
 class EditTreeInterfaceAdapter:
     
     def __init__(self):
-        self._edit_components_interface: EditTreeInterface = Runtime.get_interface().edit_components()
+        self._edit_components_interface: EditTreeInterface = InterfaceMode.get_interface().edit_components()
 
     def select_change(
         self,

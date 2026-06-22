@@ -4,7 +4,7 @@ from program_files.interface.cli import Cli
 from program_files.interface.gui import Gui
 
 
-class Runtime:
+class InterfaceMode:
     _interface: Cli | Gui
 
     @classmethod

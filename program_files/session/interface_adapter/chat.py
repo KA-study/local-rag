@@ -1,6 +1,6 @@
 
 
-from program_files.runtime import Runtime
+from program_files.runtime import InterfaceMode
 from program_files.session._types import Message
 
 
@@ -9,7 +9,7 @@ class ChatInterfaceAdapter:
     def __init__(
         self,
     ):
-        self._chat_interface = Runtime.get_interface().chat() 
+        self._chat_interface = InterfaceMode.get_interface().chat() 
 
     
     def get_input(self) -> Message:
