@@ -14,7 +14,7 @@ from program_files.interface.edit_tree.base import EditTreeInterface
 class EditTreeInterfaceAdapter:
     
     def __init__(self):
-        self._edit_components_interface: EditTreeInterface = InterfaceMode.get_interface().edit_components()
+        self._edit_components_interface: EditTreeInterface = InterfaceMode.get_interface().edit_tree()
 
     def select_change(
         self,
@@ -31,7 +31,7 @@ class EditTreeInterfaceAdapter:
 
 
         tree: TreeNode = self._build_tree(
-            name="components",
+            name=name,
             obj=obj
         )
 
