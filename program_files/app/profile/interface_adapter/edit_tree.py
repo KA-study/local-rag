@@ -5,9 +5,11 @@ from program_files.shared.schemas import (
     TreeNode,
     EditRequest,
 )
-from program_files.app.context.components import Components
 from program_files.app.registry.components_registry import ComponentsRegistry
+from program_files.app.context.components import Components
+from program_files.app.context.user_config import UserConfig
 from program_files.interface.edit_tree.base import EditTreeInterface
+
 
 class EditTreeInterfaceAdapter:
     
@@ -19,7 +21,15 @@ class EditTreeInterfaceAdapter:
         obj
     ) -> EditRequest:
         
-        #build components_tree
+        #build tree
+        if type(obj) is Components:
+            name = "components"
+        elif type(obj) is UserConfig:
+            name = "user_config"
+        else:
+            raise ValueError("receive unexpected class.")
+
+
         tree: TreeNode = self._build_tree(
             name="components",
             obj=obj
