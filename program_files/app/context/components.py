@@ -10,18 +10,10 @@ from program_files.infrastructure.llm.llm_engine.base import LLM
 from program_files.infrastructure.vector_store.base import VectorStore
 from program_files.infrastructure.llm.cost.base import UsageDB
 
-from program_files.session.history.history_db import SQliteHistoryDB
-from program_files.passive.pdf.loader import PypdfLoader
-from program_files.passive.pdf.chunker import TokenChunker
-from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
-from program_files.infrastructure.llm.llm_engine.fake_llm import FakeLLM
-from program_files.infrastructure.llm.cost.usage_db import SQliteUsageDB
-from program_files.infrastructure.embedding.embedder import STEmbedder
-
 
 @dataclass(frozen=True)
 class SessionComponents:
-    history_db: type[HistoryDB] = SQliteHistoryDB
+    history_db: type[HistoryDB]
 
     def __post_init__(self):
         if not issubclass(self.history_db, HistoryDB):
@@ -31,8 +23,8 @@ class SessionComponents:
 
 @dataclass(frozen=True)
 class PassiveComponents:
-    pdf_loader: type[PDFLoaderBase] = PypdfLoader
-    chunker: type[PDFChunkerBase] = TokenChunker
+    pdf_loader: type[PDFLoaderBase]
+    chunker: type[PDFChunkerBase]
 
     def __post_init__(self):
         if not issubclass(self.pdf_loader, PDFLoaderBase):
@@ -46,11 +38,11 @@ class PassiveComponents:
 
 @dataclass(frozen=True)
 class InfrastructureComponents:
-    vector_store: type[VectorStore] = ChromaVectorStore
+    vector_store: type[VectorStore]
     #Protocolで実装しているためsubclassチェックは省略
-    llm_engine: type[LLM] = FakeLLM
-    usage_db: type[UsageDB] = SQliteUsageDB
-    embedder: type[BaseEmbedder] = STEmbedder
+    llm_engine: type[LLM]
+    usage_db: type[UsageDB]
+    embedder: type[BaseEmbedder]
 
     def __post_init__(self):
         if not issubclass(self.vector_store, VectorStore):
