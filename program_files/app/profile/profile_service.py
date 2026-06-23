@@ -19,7 +19,10 @@ class ProfileService:
         ...
 
     #保存データへのアクセスあり
-    def switch_user(self):
+    def switch_user(
+        self,
+        app_context: AppContext
+    ) -> AppContext:
         ...
 
     def edit_components(
