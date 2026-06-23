@@ -4,7 +4,7 @@ from program_files.app.context.user_config import UserConfig
 from program_files.app.profile.interface_adapter.edit_tree import EditTreeInterfaceAdapter
 from program_files.shared.schemas import EditRequest
 
-class ProfileServece:
+class ProfileService:
     
     def __init__(self):
         self._context = AppContext() #frozen
