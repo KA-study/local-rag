@@ -1,11 +1,11 @@
 
 
 from program_files.main import main
-from program_files.runtime import Runtime
+from program_files.runtime import InterfaceMode
 
 def gui_entry_point():
 
-    Runtime.set_gui()
+    InterfaceMode.set_gui()
 
     main()
 

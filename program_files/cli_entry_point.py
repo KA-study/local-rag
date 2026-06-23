@@ -1,11 +1,11 @@
 
 
 from program_files.main import main
-from program_files.runtime import Runtime
+from program_files.runtime import InterfaceMode
 
 def cli_entry_point():
     
-    Runtime.set_cli()
+    InterfaceMode.set_cli()
 
     main()
 
