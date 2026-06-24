@@ -70,6 +70,22 @@ class ComponentsRegistry:
             f"{implementation.__name__} is not registered."
         )
 
+    #ProfileStorageManagerに使用するために実装する際は、forで_registryのbase_typeを全探索
+    @classmethod
+    def get_type(
+        cls,
+        base: type,
+        name: str,
+    ) -> type:
+
+        for info in cls._registry.get(base, []):
+            if info.name == name:
+                return info.type
+
+        raise ValueError(
+            f"{name} is not registered for {base.__name__}."
+        )
+
     @classmethod
     def get_choices_for_implementation(
         cls,
