@@ -1,7 +1,7 @@
 from dataclasses import is_dataclass, fields
 import json
 
-
+from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
 from program_files.app.context.components import Components
 from program_files.app.context.user_config import UserConfig
@@ -20,6 +20,33 @@ class ProfileStorageManager:
         self,
         app_context: AppContext
     ) -> None:
+        
+        app_context_dict = self._app_context_to_json(app_context)
+
+        # 既存データ読み込み
+        if PROFILE_PATH.exists():
+            with open(PROFILE_PATH, "r", encoding="utf-8") as f:
+                profiles = json.load(f)
+        else:
+            profiles = {}
+
+        # ユーザー情報更新
+        profiles[app_context.user_id] = app_context_dict
+
+        # 保存
+        with open(PROFILE_PATH, "w", encoding="utf-8") as f:
+            json.dump(
+                profiles,
+                f,
+                ensure_ascii=False,
+                indent=4,
+            )
+
+
+    def _json_to_app_context(
+        self,
+        json: dict
+    ) -> AppContext:
         ...
 
 
