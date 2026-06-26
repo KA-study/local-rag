@@ -14,7 +14,21 @@ class ProfileStorageManager:
         self,
         user_id: str
     ) -> AppContext:
-        ...
+
+        if not PROFILE_PATH.exists():
+            raise FileNotFoundError("Profile file does not exist.")
+
+        #自動的に閉じる
+        with open(PROFILE_PATH, "r", encoding="utf-8") as f:
+            profiles: dict = json.load(f)
+
+        try:
+            json_data = profiles[user_id]
+        except KeyError:
+            raise KeyError(f"User '{user_id}' not found.")
+
+        return self._json_to_app_context(json_data)
+
 
     def save(
         self,
