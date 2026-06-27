@@ -110,8 +110,23 @@ class ProfileStorageManager:
 
     def _json_to_user_config(
         self,
-        user_config_dict: dict
-    ) -> UserConfig:
+        data,
+        cls: type = UserConfig,
+    ):
+        if is_dataclass(cls):
+            return cls(**{
+                field.name: self._json_to_user_config(
+                    data[field.name],
+                    #field.typeにstrなどが入ることはない。
+                    cast(
+                        type,
+                        field.type
+                    ),
+                )
+                for field in fields(cls)
+            })
+    
+        return data
 
 
     def _app_context_to_json(
