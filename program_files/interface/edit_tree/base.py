@@ -4,7 +4,7 @@ from program_files.shared.schemas import (
     EditRequest,
 )
 
-from program_files.interface.base.base_interface import Interface
+from program_files.interface.base_interface import Interface
 
 
 class EditTreeInterface(Interface, ABC):
