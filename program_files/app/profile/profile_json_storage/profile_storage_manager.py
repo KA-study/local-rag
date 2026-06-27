@@ -1,5 +1,6 @@
-from dataclasses import is_dataclass, fields
+from dataclasses import is_dataclass, fields, field
 import json
+from typing import cast
 
 from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
@@ -80,8 +81,31 @@ class ProfileStorageManager:
 
     def _json_to_components(
         self,
-        comopnents_dict: dict
-    ) -> Components:
+        data,
+        cls: type = Components,
+    ):
+        #枝部分処理
+        if is_dataclass(cls):
+            return cls(**{
+                field.name: self._json_to_components(
+                    data[field.name],
+                    #field.typeにstrなどが入ることはない。
+                    cast(
+                        type,
+                        field.type
+                    ),
+                )
+                for field in fields(cls)
+            })
+
+        #葉部分処理
+        for base in ComponentsRegistry._registry:
+            try:
+                return ComponentsRegistry.get_type(base, data)
+            except ValueError:
+                pass
+
+        raise ValueError(f"Unknown component: {data}")
 
 
     def _json_to_user_config(
