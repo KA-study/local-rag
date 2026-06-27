@@ -2,21 +2,31 @@ from program_files.app.context.context import AppContext
 from program_files.app.context.components import Components
 from program_files.app.context.user_config import UserConfig
 from program_files.app.profile.interface_adapter.edit_tree import EditTreeInterfaceAdapter
+from program_files.app.profile.profile_json_storage.profile_storage_manager import ProfileStorageManager
 from program_files.shared.schemas import EditRequest
 
 class ProfileService:
     
-    def __init__(self):
-        self._context = AppContext() #frozen
+    def __init__(
+        self,
+    ):
         self._interface_adapter = EditTreeInterfaceAdapter()
+        self._profile_storage_manager = ProfileStorageManager()
+
 
     #保存データへのアクセスあり
-    def _load_latest_app_context(self):
+    def _load_latest_app_context(
+        self,
+    ) -> AppContext:
         ...
 
     #セッティングのセーブ
-    def _save_components_and_config(self):
-        ...
+    def _save_components_and_config(
+        self,
+        app_context: AppContext
+    ):
+        self._profile_storage_manager.save(app_context)
+
 
     #保存データへのアクセスあり
     def switch_user(
@@ -24,6 +34,7 @@ class ProfileService:
         app_context: AppContext
     ) -> AppContext:
         ...
+
 
     def edit_components(
         self,
