@@ -4,4 +4,3 @@ from dataclasses import dataclass
 class ComponentsInfo:
     type: type
     name: str
-    

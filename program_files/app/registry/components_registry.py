@@ -70,7 +70,7 @@ class ComponentsRegistry:
             f"{implementation.__name__} is not registered."
         )
 
-    #ProfileStorageManagerに使用するために実装する際は、forで_registryのbase_typeを全探索
+    #jsont_to_app_contextでは、_registryのbasetypeを全探索する
     @classmethod
     def get_type(
         cls,
@@ -100,28 +100,6 @@ class ComponentsRegistry:
         raise ValueError(
             f"{implementation.__name__} is not registered."
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

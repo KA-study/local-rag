@@ -57,6 +57,7 @@ class ExitCommandError(Exception):
     #現在の処理ブロックを終了するための例外
 
 #=================interface関連=====================
+#これを適用するのはinterface関連でのみとする。
 
 @dataclass
 class TreeNode:
