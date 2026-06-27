@@ -67,12 +67,18 @@ class ProfileStorageManager:
         components_dict = app_context_dict["components"]
         user_config_dict = app_context_dict["user_config"]
 
-        components: Components = self._json_to_components(components_dict)
-        user_config: UserConfig = self._json_to_user_config(user_config_dict)
+        components = self._json_to_components(components_dict)
+        user_config = self._json_to_user_config(user_config_dict)
 
         app_context = AppContext(
-            components = components,
-            user_config = user_config
+            components = cast(
+                Components,
+                components
+            ),
+            user_config = cast(
+                UserConfig,
+                user_config
+            ),
         )
 
 
