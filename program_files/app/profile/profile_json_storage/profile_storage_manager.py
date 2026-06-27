@@ -57,11 +57,37 @@ class ProfileStorageManager:
             )
 
 
+    #user_id以下の辞書
     def _json_to_app_context(
         self,
-        json: dict
+        app_context_dict: dict
     ) -> AppContext:
-        ...
+
+        components_dict = app_context_dict["components"]
+        user_config_dict = app_context_dict["user_config"]
+
+        components: Components = self._json_to_components(components_dict)
+        user_config: UserConfig = self._json_to_user_config(user_config_dict)
+
+        app_context = AppContext(
+            components = components,
+            user_config = user_config
+        )
+
+
+        return app_context
+
+
+    def _json_to_components(
+        self,
+        comopnents_dict: dict
+    ) -> Components:
+
+
+    def _json_to_user_config(
+        self,
+        user_config_dict: dict
+    ) -> UserConfig:
 
 
     def _app_context_to_json(
