@@ -60,6 +60,30 @@ class ProfileService:
         user_config: UserConfig = app_context.user_config
 
         #select user_config
+        request_for_user_config: EditRequest = self._interface_adapter.select_change(user_config)
+
+        #restore AppContext from EditRequest
+        new_user_config = cast(
+            UserConfig,
+            self._replace_path_following_to_edit_request(
+                obj=user_config,
+                path=request_for_user_config.path,
+                #user_configは値がstrなので、.selected_nameのままでいい。
+                value=request_for_user_config.selected_name
+            )
+        )
+
+        new_app_context = AppContext(
+            components=app_context.components,
+            user_config=new_user_config
+        )
+
+        #save changed user_config
+        self._save_components_and_config(new_app_context)
+        
+        return new_app_context
+
+ 
     def _replace_path_following_to_edit_request(
         self,
         obj,
