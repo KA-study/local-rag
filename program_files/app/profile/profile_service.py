@@ -1,6 +1,10 @@
+from dataclasses import replace
+from typing import cast
+
 from program_files.app.context.context import AppContext
 from program_files.app.context.components import Components
 from program_files.app.context.user_config import UserConfig
+from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.app.profile.interface_adapter.edit_tree import EditTreeInterfaceAdapter
 from program_files.app.profile.profile_json_storage.profile_storage_manager import ProfileStorageManager
 from program_files.shared.schemas import EditRequest
@@ -56,6 +60,26 @@ class ProfileService:
         user_config: UserConfig = app_context.user_config
 
         #select user_config
-        request: EditRequest = self._interface_adapter.select_change(user_config)
+    def _replace_path_following_to_edit_request(
+        self,
+        obj,
+        path: tuple[str, ...],
+        value: object
+    ):
+        if len(path) == 1:
+            return replace(obj, **{path[0]: value})
+
+        child = getattr(obj, path[0])
+
+        new_child = self._replace_path_following_to_edit_request(
+            child,
+            path[1:],
+            value,
+        )
+
+        return replace(
+            obj,
+            **{path[0]: new_child},
+        )
 
 
