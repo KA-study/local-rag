@@ -47,11 +47,43 @@ class ProfileService:
         components: Components = app_context.components
 
         #select component.
-        request: EditRequest = self._interface_adapter.select_change(components)
+        request_for_components: EditRequest = self._interface_adapter.select_change(components)
+
+        #restore AppContext from EditRequest
+        selected_type = None
+
+        for base in ComponentsRegistry._registry:
+            try:
+                selected_type = ComponentsRegistry.get_type(
+                    base,
+                    request_for_components.selected_name
+                )
+            except ValueError:
+                pass
+
+        if not selected_type:
+            raise ValueError(f"Not registered component's option: {request_for_components.selected_name}")
+
+
+        new_components = cast(
+            Components,
+            self._replace_path_following_to_edit_request(
+                obj=components,
+                path=request_for_components.path,
+                value=selected_type
+            )
+        )
+
+        new_app_context = AppContext(
+            components=new_components,
+            user_config=app_context.user_config
+        )
 
         #save changed components automatically.
-        #先にedit_user_configをcomponentsと同じように作り、その後save_componentsなどを作り、最後に完成させる。
-        
+        self._save_components_and_config(new_app_context)
+
+        return new_app_context
+      
 
     def edit_user_config(
         self,
