@@ -1,4 +1,4 @@
-from dataclasses import replace
+from dataclasses import replace, fields
 from typing import cast
 
 from program_files.app.context.context import AppContext
@@ -42,48 +42,57 @@ class ProfileService:
 
     def edit_components(
         self,
-        app_context: AppContext
+        app_context: AppContext,
     ) -> AppContext:
-        components: Components = app_context.components
 
-        #select component.
-        request_for_components: EditRequest = self._interface_adapter.select_change(components)
+        components = app_context.components
 
-        #restore AppContext from EditRequest
-        selected_type = None
+        # select component
+        request_for_components = self._interface_adapter.select_change(components)
 
-        for base in ComponentsRegistry._registry:
-            try:
-                selected_type = ComponentsRegistry.get_type(
-                    base,
-                    request_for_components.selected_name
-                )
-            except ValueError:
-                pass
+        # pathをたどり、最後のフィールドを持つオブジェクトまで移動
+        obj = components
 
-        if not selected_type:
-            raise ValueError(f"Not registered component's option: {request_for_components.selected_name}")
+        #[:-1]は、後ろから数えて一番目の一つ前、つまり後ろから数えて二番目までをforで回す
+        for field_name in request_for_components.path[:-1]:
+            obj = getattr(obj, field_name)
 
+        target_field_name = request_for_components.path[-1]
+
+        # 最後のフィールドの型(base)を取得
+        for field in fields(obj):
+            if field.name == target_field_name:
+                base = field.type
+                break
+        else:
+            raise ValueError(f"{target_field_name} does not exist.")
+
+        selected_type = ComponentsRegistry.get_type(
+            cast(
+                type,
+                base
+            ),
+            request_for_components.selected_name,
+        )
 
         new_components = cast(
             Components,
             self._replace_path_following_to_edit_request(
                 obj=components,
                 path=request_for_components.path,
-                value=selected_type
-            )
+                value=selected_type,
+            ),
         )
 
         new_app_context = AppContext(
             components=new_components,
-            user_config=app_context.user_config
+            user_config=app_context.user_config,
         )
 
-        #save changed components automatically.
         self._save_components_and_config(new_app_context)
 
         return new_app_context
-      
+          
 
     def edit_user_config(
         self,
