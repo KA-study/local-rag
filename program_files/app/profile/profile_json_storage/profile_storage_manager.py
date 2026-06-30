@@ -1,15 +1,14 @@
-from dataclasses import is_dataclass, fields, field
 import json
-from typing import cast
 
 from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
-from program_files.app.context.components import Components
-from program_files.app.context.user_config import UserConfig
-from program_files.app.registry.components_registry import ComponentsRegistry
+from program_files.app.profile.profile_json_storage.app_context_serializer import AppContextSerializer
 
 
 class ProfileStorageManager:
+
+    def __init__(self):
+        self._app_context_serializer = AppContextSerializer()
 
     def load(
         self,
@@ -28,7 +27,7 @@ class ProfileStorageManager:
         except KeyError:
             raise KeyError(f"User '{user_id}' not found.")
 
-        return self._json_to_app_context(json_data)
+        return self._app_context_serializer.dict_to_app_context(json_data)
 
 
     def save(
@@ -36,7 +35,7 @@ class ProfileStorageManager:
         app_context: AppContext
     ) -> None:
         
-        app_context_dict = self._app_context_to_json(app_context)
+        app_context_dict = self._app_context_serializer.app_context_to_dict(app_context)
 
         # 既存データ読み込み
         if PROFILE_PATH.exists():
@@ -56,167 +55,3 @@ class ProfileStorageManager:
                 ensure_ascii=False,
                 indent=4,
             )
-
-
-    #user_id以下の辞書
-    def _json_to_app_context(
-        self,
-        app_context_dict: dict
-    ) -> AppContext:
-
-        components_dict = app_context_dict["components"]
-        user_config_dict = app_context_dict["user_config"]
-
-        components = self._json_to_components(components_dict)
-        user_config = self._json_to_user_config(user_config_dict)
-
-        app_context = AppContext(
-            components = cast(
-                Components,
-                components
-            ),
-            user_config = cast(
-                UserConfig,
-                user_config
-            ),
-        )
-
-
-        return app_context
-
-
-    def _json_to_components(
-        self,
-        data,
-        cls: type = Components,
-    ):
-        #枝部分処理
-        if is_dataclass(cls):
-            return cls(**{
-                field.name: self._json_to_components(
-                    data[field.name],
-                    #field.typeにstrなどが入ることはない。
-                    cast(
-                        type,
-                        field.type
-                    ),
-                )
-                for field in fields(cls)
-            })
-
-        #葉部分処理
-        for base in ComponentsRegistry._registry:
-            try:
-                return ComponentsRegistry.get_type(base, data)
-            except ValueError:
-                pass
-
-        raise ValueError(f"Unknown component: {data}")
-
-
-    def _json_to_user_config(
-        self,
-        data,
-        cls: type = UserConfig,
-    ):
-        if is_dataclass(cls):
-            return cls(**{
-                field.name: self._json_to_user_config(
-                    data[field.name],
-                    #field.typeにstrなどが入ることはない。
-                    cast(
-                        type,
-                        field.type
-                    ),
-                )
-                for field in fields(cls)
-            })
-    
-        return data
-
-
-    def _app_context_to_json(
-        self,
-        app_context: AppContext
-    ) -> dict:
-        components: Components = app_context.components
-        user_config: UserConfig = app_context.user_config
-
-        components_dict = self._components_to_json(components)
-        user_config_dict = self._user_config_to_json(user_config)
-
-        app_context_dict = {
-            "components": components_dict,
-            "user_config": user_config_dict,
-        }
-
-        return app_context_dict
-
-
-    def _components_to_json(
-        self,
-        obj,
-    ):
-        #枝部分処理
-        if is_dataclass(obj):
-            return {
-                field.name: self._components_to_json(
-                    getattr(obj, field.name)
-                )
-                for field in fields(obj)
-            }
-
-        #葉部分処理
-        if isinstance(obj, type):
-            return ComponentsRegistry.get_name(obj)
-
-        raise TypeError(
-            f"Unsupported type in Components: {type(obj).__name__}"
-        )
-
-
-    def _user_config_to_json(
-        self,
-        obj,
-    ):
-        #枝部分処理
-        if is_dataclass(obj):
-            return {
-                field.name: self._user_config_to_json(
-                    getattr(obj, field.name)
-                )
-                for field in fields(obj)
-            }
-
-        #葉部分処理
-        return obj
-
-
-
-"""
-保存辞書イメージ
-
-{
-    user_1: {
-        components: {
-            session_components: {
-                history_db:  str
-                },
-            passive_components: {
-                embedder: str,
-                vector_store: str,
-                ...
-                },
-            ...
-        },
-        user_config: {
-            ...
-        }
-    },
-
-    user_2: {
-        ...
-    },
-    ...
-}
-"""
