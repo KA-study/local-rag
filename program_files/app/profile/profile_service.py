@@ -7,6 +7,7 @@ from program_files.app.context.user_config import UserConfig
 from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.app.profile.interface_adapter.edit_tree import EditTreeInterfaceAdapter
 from program_files.app.profile.profile_json_storage.profile_storage_manager import ProfileStorageManager
+from program_files.app.profile.profile_json_storage.latest_user_id_store_manager import LatestUserIdStoreManager
 from program_files.shared.schemas import EditRequest
 
 class ProfileService:
@@ -16,13 +17,19 @@ class ProfileService:
     ):
         self._interface_adapter = EditTreeInterfaceAdapter()
         self._profile_storage_manager = ProfileStorageManager()
+        self._latest_user_id_store_manager = LatestUserIdStoreManager()
 
 
     #保存データへのアクセスあり
     def _load_latest_app_context(
         self,
     ) -> AppContext:
-        ...
+
+        latest_user_id: str = self._latest_user_id_store_manager.load()
+
+        latest_app_context: AppContext = self._profile_storage_manager.load(latest_user_id)
+
+        return latest_app_context
 
     #セッティングのセーブ
     def _save_components_and_config(
