@@ -6,7 +6,18 @@ from program_files.app.profile.profile_json_storage._types import LATEST_USER_ID
 class LatestUserIdStoreManager:
 
     def load(self) -> str:
-        ...
+
+        if not LATEST_USER_ID_STORE_PATH.exists():
+            raise FileNotFoundError("Latest user ID store does not exist.")
+
+        with open(LATEST_USER_ID_STORE_PATH, "r", encoding="utf-8") as f:
+            data: dict[str, str] = json.load(f)
+
+        try:
+            return data["user_id"]
+        except KeyError:
+            raise KeyError("'user_id' does not exist.")
+
 
     def save(
         self,
@@ -16,5 +27,8 @@ class LatestUserIdStoreManager:
 
        
 """
-保存形式は、str、単一のuser_idのみ。常に一つのuser_idのみが入る形。log化はまだしない。
+保存形式は、
+{
+    "user_id": str,
+}
 """
