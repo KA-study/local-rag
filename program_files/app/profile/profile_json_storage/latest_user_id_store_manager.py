@@ -23,8 +23,18 @@ class LatestUserIdStoreManager:
         self,
         user_id: str
     ) -> None:
-        ...
 
+        data = {
+            "user_id": user_id,
+        }
+
+        with open(LATEST_USER_ID_STORE_PATH, "w", encoding="utf-8") as f:
+            json.dump(
+                data,
+                f,
+                ensure_ascii=False,
+                indent=4,
+            )
        
 """
 保存形式は、
