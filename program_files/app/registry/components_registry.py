@@ -70,7 +70,7 @@ class ComponentsRegistry:
             f"{implementation.__name__} is not registered."
         )
 
-    #jsont_to_app_contextでは、_registryのbasetypeを全探索する
+    #json_to_app_contextでは、_registryのbasetypeを全探索する
     @classmethod
     def get_type(
         cls,

@@ -25,6 +25,7 @@ class CliEditTreeInterface(EditTreeInterface):
         return edit_request
 
 
+    #_get_inputにEditRequestの構成機能が組み込まれているのは、責務の分離がなされていないのではないか
     def _get_input(
         self,
         tree: TreeNode
