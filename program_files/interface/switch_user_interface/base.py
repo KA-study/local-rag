@@ -4,4 +4,7 @@ from program_files.interface.base_interface import Interface
 
 
 class SwitchUserInterface(Interface, ABC):
-    ...
+
+    @abstractmethod
+    def select_user(self) -> dict:
+        ...

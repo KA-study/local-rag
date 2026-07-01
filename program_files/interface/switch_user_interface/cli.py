@@ -3,4 +3,6 @@ from program_files.interface.switch_user_interface.base import SwitchUserInterfa
 
 
 class CliSwitchUserInterface(SwitchUserInterface):
-    ...
+
+    def select_user(self) -> dict:
+        ...
