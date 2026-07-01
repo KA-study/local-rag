@@ -1,4 +1,13 @@
+# 2026/07/01 - new user idの登録
 
+## 結論
+new user idの登録は、select_userにおいて、新規作成が選択されたときに、処理をProfileServiceまで上げる。
+
+## 詳細
+SessionManagerにおいて、new sessionが作られるとき、session_idを決定するだけでよかった。
+そのため、ここではSessionManagerInterfaceAdapterにてnew session作成の処理を行っていた。
+しかし、new user idの作成には、AppContext初期化などの、他のモジュールと連携する処理が伴う。
+そのため、フラグを用いてProfileServiceまで処理を上げる。
 
 ---
 
