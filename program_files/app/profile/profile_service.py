@@ -8,8 +8,8 @@ from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.app.profile.interface_adapter.edit_tree import EditTreeInterfaceAdapter
 from program_files.app.profile.interface_adapter.switch_user_interface_adapter import SwitchUserInterfaceAdapter
 from program_files.app.profile.profile_json_storage.profile_storage_manager import ProfileStorageManager
+from program_files.app.profile._types import NewUserIdSelected
 from program_files.app.profile.profile_json_storage.latest_user_id_store_manager import LatestUserIdStoreManager
-from program_files.app.profile._types import SelectedUserInfo
 from program_files.shared.schemas import EditRequest
 
 class ProfileService:
@@ -49,7 +49,23 @@ class ProfileService:
         app_context: AppContext
     ) -> AppContext:
         
-        new_user_info: SelectedUserInfo = self._switch_user_interface_adapter.select_user()
+        try:
+            #既存のuser_idに含まれているかのチェック、処理
+            while True:
+                selected_user_id: str = self._switch_user_interface_adapter.select_user()
+
+                app_context_list: list[AppContext] = self._profile_storage_manager.get_all_app_context()
+
+                user_id_list: list[str] = [app_context.user_id for app_context in app_context_list]
+
+                if selected_user_id in user_id_list:
+                    break
+
+                #ここに再度実行処理
+                self._switch_user_interface_adapter.display(f"Unregisterd user_id: {selected_user_id}")
+                
+        except NewUserIdSelected:
+            new_user_id: str = self._switch_user_interface_adapter.create_user()
 
 
     def edit_components(
