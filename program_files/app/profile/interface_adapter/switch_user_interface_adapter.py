@@ -16,6 +16,10 @@ class SwitchUserInterfaceAdapter:
             raise NewUserIdSelected()
 
         return selected_user_id
+
+
+    def display(self, message: str) -> None:
+        self._switch_user_interface.display(message) 
         
 
     def create_user(self) -> str:
