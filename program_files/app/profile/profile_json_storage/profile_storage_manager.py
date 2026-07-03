@@ -55,3 +55,19 @@ class ProfileStorageManager:
                 ensure_ascii=False,
                 indent=4,
             )
+
+    
+    def get_all_app_context(self) -> list[AppContext]:
+ 
+        if PROFILE_PATH.exists():
+            with open(PROFILE_PATH, "r", encoding="utf-8") as f:
+                profiles = json.load(f)
+        else:
+            raise ValueError("no user_id is registered.")
+
+        app_context_list = [AppContext()]
+
+        for profile in profiles:
+            app_context_list.append(self._app_context_serializer.dict_to_app_context(profile))
+
+        return app_context_list
