@@ -73,12 +73,16 @@ class ProfileService:
                 break
                 
         except NewUserIdSelected:
-            new_user_id: str = self._switch_user_interface_adapter.create_user()
+            while True:
+                new_user_id: str = self._switch_user_interface_adapter.create_user()
 
-            selected_app_context = AppContext(user_id=new_user_id)
+                if new_user_id in user_id_list:
+                    continue
 
-            #ProfileStorageへの登録
-            self._profile_storage_manager.save(selected_app_context)
+                selected_app_context = AppContext(user_id=new_user_id)
+
+                #ProfileStorageへの登録
+                self._profile_storage_manager.save(selected_app_context)
 
         return selected_app_context
 
