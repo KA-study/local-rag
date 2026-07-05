@@ -8,7 +8,12 @@ class CliSwitchUserInterface(SwitchUserInterface):
         self,
         user_id_list: list[str]
     ) -> str:
-        ...
+        self.display("user_id list:")
+        for user_id in user_id_list:
+            self.display(f"{user_id}")
+
+        selected_user_id = self._input("choose user_id: ")
+        return selected_user_id
 
     
     def display(self, message) -> None:
