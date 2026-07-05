@@ -32,6 +32,7 @@ class Session:
     def run(self):
     
         while True:
+            #ここに今までのhistoryを表示する機能を実装
 
             #入力
             #:qが実行されたとき、ここにエラーが出て、上でそれをハンドリング
