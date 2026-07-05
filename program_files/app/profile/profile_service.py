@@ -52,9 +52,10 @@ class ProfileService:
         try:
             #既存のuser_idに含まれているかのチェック、処理
             while True:
-                selected_user_id: str = self._switch_user_interface_adapter.select_user()
-
                 app_context_list: list[AppContext] = self._profile_storage_manager.get_all_app_context()
+                user_id_list: list[str] = [app_context.user_id for app_context in app_context_list]
+
+                selected_user_id: str = self._switch_user_interface_adapter.select_user(user_id_list)
 
                 selected_app_context = None
 

@@ -8,9 +8,12 @@ class SwitchUserInterfaceAdapter:
     def __init__(self):
         self._switch_user_interface = InterfaceMode.get_interface().switch_user()
 
-    def select_user(self) -> str:
+    def select_user(
+        self,
+        user_id_list: list[str]
+    ) -> str:
 
-        selected_user_id: str = self._switch_user_interface.select_user()
+        selected_user_id: str = self._switch_user_interface.select_user(user_id_list)
 
         if selected_user_id == "_NEW_":
             raise NewUserIdSelected()

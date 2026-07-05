@@ -4,7 +4,10 @@ from program_files.interface.switch_user_interface.base import SwitchUserInterfa
 
 class CliSwitchUserInterface(SwitchUserInterface):
 
-    def select_user(self) -> str:
+    def select_user(
+        self,
+        user_id_list: list[str]
+    ) -> str:
         ...
 
     
