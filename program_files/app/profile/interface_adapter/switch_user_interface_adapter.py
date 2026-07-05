@@ -26,5 +26,5 @@ class SwitchUserInterfaceAdapter:
         
 
     def create_user(self) -> str:
-        ...
+        return self._switch_user_interface.create_user()
 

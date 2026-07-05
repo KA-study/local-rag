@@ -17,5 +17,5 @@ class SwitchUserInterface(Interface, ABC):
         ...
 
     @abstractmethod
-    def create_user(self):
+    def create_user(self) -> str:
         ...

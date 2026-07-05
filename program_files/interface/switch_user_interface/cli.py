@@ -20,5 +20,5 @@ class CliSwitchUserInterface(SwitchUserInterface):
         print(message)
 
     
-    def create_user(self):
-        ...
+    def create_user(self) -> str:
+        return self._input("input new user_id: ")
