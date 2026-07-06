@@ -10,13 +10,14 @@ from program_files.main_interface_adapter import MainInterfaceAdapter
 - PassiveOperator entry point
 """
 
-def main():
+class Main:
 
-    profile_service = ProfileService()
+    def run(self):
+        profile_service = ProfileService()
 
-    app_context: AppContext = profile_service.load_latest_app_context()
-    
-    interface = MainInterfaceAdapter(app_context)
+        app_context: AppContext = profile_service.load_latest_app_context()
+        
+        interface = MainInterfaceAdapter(app_context)
 
-    interface.select_option()
+        interface.select_option()
 
