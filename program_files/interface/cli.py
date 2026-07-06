@@ -5,6 +5,7 @@ from program_files.interface.session_manager.cli import CliSessionManagerInterfa
 from program_files.interface.edit_tree.cli import CliEditTreeInterface
 from program_files.interface.profile_run.cli import CliProfileRunInterface
 from program_files.interface.switch_user_interface.cli import CliSwitchUserInterface
+from program_files.interface.main.cli import CliMainInterface
 
 @dataclass
 class Cli:
@@ -13,4 +14,5 @@ class Cli:
     edit_tree: type[CliEditTreeInterface] = CliEditTreeInterface
     profile_run: type[CliProfileRunInterface] = CliProfileRunInterface
     switch_user: type[CliSwitchUserInterface] = CliSwitchUserInterface
+    main: type[CliMainInterface] = CliMainInterface
 
