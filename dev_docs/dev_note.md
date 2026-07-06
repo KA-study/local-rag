@@ -1,3 +1,13 @@
+# 2026/07/06 - switch_user およびcreate_userの変更
+
+## 結論
+interface_adapterの上、ProfileServiceクラスに、switch_userメソッド及びcreate_suerメソッドを作成する。
+
+## 理由
+creat_userは、ほかのクラスからアクセスする機会もある。また、それぞれについて追加の機能を加えようとすると、その上の一般的に公開されているProfileServiceクラスに入り口を設けるべきである。
+
+---
+
 # 2026/07/01 - new user idの登録
 
 ## 結論
