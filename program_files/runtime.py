@@ -5,7 +5,8 @@ from program_files.interface.gui import Gui
 
 
 class InterfaceMode:
-    _interface: Cli | Gui
+
+    _interface: Cli | Gui | None = None
 
 
     @classmethod
