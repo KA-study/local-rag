@@ -6,13 +6,17 @@ from program_files.app.profile.interface_adapter.profile_run import ProfileRunIn
 from program_files.shared.schemas import ExitCommandError
 
 
-class ProfileRun:
+class ProfileManager:
 
     def __init__(
         self,
     ):
         self._profile_service = ProfileService()
         self._profile_run_interface = ProfileRunInterfaceAdapter()
+
+    def name(self):
+        return "profile_settings"
+
 
     def run(
         self,

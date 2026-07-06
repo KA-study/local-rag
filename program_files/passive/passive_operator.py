@@ -5,21 +5,28 @@ from program_files.infrastructure.embedding.embedder import STEmbedder
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
 from program_files.shared.schemas import Document, Chunk, EmbeddedChunk
 
-def passive_operator():
+
+class PassiveManager:
+
+    def name(self):
+        return "process_pdf"
     
-    #PDFload
-    pdfloader = PypdfLoader()
-    docs: list[Document] = pdfloader.load_pdf()
 
-    #Chunknaize PDF
-    pdfchunker = TokenChunker()
-    chunks: list[Chunk] = pdfchunker.make_chunk(docs)
+    def run(self):
+        
+        #PDFload
+        pdfloader = PypdfLoader()
+        docs: list[Document] = pdfloader.load_pdf()
 
-    #Embedding Chunk
-    stembedder = STEmbedder()
-    embedded_chunks: list[EmbeddedChunk] = create_embedded_chunks(chunks, stembedder)
+        #Chunknaize PDF
+        pdfchunker = TokenChunker()
+        chunks: list[Chunk] = pdfchunker.make_chunk(docs)
+
+        #Embedding Chunk
+        stembedder = STEmbedder()
+        embedded_chunks: list[EmbeddedChunk] = create_embedded_chunks(chunks, stembedder)
 
 
-    #Make VectorStore
-    chroma_vector_store = ChromaVectorStore()
-    chroma_vector_store.add(embedded_chunks)
+        #Make VectorStore
+        chroma_vector_store = ChromaVectorStore()
+        chroma_vector_store.add(embedded_chunks)

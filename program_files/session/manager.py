@@ -32,6 +32,10 @@ class SessionManager:
         #このcliとguiの切り替えは、後ほどよく考えて再実装
         self._s_m_interface_adapter = SessionManagerInterfaceAdapter()
 
+
+    def name(self):
+        return "start_session"
+
     
     def run(self):
     
