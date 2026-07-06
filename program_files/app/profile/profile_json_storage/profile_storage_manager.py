@@ -3,6 +3,7 @@ import json
 from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
 from program_files.app.profile.profile_json_storage.app_context_serializer import AppContextSerializer
+from program_files.app.profile.app_context_generator.app_context_generator import AppContextGenerator
 
 
 class ProfileStorageManager:
@@ -65,7 +66,7 @@ class ProfileStorageManager:
         else:
             raise ValueError("no user_id is registered.")
 
-        app_context_list = [AppContext()]
+        app_context_list = [AppContextGenerator().generate_app_context()]
 
         for profile in profiles:
             app_context_list.append(self._app_context_serializer.dict_to_app_context(profile))

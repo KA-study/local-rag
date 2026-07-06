@@ -47,11 +47,11 @@ DEFAULT_COMPONENTS = Components(
 
 #===========user_config=========================
 
-DEFAULT_PDF_PATH = "default.pdf"
+DEFAULT_PDF_PATH = "data/default.pdf"
 
-DEFAULT_HISTORY_DB_PATH = "history.db"
+DEFAULT_HISTORY_DB_PATH = "data/history.db"
 
-DEFAULT_USAGE_DB_PATH = "usage.db"
+DEFAULT_USAGE_DB_PATH = "data/usage.db"
 
 
 DEFAULT_PATH = Path(
