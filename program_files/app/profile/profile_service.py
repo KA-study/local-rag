@@ -24,7 +24,7 @@ class ProfileService:
 
 
     #保存データへのアクセスあり
-    def _load_latest_app_context(
+    def load_latest_app_context(
         self,
     ) -> AppContext:
 

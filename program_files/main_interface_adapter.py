@@ -1,6 +1,6 @@
 
 
-from app.context.context import AppContext
+from program_files.app.context.context import AppContext
 from program_files.session.manager import SessionManager
 from program_files.passive.passive_operator import PassiveManager
 from program_files.app.profile.profile_run import ProfileManager
