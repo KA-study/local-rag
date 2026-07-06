@@ -10,6 +10,7 @@ from program_files.app.profile.interface_adapter.switch_user_interface_adapter i
 from program_files.app.profile.profile_json_storage.profile_storage_manager import ProfileStorageManager
 from program_files.app.profile._types import NewUserIdSelected
 from program_files.app.profile.profile_json_storage.latest_user_id_store_manager import LatestUserIdStoreManager
+from program_files.app.profile.app_context_generator.app_context_generator import AppContextGenerator
 from program_files.shared.schemas import EditRequest
 
 class ProfileService:
@@ -79,7 +80,7 @@ class ProfileService:
                 if new_user_id in user_id_list:
                     continue
 
-                selected_app_context = AppContext(user_id=new_user_id)
+                selected_app_context = AppContextGenerator().generate_app_context(user_id=new_user_id)
 
                 #ProfileStorageへの登録
                 self._profile_storage_manager.save(selected_app_context)
@@ -133,6 +134,7 @@ class ProfileService:
         )
 
         new_app_context = AppContext(
+            user_id=app_context.user_id,
             components=new_components,
             user_config=app_context.user_config,
         )
@@ -163,6 +165,7 @@ class ProfileService:
         )
 
         new_app_context = AppContext(
+            user_id=app_context.user_id,
             components=app_context.components,
             user_config=new_user_config
         )

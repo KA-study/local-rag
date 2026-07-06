@@ -3,7 +3,6 @@ import json
 from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
 from program_files.app.profile.profile_json_storage.app_context_serializer import AppContextSerializer
-from program_files.app.profile.app_context_generator.app_context_generator import AppContextGenerator
 
 
 class ProfileStorageManager:
@@ -28,7 +27,10 @@ class ProfileStorageManager:
         except KeyError:
             raise KeyError(f"User '{user_id}' not found.")
 
-        return self._app_context_serializer.dict_to_app_context(json_data)
+        return self._app_context_serializer.dict_to_app_context(
+            user_id=user_id,
+            profile=json_data,
+        )
 
 
     def save(
@@ -62,13 +64,18 @@ class ProfileStorageManager:
  
         if PROFILE_PATH.exists():
             with open(PROFILE_PATH, "r", encoding="utf-8") as f:
-                profiles = json.load(f)
+                profiles: dict = json.load(f)
         else:
             raise ValueError("no user_id is registered.")
 
-        app_context_list = [AppContextGenerator().generate_app_context()]
+        app_context_list: list[AppContext] =[]
 
-        for profile in profiles:
-            app_context_list.append(self._app_context_serializer.dict_to_app_context(profile))
+        for user_id, profile in profiles.items():
+            app_context_list.append(
+                self._app_context_serializer.dict_to_app_context(
+                    user_id=user_id,
+                    profile=profile
+                )
+            )
 
         return app_context_list

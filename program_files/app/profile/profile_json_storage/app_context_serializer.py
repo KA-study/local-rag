@@ -11,16 +11,18 @@ class AppContextSerializer:
 
     def dict_to_app_context(
         self,
-        app_context_dict: dict
+        user_id: str,
+        profile: dict
     ) -> AppContext:
 
-        components_dict = app_context_dict["components"]
-        user_config_dict = app_context_dict["user_config"]
+        components_dict = profile["components"]
+        user_config_dict = profile["user_config"]
 
         components = self._dict_to_components(components_dict)
         user_config = self._dict_to_user_config(user_config_dict)
 
         app_context = AppContext(
+            user_id = user_id,
             components = cast(
                 Components,
                 components
