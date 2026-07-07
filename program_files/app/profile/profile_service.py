@@ -22,6 +22,7 @@ class ProfileService:
         self._switch_user_interface_adapter = SwitchUserInterfaceAdapter()
         self._profile_storage_manager = ProfileStorageManager()
         self._latest_user_id_store_manager = LatestUserIdStoreManager()
+        self._app_context_generator = AppContextGenerator()
 
 
     #保存データへのアクセスあり
@@ -36,8 +37,15 @@ class ProfileService:
         return latest_app_context
 
 
-    def create_user(self) -> str:
-        return self._switch_user_interface_adapter.create_user()
+    def create_user(self) -> AppContext:
+        user_id: str = self._switch_user_interface_adapter.create_user()
+
+        new_app_context: AppContext = self._app_context_generator.generate_app_context(user_id)
+
+        self._profile_storage_manager.save(new_app_context)
+
+        return new_app_context
+        
 
 
     #セッティングのセーブ
@@ -84,7 +92,7 @@ class ProfileService:
                 if new_user_id in user_id_list:
                     continue
 
-                selected_app_context = AppContextGenerator().generate_app_context(user_id=new_user_id)
+                selected_app_context = self._app_context_generator.generate_app_context(user_id=new_user_id)
 
                 #ProfileStorageへの登録
                 self._profile_storage_manager.save(selected_app_context)

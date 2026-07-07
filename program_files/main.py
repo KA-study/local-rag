@@ -26,10 +26,7 @@ class Main:
         try:
             app_context: AppContext = profile_service.load_latest_app_context()
         except FileNotFoundError or KeyError:
-            user_id: str = profile_service.create_user()
-            app_context: AppContext = AppContextGenerator().generate_app_context(
-                user_id=user_id
-            )
+            app_context: AppContext = profile_service.create_user()
 
         interface = MainInterfaceAdapter(app_context)
 
