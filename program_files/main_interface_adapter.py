@@ -13,20 +13,22 @@ class MainInterfaceAdapter:
         app_context: AppContext
     ):
         self._managers = {
-            "session": SessionManager(app_context),
-            "passive": PassiveManager(),
-            "profile": ProfileManager(),
+            SessionManager(app_context).name(): SessionManager(app_context),
+            PassiveManager().name(): PassiveManager(),
+            ProfileManager().name(): ProfileManager(),
         }
         self._interface = InterfaceMode.get_interface().main()
     
     def select_option(self):
         
         while True:
-            options: list[str] = [manager.name() for manager in self._managers.values()]
+            options: list[str] = [name for name in self._managers.keys()]
 
             user_input = self._interface.select_option(options)
 
-            if user_input in options:
-                return user_input
+            if not user_input in options:
+                self._interface.display(f"Invalid option: {user_input}")
 
-            self._interface.display(f"Invalid option: {user_input}")
+                continue
+
+            return self._managers[user_input]
