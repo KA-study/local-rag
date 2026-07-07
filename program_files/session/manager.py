@@ -38,7 +38,7 @@ class SessionManager(Manager):
         return "start_session"
 
     
-    def run(self, app_context: AppContext):
+    def run(self):
     
         while True:
 

@@ -7,7 +7,3 @@ class Manager(ABC):
     def name(self) -> str:
         ...
 
-
-    @abstractmethod
-    def run(self, app_context):
-        ...

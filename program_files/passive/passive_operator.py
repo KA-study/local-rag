@@ -14,7 +14,7 @@ class PassiveManager(Manager):
         return "process_pdf"
     
 
-    def run(self, app_context: AppContext):
+    def run(self):
         
         #PDFload
         pdfloader = PypdfLoader()
