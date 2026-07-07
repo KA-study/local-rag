@@ -1,8 +1,8 @@
 import json
 
-from program_files.app.profile.profile_json_storage._types import PROFILE_PATH
 from program_files.app.context.context import AppContext
 from program_files.app.profile.profile_json_storage.app_context_serializer import AppContextSerializer
+from program_files.shared.config import PROFILE_PATH
 
 
 class ProfileStorageManager:

@@ -15,7 +15,6 @@ class HistoryManager:
     ):
         self._history_db: HistoryDB = SQliteHistoryDB(
             app_context,
-            db_path="~/projects/local_rag/data/history.db"
         )
 
     def save_history(

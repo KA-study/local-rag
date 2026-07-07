@@ -1,15 +1,16 @@
 from abc import ABC, abstractmethod
-from shared.schemas import Document
 from pathlib import Path
 
+from program_files.shared.schemas import Document
 from program_files.shared.schemas import Chunk
+from program_files.shared.config import DEFAULT_PDF_PATH
 
 #===========PDFLoader=================
 class PDFLoaderBase(ABC):
     """
     すべてのPDFローダーが従うインターフェース
     """
-    def __init__(self, file_path: str):
+    def __init__(self, file_path = DEFAULT_PDF_PATH):
         self.file_path = Path(file_path)
         if not self.file_path.exists():
             raise FileNotFoundError(self.file_path)

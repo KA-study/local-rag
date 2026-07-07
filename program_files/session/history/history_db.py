@@ -5,6 +5,7 @@ from program_files.session.history.base import HistoryDB
 from program_files.session._types import Message
 from program_files.app.context.context import AppContext
 from program_files.app.registry.components_registry import ComponentsRegistry
+from program_files.shared.config import DEFAULT_HISOTRY_DB_PATH
 
 
 @ComponentsRegistry.component(
@@ -16,12 +17,11 @@ class SQliteHistoryDB(HistoryDB):
     def __init__(
         self,
         app_context: AppContext,
-        db_path: str = "history.db"
+        db_path = DEFAULT_HISOTRY_DB_PATH
     ):
         self._conn = sqlite3.connect(db_path)
-        self._app_context = app_context
-
         self._init_table()
+        self._app_context = app_context
 
 
     def _init_table(self) -> None:

@@ -1,6 +1,6 @@
 import json
 
-from program_files.app.profile.profile_json_storage._types import LATEST_USER_ID_STORE_PATH
+from program_files.shared.config import LATEST_USER_ID_STORE_PATH
 
 
 class LatestUserIdStoreManager:

@@ -2,10 +2,10 @@ from pathlib import Path
 from pypdf import PdfReader
 import re
 
-from program_files.passive.pdf._types import PDF_PATH
 from program_files.passive.pdf.base import PDFLoaderBase
 from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Document
+from program_files.shared.config import DEFAULT_PDF_PATH
 
 
 @ComponentsRegistry.component(
@@ -18,7 +18,7 @@ class PypdfLoader(PDFLoaderBase):
     """
     
     def __init__(self):
-        self.file_path = Path(PDF_PATH)
+        self.file_path = Path(DEFAULT_PDF_PATH)
 
         if not self.file_path.exists():
             raise FileNotFoundError(self.file_path)

@@ -11,6 +11,7 @@ from program_files.infrastructure.llm.cost._types import (
 from program_files.app.context.context import AppContext
 from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Usage
+from program_files.shared.config import DEFAULT_USAGE_PATH
 
 
 @ComponentsRegistry.component(
@@ -19,7 +20,7 @@ from program_files.shared.schemas import Usage
 )
 class SQliteUsageDB(UsageDB):
 
-    def __init__(self, app_context: AppContext, db_path: str = "usage.db"):
+    def __init__(self, app_context: AppContext, db_path = DEFAULT_USAGE_PATH):
         self._conn = sqlite3.connect(db_path)
         self._conn.row_factory = sqlite3.Row
         self._user_id = app_context.user_id

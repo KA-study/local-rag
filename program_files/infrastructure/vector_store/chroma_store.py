@@ -1,10 +1,11 @@
 import chromadb
 from typing import Any
 
-from program_files.infrastructure.vector_store._types import PERSIST_DIRECTORY, COLLECTION_NAME
+from program_files.infrastructure.vector_store._types import COLLECTION_NAME
 from program_files.infrastructure.vector_store.base import VectorStore
 from program_files.app.registry.components_registry import ComponentsRegistry
 from program_files.shared.schemas import Chunk, EmbeddedChunk, RetrievedChunk
+from program_files.shared.config import DEFAULT_VECTOR_STORE_PATH
 
 
 @ComponentsRegistry.component(
@@ -15,7 +16,7 @@ class ChromaVectorStore(VectorStore):
     
     def __init__(
             self,
-            persist_directory: str = PERSIST_DIRECTORY,
+            persist_directory = DEFAULT_VECTOR_STORE_PATH,
             collection_name: str = COLLECTION_NAME
     ) -> None:
 
@@ -136,23 +137,4 @@ class ChromaVectorStore(VectorStore):
             return
 
         self._collection.delete(ids=ids)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
