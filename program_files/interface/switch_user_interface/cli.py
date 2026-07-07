@@ -8,12 +8,35 @@ class CliSwitchUserInterface(SwitchUserInterface):
         self,
         user_id_list: list[str]
     ) -> str:
-        self.display("user_id list:")
-        for user_id in user_id_list:
-            self.display(f"{user_id}")
+        print("=== user_id list ===")
 
-        selected_user_id = self._input("choose user_id: ")
-        return selected_user_id
+        for i, user_id in enumerate(user_id_list):
+            print(f"{i}: {user_id}")
+
+        print("n: new session")
+
+        while True:
+            choice: str = self._input("select: ")
+
+            #new_session指定の時
+            if choice == "n":
+                return "_NEW_"
+
+            #番号指定の時
+            if choice.isdigit():
+                idx = int(choice)
+
+                if 0 <= idx < len(user_id_list):
+                    return user_id_list[idx]
+
+            #session_id直接指定の時
+            if choice in user_id_list:
+
+                return choice
+
+
+            print("Invalid input")
+
 
     
     def display(self, message) -> None:
