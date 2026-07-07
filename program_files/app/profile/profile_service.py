@@ -97,6 +97,8 @@ class ProfileService:
                 #ProfileStorageへの登録
                 self._profile_storage_manager.save(selected_app_context)
 
+                break
+
         return selected_app_context
 
 
