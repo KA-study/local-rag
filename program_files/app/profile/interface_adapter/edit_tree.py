@@ -45,7 +45,7 @@ class EditTreeInterfaceAdapter:
     def _build_tree(
         self,
         name: str,
-        obj: object
+        obj: object | type
     ) -> TreeNode:
 
         #枝部分処理
@@ -61,13 +61,16 @@ class EditTreeInterfaceAdapter:
             )
 
         #葉部分処理
-        return TreeNode(
-            name=name,
-            current=ComponentsRegistry.get_name(type[obj]),       #仮置き
-            choices=[
-                choice.name
-                for choice in ComponentsRegistry.get_choices_for_implementation(type[obj])
-            ],#仮置き
-            children=[]
-        )
+        if isinstance(obj, type): 
+            return TreeNode(
+                name=name,
+                current=ComponentsRegistry.get_name(obj),       #仮置き
+                choices=[
+                    choice.name
+                    for choice in ComponentsRegistry.get_choices_for_implementation(obj)
+                ],#仮置き
+                children=[]
+            )
+        else:
+            raise ValueError(f"Unexpected object was found.")
 

@@ -108,7 +108,7 @@ class ProfileService:
         app_context: AppContext,
     ) -> AppContext:
 
-        components = app_context.components
+        components: Components = app_context.components
 
         # select component
         request_for_components = self._interface_adapter.select_change(components)
