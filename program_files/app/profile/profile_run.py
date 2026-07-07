@@ -4,9 +4,10 @@ from program_files.app.context.context import AppContext
 from program_files.app.profile.profile_service import ProfileService
 from program_files.app.profile.interface_adapter.profile_run import ProfileRunInterfaceAdapter
 from program_files.shared.schemas import ExitCommandError
+from program_files.shared.manager_interface import Manager
 
 
-class ProfileManager:
+class ProfileManager(Manager):
 
     def __init__(
         self,

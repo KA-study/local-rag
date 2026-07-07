@@ -1,12 +1,13 @@
 #ここでSessionを呼ぶ
 #ここでhistory_managerをインスタンス化する
 
+from program_files.app.context.context import AppContext
 from program_files.session.session import Session
 from program_files.session.history.history_manager import HistoryManager
 from program_files.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
 from program_files.session._types import SessionContext
-from program_files.app.context.context import AppContext
 from program_files.shared.schemas import ExitCommandError
+from program_files.shared.manager_interface import Manager
 
 #過去のセッション、または新規セッションを選択できる画面（Lineでいう、フレンド一覧画面）を提供し、またそのうちのいづれかが選択されたとき、Sessionクラス内の処理に移る。
 
@@ -21,7 +22,7 @@ from program_files.shared.schemas import ExitCommandError
 
 コマンド確認（SessionManager終了）
 """
-class SessionManager:
+class SessionManager(Manager):
 
     def __init__(
         self,
@@ -33,11 +34,11 @@ class SessionManager:
         self._s_m_interface_adapter = SessionManagerInterfaceAdapter()
 
 
-    def name(self):
+    def name(self) -> str:
         return "start_session"
 
     
-    def run(self):
+    def run(self, app_context: AppContext):
     
         while True:
 

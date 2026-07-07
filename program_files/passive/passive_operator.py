@@ -1,18 +1,20 @@
+from program_files.app.context.context import AppContext
 from program_files.passive.pdf.loader import PypdfLoader
 from program_files.passive.pdf.chunker import TokenChunker
 from program_files.passive.service import  create_embedded_chunks
 from program_files.infrastructure.embedding.embedder import STEmbedder
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
 from program_files.shared.schemas import Document, Chunk, EmbeddedChunk
+from program_files.shared.manager_interface import Manager
 
 
-class PassiveManager:
+class PassiveManager(Manager):
 
-    def name(self):
+    def name(self) -> str:
         return "process_pdf"
     
 
-    def run(self):
+    def run(self, app_context: AppContext):
         
         #PDFload
         pdfloader = PypdfLoader()
