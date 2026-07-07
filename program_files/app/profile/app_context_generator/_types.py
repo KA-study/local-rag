@@ -9,12 +9,12 @@ from program_files.app.context.user_config import (
     Path,
     UserConfig
 )
-from program_files.session.history.history_db import HistoryDB
+from program_files.session.history.history_db import SQliteHistoryDB
 from program_files.passive.pdf.loader import PypdfLoader
 from program_files.passive.pdf.chunker import TokenChunker
 from program_files.infrastructure.vector_store.chroma_store import ChromaVectorStore
 from program_files.infrastructure.llm.llm_engine.fake_llm import FakeLLM
-from program_files.infrastructure.llm.cost.usage_db import UsageDB
+from program_files.infrastructure.llm.cost.usage_db import SQliteUsageDB
 from program_files.infrastructure.embedding.embedder import STEmbedder
 
 #============user_id=========================
@@ -24,7 +24,7 @@ DEFAULT_USER_ID: str = "default"
 #============components======================
 
 DEFAULT_SESSION_COMPONENTS = SessionComponents(
-    history_db=HistoryDB
+    history_db=SQliteHistoryDB
 )
 
 DEFAULT_PASSIVE_COMPONENTS = PassiveComponents(
@@ -35,7 +35,7 @@ DEFAULT_PASSIVE_COMPONENTS = PassiveComponents(
 DEFAULT_INFRASTRUCTURE_COMPONENTS = InfrastructureComponents(
     vector_store=ChromaVectorStore,
     llm_engine=FakeLLM,
-    usage_db=UsageDB,
+    usage_db=SQliteUsageDB,
     embedder=STEmbedder,
 )
 

@@ -6,6 +6,7 @@ from program_files.main_interface_adapter import MainInterfaceAdapter
 from program_files.shared.schemas import ExitCommandError
 from program_files.shared.config import PROJECT_ROOT
 
+
 from program_files.app.profile.profile_run import ProfileManager
 from program_files.passive.passive_operator import PassiveManager
 from program_files.session.manager import SessionManager
@@ -21,6 +22,7 @@ class Main:
 
     def __init__(self):
         self._app_context: AppContext
+
 
     def run(self):
         print(PROJECT_ROOT)

@@ -120,6 +120,7 @@ class AppContextSerializer:
 
         #葉部分処理
         if isinstance(obj, type):
+            #print(f"=============\n\n {obj} \n\n==================")
             return ComponentsRegistry.get_name(obj)
 
         raise TypeError(
