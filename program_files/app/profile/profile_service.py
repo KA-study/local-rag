@@ -36,6 +36,10 @@ class ProfileService:
         return latest_app_context
 
 
+    def create_user(self) -> str:
+        return self._switch_user_interface_adapter.create_user()
+
+
     #セッティングのセーブ
     def _save_components_and_config(
         self,

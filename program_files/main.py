@@ -3,7 +3,6 @@
 from program_files.app.context.context import AppContext
 from program_files.app.profile.profile_service import ProfileService
 from program_files.main_interface_adapter import MainInterfaceAdapter
-from program_files.app.profile.interface_adapter.switch_user_interface_adapter import SwitchUserInterfaceAdapter
 from program_files.app.profile.app_context_generator.app_context_generator import AppContextGenerator
 
 
@@ -21,7 +20,7 @@ class Main:
         try:
             app_context: AppContext = profile_service.load_latest_app_context()
         except FileNotFoundError or KeyError:
-            user_id: str = SwitchUserInterfaceAdapter().create_user()
+            user_id: str = profile_service.create_user()
             app_context: AppContext = AppContextGenerator().generate_app_context(
                 user_id=user_id
             )
