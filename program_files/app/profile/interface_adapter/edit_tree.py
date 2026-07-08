@@ -72,5 +72,5 @@ class EditTreeInterfaceAdapter:
                 children=[]
             )
         else:
-            raise ValueError(f"Unexpected object was found.")
+            raise ValueError(f"Unexpected object: {obj}")
 

@@ -37,11 +37,12 @@ class ProfileService:
         return latest_app_context
 
 
-    def create_user(self) -> AppContext:
+    def create_user_for_main(self) -> AppContext:
         user_id: str = self._switch_user_interface_adapter.create_user()
 
         new_app_context: AppContext = self._app_context_generator.generate_app_context(user_id)
 
+        self._latest_user_id_store_manager.save(new_app_context.user_id)
         self._profile_storage_manager.save(new_app_context)
 
         return new_app_context
@@ -99,6 +100,9 @@ class ProfileService:
 
                 break
 
+        #latest_user_idへの登録
+        self._latest_user_id_store_manager.save(selected_app_context.user_id)
+        
         return selected_app_context
 
 

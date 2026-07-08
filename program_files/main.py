@@ -33,8 +33,9 @@ class Main:
         #前回のuser_id呼び出し。ない場合は新規作成
         try:
             self._app_context: AppContext = profile_service.load_latest_app_context()
-        except FileNotFoundError or KeyError:
-            self._app_context: AppContext = profile_service.create_user()
+        except FileNotFoundError or KeyError as ex:
+            print(f"Error: {ex}")
+            self._app_context: AppContext = profile_service.create_user_for_main()
 
         interface = MainInterfaceAdapter(self._app_context)
 
