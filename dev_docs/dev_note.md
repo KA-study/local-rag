@@ -1,3 +1,17 @@
+# 2026/07/08 - UserConfigについて。
+
+## 結論
+一旦、UserConfigを使用不可能とする。
+
+## 詳細
+EditTreeは、ComponentsとUserConfigの両方に対応するように設計したつもりであった。
+しかし、試験的に動作させたことで、実際には対応できていないことが発覚した。
+これの修正作業はそこそこの時間を要することも明らかである。
+加えて、UserConfigは、現在ほとんど使われておらず、重要度の低いものである。
+したがって、一次的にUserConfigを使用不可能とし、EditTreeをComponents専用のクラスとする。
+
+---
+
 # 2026/07/06 - switch_user およびcreate_userの変更
 
 ## 結論
