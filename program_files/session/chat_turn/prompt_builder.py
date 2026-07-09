@@ -51,6 +51,6 @@ class PromptBuilder:
 
         return self.TEMPLATE.format(
             query=query,
-            history_str=history_str,
+            history=history_str,
             context=context,
         )    
