@@ -92,20 +92,17 @@ class SQliteHistoryDB(HistoryDB):
 
         rows = self._conn.execute(
             """
-                SELECT role, content
+                SELECT session_id
                 FROM messages
                 WHERE user_id = ?
                 ORDER BY message_id ASC
             """,
             (
-                user_id
+                user_id,
             )
         ).fetchall()
 
         session_id = 0
-        role_index = 1
-        content_index = 2
-        created_at_index = 3
 
         session_id = [
             r[session_id]
