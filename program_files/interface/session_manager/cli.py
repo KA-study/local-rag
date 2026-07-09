@@ -17,10 +17,18 @@ class CliSessionManagerInterface(SessionManagerInterface):
             print(f"{i}: {session_id}")
 
         print("n: new session")
+        print("set_available_cost: update available cost")
+
+        print("Do not start with _")
 
         while True:
             choice: str = self._input("select: ")
 
+
+            #set_available_costの時
+            if choice == "set_available_cost":
+                return "_SETAVAILABLECOST_"
+            
             #new_session指定の時
             if choice == "n":
                 return "_NEW_"

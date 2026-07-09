@@ -1,6 +1,6 @@
 
 
-from program_files.session._types import SessionContext
+from program_files.session._types import SessionContext, SetAvailableCostException
 from program_files.runtime import InterfaceMode
 
 
@@ -23,6 +23,10 @@ class SessionManagerInterfaceAdapter:
         ]
 
         session_id: str = self._s_m_interface.select_session_id(session_ids)
+
+        #session_id == "set_available_cost"の時の処理
+        if session_id == "_SETAVAILABLECOST_":
+            raise SetAvailableCostException()
 
         #session_id == "_NEW_"だった時の処理
         if session_id == "_NEW_":

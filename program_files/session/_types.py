@@ -12,5 +12,8 @@ class Message:
     role: Role
     content: str
 
+class SetAvailableCostException(Exception):
+    pass
+
 
 

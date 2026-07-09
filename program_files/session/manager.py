@@ -2,10 +2,11 @@
 #ここでhistory_managerをインスタンス化する
 
 from program_files.app.context.context import AppContext
+from program_files.infrastructure.llm.cost.cost_manager import CostManager
 from program_files.session.session import Session
 from program_files.session.history.history_manager import HistoryManager
 from program_files.session.interface_adapter.session_manager import SessionManagerInterfaceAdapter
-from program_files.session._types import SessionContext
+from program_files.session._types import SessionContext, SetAvailableCostException
 from program_files.shared.schemas import ExitCommandError
 from program_files.shared.manager_interface import Manager
 
@@ -32,6 +33,7 @@ class SessionManager(Manager):
         self._history_manager = HistoryManager(app_context)
         #このcliとguiの切り替えは、後ほどよく考えて再実装
         self._s_m_interface_adapter = SessionManagerInterfaceAdapter()
+        self._cost_manager = CostManager(app_context)
 
 
     def name(self) -> str:
@@ -41,6 +43,7 @@ class SessionManager(Manager):
     def run(self):
     
         while True:
+            #notificate current 
 
             #セッション一覧取得
             session_contexts: list[SessionContext] = self._history_manager.get_session_contexts()
@@ -48,9 +51,16 @@ class SessionManager(Manager):
             #セッション一覧および新規作成を表示し、選択されたsessionを取得
             #SessionManagerブロックを抜け出す処理
             try:
-                session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
+                while True:
+                    try:
+                        session_context: SessionContext = self._s_m_interface_adapter.select_session(session_contexts)
+                        break
+                    except SetAvailableCostException:
+                        self._cost_manager.set_available_cost()
             except ExitCommandError:
                 break
+
+                
             
             #選択されたsessionでsession.run()
             session = Session(
