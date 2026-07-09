@@ -2,6 +2,7 @@
 
 from program_files.infrastructure.llm.cost.usage_db import SQliteUsageDB
 from program_files.infrastructure.llm.cost._types import CurrentStatus
+from program_files.infrastructure.llm.interface_adapter.cost_manager import CostManagerInterfaceAdapter
 from program_files.shared.schemas import Usage
 from program_files.app.context.context import AppContext
 
@@ -12,6 +13,7 @@ class CostManager:
     def __init__(self, app_context: AppContext):
         self._usage_db = SQliteUsageDB(app_context)
         self._user_id = app_context.user_id
+        self._interface = CostManagerInterfaceAdapter()
 
     def check_allowance(self):
         current_status: CurrentStatus | None = self._usage_db.get_status()
@@ -29,5 +31,8 @@ class CostManager:
     def get_status(self) -> CurrentStatus | None:
         return self._usage_db.get_status()
 
-    def set_available_cost(self, available_cost: float) -> None:
-        return self._usage_db.set_available_cost(available_cost)
+    def set_available_cost(self) -> None:
+        new_available_cost: float =  self._interface.input_available_cost()
+
+        self._usage_db.set_available_cost(new_available_cost)
+       
