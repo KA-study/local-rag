@@ -6,6 +6,7 @@ from program_files.interface.edit_tree.cli import CliEditTreeInterface
 from program_files.interface.profile_run.cli import CliProfileRunInterface
 from program_files.interface.switch_user_interface.cli import CliSwitchUserInterface
 from program_files.interface.main.cli import CliMainInterface
+from program_files.interface.cost_manager.cli import CliCostManagerInterface
 
 @dataclass
 class Cli:
@@ -15,4 +16,5 @@ class Cli:
     profile_run: type[CliProfileRunInterface] = CliProfileRunInterface
     switch_user: type[CliSwitchUserInterface] = CliSwitchUserInterface
     main: type[CliMainInterface] = CliMainInterface
+    cost_manager: type[CliCostManagerInterface] = CliCostManagerInterface
 
