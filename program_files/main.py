@@ -39,24 +39,25 @@ class Main:
 
         interface = MainInterfaceAdapter(self._app_context)
 
-        try:
-            option_class_instance = interface.select_option()
+        while True:
+            try:
+                option_class_instance = interface.select_option()
 
-            match(option_class_instance):
-                case ProfileManager():
-                    self._app_context = option_class_instance.run(self._app_context)
+                match(option_class_instance):
+                    case ProfileManager():
+                        self._app_context = option_class_instance.run(self._app_context)
 
-                case PassiveManager():
-                    option_class_instance.run()
+                    case PassiveManager():
+                        option_class_instance.run()
 
-                case SessionManager():
-                    option_class_instance.run()
+                    case SessionManager():
+                        option_class_instance.run()
 
-                case _:
-                    raise ValueError("for developer: unregistered Manager was selected.")
-                
+                    case _:
+                        raise ValueError("for developer: unregistered Manager was selected.")
+                    
+            except ExitCommandError:
+                break
 
-
-        except ExitCommandError:
-            print("sccessfully finished.")
+        print("sccessfully finished.")
 
